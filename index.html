@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Leon's blog</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Leon's blog  <strong>读书写字、观察世界的地方</strong></a></h1>
+                <nav><ul>
+                    <li><a href="/pages/contact.html">关于</a></li>
+                    <li><a href="/pages/muse.html">闲谈·静思</a></li>
+                    <li><a href="/pages/practice.html">践行·为之</a></li>
+                    <li><a href="/category/misc.html">misc</a></li>
+                    <li><a href="/category/pythonbian-cheng.html">Python·编程</a></li>
+                    <li><a href="/category/wu-li-ke-ji.html">物理·科技</a></li>
+                    <li><a href="/category/xian-qu-ren-wen.html">闲趣·人文</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/peom-suzhou.html">旅行的诗（苏州-上海-青岛）</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2015-09-26T00:00:00+08:00">
+                Published: 2015-09-26
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/leon.html">Leon</a>
+        </address>
+<p>In <a href="/category/xian-qu-ren-wen.html">闲趣·人文</a>.</p>
+<p>tags: <a href="/tag/muse.html">muse</a> <a href="/tag/essay.html">essay</a> <a href="/tag/poetry.html">poetry</a> </p>
+</footer><!-- /.post-info -->
+
+<p>题注：忽然想去旅行，于是休了假。第一站是苏州，只买到慢车卧铺票，父亲说：旅行是急不来的，路上的风景即时旅行。在去上海的途中，我问自己：干嘛不去青岛看看啊？！便取消了第三站嘉兴的行程，临时买了机票从虹桥飞到流亭。景语皆情语，得几句小诗，抄录如下。其中，我在苏州写了三首，上海一首，而在青岛只顾吃海鲜、走海滩、泡海澡、喝青啤咯
+。</p>
+<p><br />
+《旅行随感三首·苏州》</p>
+<p>&emsp;&emsp;朝霞出碧空，万里了无云。决眦三千丈，一览苏园林。</p>
+<p>&emsp;&emsp;水可蕴灵气，山能洞仙人。神游方须臾，已味凡俗真。</p>
+<p>&emsp;&emsp;桥上姑苏园里城，乘船流水浣轻纱。白墙墨瓦分青巷，移步换景折桂花。</p>
+<p><img alt="random walk" src="../images/suzhou1.png" /></p>
+<p><br />
+《旅行随感一首·上海》</p>
+<p>&emsp;&emsp;登顶远望可凭栏，身处高楼不觉寒。一眼收尽万千户，亡兴苦乐才百年。</p>
+<p>PS：这首诗就不配图了，拍了绝美的东方明珠塔，但放上来有点违和，算了。其实我更想放在青岛喝的原浆啤酒 :( </p>
+<p>还有那个沙滩落日……</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/tkinter-gui.html" rel="bookmark"
+                           title="Permalink to Tkinter GUI编程实践与入门指南">Tkinter GUI编程实践与入门指南</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2015-08-30T00:00:00+08:00">
+                Published: 2015-08-30
+        </abbr>
+		<br />
+        <abbr class="modified" title="2015-09-01T00:00:00+08:00">
+                Updated: 2015-09-01
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/leon.html">Leon</a>
+        </address>
+<p>In <a href="/category/pythonbian-cheng.html">Python·编程</a>.</p>
+<p>tags: <a href="/tag/python.html">python</a> <a href="/tag/gui.html">GUI</a> <a href="/tag/tkinter.html">tkinter</a> </p>
+</footer><!-- /.post-info -->                <p>Tkinter是Python内建的GUI库，简单易学。上周我用了三天时间实现了自己的第一个GUI应用——Data Preview，在编写过程中我发现tkinter的中文资料不多，且比较零散，本文是我的个人总结，同时也有意写成新手入门指南的风格，本文预计会不断更新以使架构更加合理，行文更加流畅易懂。</p>
+<p>GUI（图形用户界面）应用其实非常适合用面向对象（OOP）的编程范式来组织代码，虽然在网络上搜索到的诸多代码片段都是用快速的方式来调用tkinter库，但是这不利于较大的GUI编写。tkinter标准库封装了Tk/Tcl语言，实际上我并不了解，但无碍于我们写一个真实世界的GUI应用（不然封装API干嘛）。可以想象，整个GUI程序就是个父对象，其包含的一些控件（widgets）是子对象，对象的属性可以呈现出可见的状态，当我们通过鼠标或键盘等方式输入时，这些事件（event-driven）会调用对象的方法（即一些函数）来完成对象属性的改变和对象间消息的传递，于是我们看到GUI的外观刷新了。在我写Data Preview的过程中，我理解了GUI的抽象逻辑，所以重构过一次代码，这对编写复杂的GUI应用会有帮助。</p>
+                <a class="readmore" href="/tkinter-gui.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/liquid-nitrogen-ice-cream.html" rel="bookmark"
+                           title="Permalink to 液氮冰淇淋制作大法">液氮冰淇淋制作大法</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2015-08-25T00:00:00+08:00">
+                Published: 2015-08-25
+        </abbr>
+		<br />
+        <abbr class="modified" title="2015-08-25T00:00:00+08:00">
+                Updated: 2015-08-25
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/leon.html">Leon</a>
+        </address>
+<p>In <a href="/category/misc.html">misc</a>.</p>
+<p>tags: <a href="/tag/life.html">life</a> <a href="/tag/physics.html">physics</a> </p>
+</footer><!-- /.post-info -->                
+
+<p>&emsp;&emsp;去年夏天就想做液氮冰淇淋，而这个想法更早是来源于本科时代的《超导理论》课，记得教授还提醒我们说刚做完之后不要立刻吃，否则会粘舌头云云。那时我的内心是激动的，用知乎体来表述就是“吃液氮冰淇淋是一种怎样的体验？”不过，对于我这种geek型吃货而言，做的过程显然也是一种享受呐
+                <a class="readmore" href="/liquid-nitrogen-ice-cream.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/data-preview-release.html" rel="bookmark"
+                           title="Permalink to Data Preview v0.1 released">Data Preview v0.1 released</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2015-08-24T00:00:00+08:00">
+                Published: 2015-08-24
+        </abbr>
+		<br />
+        <abbr class="modified" title="2015-08-24T00:00:00+08:00">
+                Updated: 2015-08-24
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/leon.html">Leon</a>
+        </address>
+<p>In <a href="/category/misc.html">misc</a>.</p>
+<p>tags: <a href="/tag/python.html">python</a> <a href="/tag/gui.html">GUI</a> </p>
+</footer><!-- /.post-info -->                <p>Data Preview is a simple Python GUI program (using tkinter at present, maybe PyQt in the next version) to automatically convert the experimental data (just tsv format in this version) to graph by clicking the filename. A set of data files can also be simply merged together into a single ...</p>
+                <a class="readmore" href="/data-preview-release.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/quantitative-investing.html" rel="bookmark"
+                           title="Permalink to 量化投资与Python">量化投资与Python</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2015-07-25T00:00:00+08:00">
+                Published: 2015-07-25
+        </abbr>
+		<br />
+        <abbr class="modified" title="2015-07-25T00:00:00+08:00">
+                Updated: 2015-07-25
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/leon.html">Leon</a>
+        </address>
+<p>In <a href="/category/misc.html">misc</a>.</p>
+<p>tags: <a href="/tag/finance.html">finance</a> <a href="/tag/python.html">python</a> <a href="/tag/numerical.html">numerical</a> </p>
+</footer><!-- /.post-info -->                
+
+<p>&emsp;&emsp;金融对个体而言无非是套利，好处是可以优化整个社会资源的配置。定量投资不同于定性投资，其基于数理模型的判断。从哲学上讲，定性投资的思路更广，但难以做历史回测；定量化对某些投资理念建模，克服了主观判断的偏差。纵观整个市场，投资理念是不断演进和相互博弈的，所以不会有终极的模型。市场波动，人性不变，量化投资并非要用冰冷的模型去感受市场的温度，而是要消除个体的成见和情绪
+
+                <a class="readmore" href="/quantitative-investing.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/is-the-world-understandable.html" rel="bookmark"
+                           title="Permalink to 不确定性与不可知论">不确定性与不可知论</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2015-07-22T00:00:00+08:00">
+                Published: 2015-07-22
+        </abbr>
+		<br />
+        <abbr class="modified" title="2015-07-24T00:00:00+08:00">
+                Updated: 2015-07-24
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/leon.html">Leon</a>
+        </address>
+<p>In <a href="/category/misc.html">misc</a>.</p>
+<p>tags: <a href="/tag/physcics.html">physcics</a> <a href="/tag/muse.html">muse</a> </p>
+</footer><!-- /.post-info -->                
+
+<p>&emsp;&emsp;牛顿的静态、机械的宇宙观蕴含着决定论，到拉普拉斯时为甚，他认为只要能收集到宇宙运行的足够数据，就可以预测宇宙的未来。抛开哲学思辨的探讨，决定论真正受到严肃的科学挑战是上世纪量子论的发展。量子理论的诞生不仅在科学上是一次开天辟地的大事，在哲学上也不同凡响：一方面，过去哲学中休眠的观念又有了生命活力，例如客观实在性
+
+                <a class="readmore" href="/is-the-world-understandable.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/unnamed-peom.html" rel="bookmark"
+                           title="Permalink to 未名的诗">未名的诗</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2015-07-18T00:00:00+08:00">
+                Published: 2015-07-18
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/leon.html">Leon</a>
+        </address>
+<p>In <a href="/category/misc.html">misc</a>.</p>
+<p>tags: <a href="/tag/muse.html">muse</a> <a href="/tag/essay.html">essay</a> <a href="/tag/poetry.html">poetry</a> </p>
+</footer><!-- /.post-info -->                
+
+<p>题注：前天晚上，翻到几首小诗，誊抄在这。只有第一首有题目，其他几乎都是以类似于“燕园速写”为题，故皆集于此。以“未名”为题也妥当，切情切景，园子里是流传着一句诗文的：未名湖是个海洋，诗人都藏在水底。我虽然不能成为诗人，但谁也不能阻止我瞎写啊。另外，此页的存在也有助于我寻找那些曾经遗失的文字
+
+                <a class="readmore" href="/unnamed-peom.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/why-physicist-need-python.html" rel="bookmark"
+                           title="Permalink to Why physics students and physicists need python?">Why physics students and physicists need python?</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-10-13T00:00:00+08:00">
+                Published: 2014-10-13
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/leon.html">Leon</a>
+        </address>
+<p>In <a href="/category/wu-li-ke-ji.html">物理·科技</a>.</p>
+<p>tags: <a href="/tag/python.html">python</a> <a href="/tag/physics.html">physics</a> <a href="/tag/scipy.html">scipy</a> <a href="/tag/numerical.html">numerical</a> </p>
+</footer><!-- /.post-info -->                <p>Nowadays, the <a href="https://www.python.org/" target="_blank">Python</a> language has become a widely used tool for scientists and engineers, which is fully stacked with powerful support packages, such as numpy and scipy. However, I came across Python due to the need of an easy-to-use web framework until last summer. After several days of trails, I ...</p>
+                <a class="readmore" href="/why-physicist-need-python.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+<p class="paginator">
+    Page 1 / 2
+        <a href="/index2.html">&raquo;</a>
+</p>
+                </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://sciencefan.org">ScienceFan</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://github.com/X0Leon">Github</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

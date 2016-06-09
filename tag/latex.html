@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Leon's blog - laTeX</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Leon's blog  <strong>读书写字、观察世界的地方</strong></a></h1>
+                <nav><ul>
+                    <li><a href="/pages/contact.html">关于</a></li>
+                    <li><a href="/pages/muse.html">闲谈·静思</a></li>
+                    <li><a href="/pages/practice.html">践行·为之</a></li>
+                    <li><a href="/category/misc.html">misc</a></li>
+                    <li><a href="/category/pythonbian-cheng.html">Python·编程</a></li>
+                    <li><a href="/category/wu-li-ke-ji.html">物理·科技</a></li>
+                    <li><a href="/category/xian-qu-ren-wen.html">闲趣·人文</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/markdown-and-latex-equation-handbook.html">Markdown语法和LaTeX数学记号速查手册</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2014-10-08T00:00:00+08:00">
+                Published: 2014-10-08
+        </abbr>
+		<br />
+        <abbr class="modified" title="2014-10-09T00:00:00+08:00">
+                Updated: 2014-10-09
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/leon.html">Leon</a>
+        </address>
+<p>In <a href="/category/misc.html">misc</a>.</p>
+<p>tags: <a href="/tag/markdown.html">markdown</a> <a href="/tag/latex.html">laTeX</a> <a href="/tag/physics.html">physics</a> </p>
+</footer><!-- /.post-info --><p>&emsp;&emsp;
+
+这篇文章是Markdown和LaTex的速查手册，阅读人群为科学工作者，尤其是物理领域的同行。常用的Markdown语法和数学符号、公式的LaTex的记号都列举在文中。本手册的用例如，Ipython Notebook或者支持Markdownd的博客。如果读者需要用到高级的技巧或完整的LaTex语法，请直接参与其官方文档。简而言之，我写本手册时权衡了完整和快查两个需求，力求简明而不简单
+。</p>
+<p><strong>Note:</strong> This post is intended to be a concise instruction for physics workers or others, who want to properly render mathematical euqations in Markdown. The frequently-used markdown syntaxs and LaTeX notations of math are listed here. The typical usage of this handbook is Ipython Notebook or Markdown-supported blog, such as Pelican. If you are interested in advanced Markdown skills (acually, it is easy enough!) or publication-ready LaTeX technique, please look elsewhere. The original codes and (some) outputs are put together. And I write the main body in Chinese at present, maybe I will translate it into English later.</p>
+<h1>Markdown和LaTeX数学公式速查表</h1>
+<h2>Markdown极简手册</h2>
+<p>Markdown是语法简单、易于书写的标记语言，其支持HTML，直接插入标签即可。Markdown中实现某种功能可能有不止一种语法，这里一般只演示一种。</p>
+<p><strong>标题</strong></p>
+<p>Atx形式的语法（另一种为Setex）：在行首插入1-6个#，如</p>
+<div class="highlight"><pre><span></span># H1标题
+### H3标题
+</pre></div>
+
+
+<p>行尾可以加上同等数量的#，仅仅是为了美观。</p>
+<p><strong>段落和换行</strong></p>
+<p>文本行前后有一个以上的空行即可。</p>
+<p><strong>区块引用</strong></p>
+<p>在每行前加&gt;即可，更简单的方式是只在段落首行添加&gt;。允许嵌套，根据层次使用不同数量的&gt;即可，例如：</p>
+<div class="highlight"><pre><span></span>&gt; Level 1.
+&gt;
+&gt;&gt; Level 2.
+&gt;
+&gt; Back to Level 1.
+</pre></div>
+
+
+<p>引用区块内允许其他Markdown语法，如标题、代码块等。</p>
+<p><strong>列表</strong></p>
+<p>无序列表在行首使用*、+、-中的一种，有序列表使用数字加一个英文句点。</p>
+<div class="highlight"><pre><span></span>* Python
+* C++
+* Java
+</pre></div>
+
+
+<p>列表项目可以包含多个段落，中间空行，且段落首行应缩进一次。如果段落中包含代码块，额外缩进一次。</p>
+<p><strong>强调</strong></p>
+<p>使用<code>*</code>或<code>_</code>包围的字体或显示成斜体，用两个<code>*</code>或<code>_</code>包围则加粗。（中文字体不建议使用斜体，易读性降低）</p>
+<p><strong>代码块</strong></p>
+<p>全部缩进一次（4个空格或1个Tab）即可。代码块的Markdown语法不会被转换。</p>
+<p><strong>行内代码</strong></p>
+<p>如果要标记一小段行内代码，可以使用反引号抱起来(<code></code>)</p>
+<p><strong>分割线</strong></p>
+<p>用三个以上的*、-、_来建立一条分割线，中间允许空格存在</p>
+<div class="highlight"><pre><span></span>* * *
+</pre></div>
+
+
+<p><strong>链接</strong></p>
+<p>链接文字放入方括号中，链接地址放入圆括号中，允许相对路径。</p>
+<div class="highlight"><pre><span></span>这是一个[例子](http://example.com/)
+</pre></div>
+
+
+<p>或者使用参考式链接：</p>
+<div class="highlight"><pre><span></span><span class="k">[例子][id]</span>
+
+<span class="err">[id]:</span> <span class="err">http://example.com/</span>
+</pre></div>
+
+
+<p>如果希望链接在浏览器的新标签页中打开，只需要添加{:target="_blank"}在圆括号后即可。</p>
+<p><strong>图片</strong></p>
+<p>同链接一样，同样有行内式和参考式来标记图片：</p>
+<div class="highlight"><pre><span></span><span class="o">!</span><span class="p">[</span><span class="n">Alt</span> <span class="n">text</span><span class="p">](</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">img</span><span class="p">.</span><span class="n">jpg</span><span class="p">)</span>
+</pre></div>
+
+
+<p>或者：</p>
+<div class="highlight"><pre><span></span><span class="o">!</span><span class="p">[</span><span class="n">Alt</span> <span class="n">text</span><span class="p">][</span><span class="kt">id</span><span class="p">]</span>
+</pre></div>
+
+
+<p>然后在某处指明图片参考名称</p>
+<div class="highlight"><pre><span></span>[id]: url/to/image.jpg
+</pre></div>
+
+
+<p><strong>自动链接</strong></p>
+<p>用尖括号包围的网址转换成链接地址和链接文字一样的自动链接，适用于短的网址，如：<a href="http://www.domuse.com">http://www.domuse.com</a></p>
+<p><strong>中文缩进·空格</strong></p>
+<p>如果写中文想在段首缩进两个空格，在前面直接加全放大的空格两个<code>&amp;emsp;&amp;emsp;</code>，半方大的空格<code>&amp;ensp;</code></p>
+<hr />
+<hr />
+<h2>LaTeX常用数学符号极简手册</h2>
+<p>LaTeX擅长于写科技和学术论文，这里列出的数学符号仅限于物理学工作者常用的部分。标题中指出的“极简”另一层涵义是，按此方法得到的数学公式没有考究其美学细节，例如字母a和b开方时如何使根号的横线齐平等。</p>
+<p><strong>上标·下标</strong></p>
+<p>Latex math环境行内公式标记<code>\(...\)</code>，行间公式<code>\[...\]</code>（需LaTeX中更多功能时使用<code>\begin{...} ....\end{...}</code>)，或者可以使用TEX原有的标记激活：<code>$...$</code>为行内公式或符号，<code>$$...$$</code>为行间公式或符号。在数学模式中，空格均不起作用，需要诸如<code>\quad，\qquad</code>的命令。</p>
+<p>上标命令为<code>^{...}</code>，下标为<code>_{...}</code>，角标为单个字符时可不用花括号，同时有上标和下标时，输入次序不重要。如果角标的位置看起来不明显，可以强制改变角标的层次，如一级角标改为二级角标，如<code>y_N</code>渲染为<span class="math">\(y_N\)</span>看不出角标，可以使N为二级下标，<code>y_{_N}</code>渲染<span class="math">\(y_{_N}\)</span>。</p>
+<p><strong>分式·根式</strong></p>
+<p>短分数线直接使用<code>/</code>，水平分数线<code>$\frac{x+y}{2}$</code>输出<span class="math">\(\frac{x+y}{2}\)</span>，当然也可以通过在花括号中添加一个分数的方式得到连分数。</p>
+<p>开平方<code>$\sqrt{x}$</code>输出<span class="math">\(\sqrt{x}\)</span>，开高次方<code>$\sqrt[n]{x}$</code>，同样也可以嵌套。</p>
+<p><strong>求和·连乘·积分·微分</strong></p>
+<p>行内求和<code>$\sum_{k=1}^n$</code>，输出为<span class="math">\(\sum_{k=1}^n\)</span>；行内连乘<code>$\prod_{i=0}^n$</code>；行内积分<code>$\int_{k=1}^n$</code>，输出为<span class="math">\(\int_{k=1}^n\)</span>，行间求和与积分只需要用两个<code>$$</code>包围，</p>
+<div class="math">$$\sum_{k=1}^n, \prod_{i=0}^n, \quad \int_{k=1}^n$$</div>
+<p>偏微分符号<code>\partial</code>，微分算法“d”应该是直体，输入为<code>\mathrm{d}</code>,<span class="math">\(\mathrm{d}x\)</span>。</p>
+<p><strong>上划线·下划线·其他线</strong></p>
+<p>公式上划线<code>$\overline{x+y}$</code>，输出<span class="math">\(\overline{x+y}\)</span>；下划线<code>$\underline{x+y}$</code>，或者上方或下放花括号，使用<code>\overbrace{}</code>或<code>\underbrace{}</code>，例如</p>
+<div class="highlight"><pre><span></span>$$\underbrace{a + \overbrace{b + \dots + b}^{m\mbox{个}} + c}_{20\mbox{个}}$$
+</pre></div>
+
+
+<p>输出</p>
+<div class="math">$$\underbrace{a + \overbrace{b + \dots + b}^{m\mbox{个}} + c}_{20\mbox{个}}$$</div>
+<p><strong>堆叠符号</strong></p>
+<p>在一个符号上面堆叠另一个符号，使用<code>\stackrel{上方符号}{基位符号}</code>，如</p>
+<div class="highlight"><pre><span></span>$$\vec{x} \stackrel{\mathrm{def}}{=}(x_1,\dots,x_n)$$
+</pre></div>
+
+
+<p>输出</p>
+<div class="math">$$\vec{x} \stackrel{\mathrm{def}}{=}(x_1,\dots,x_n)$$</div>
+<p>这种方式得到的上下符号字号不同，要得到平等地位的结构，使用<code>{上公式 \atop 下公式}</code>，如</p>
+<div class="highlight"><pre><span></span>$$\sum_{k+0,k_1,\ldots&gt;0 \atop k_0+k_1+\cdots=n} A_{0k_0}A_{1K_1}\cdots$$
+</pre></div>
+
+
+<p>输出</p>
+<div class="math">$$\sum_{k+0,k_1,\ldots&gt;0 \atop k_0+k_1+\cdots=n} A_{0k_0}A_{1K_1}\cdots$$</div>
+<p>
+或者，使用<code>{上公式 \atop 下公式}</code>，整个公式被包围在括号中</p>
+<div class="highlight"><pre><span></span>$${n+1 \choose k} = {n \choose k} + {n \choose k-1}$$
+</pre></div>
+
+
+<p>输出</p>
+<div class="math">$${n+1 \choose k} = {n \choose k} + {n \choose k-1}$$</div>
+<p><strong>定界符尺寸</strong></p>
+<p>诸如()、[]、{}、|等分割公式的称为定界符，前面加上\big，\Big，\bigg，\Bigg可以放大这些符号，我比较喜欢用自适应的放大命令，<code>\left...\right</code>，例如</p>
+<div class="highlight"><pre><span></span>$$\left. \frac{\partial f(x, y)}{\partial x}\right|_{x=0}$$
+</pre></div>
+
+
+<p>输出</p>
+<div class="math">$$\left. \frac{\partial f(x, y)}{\partial x}\right|_{x=0}$$</div>
+<p>
+由于只有右侧有|需要变化，左侧没有需要变化的定界符，所以用英文句点.代替。</p>
+<p><strong>矩阵</strong></p>
+<p>输入</p>
+<div class="highlight"><pre><span></span>$$\left( \begin{array}{ccc}
+    11 &amp; 12 &amp; 13 \\
+    21 &amp; 22 &amp; 23
+\end{array}\right)$$
+</pre></div>
+
+
+<p>在{}中指定了对应的列格式，c为内容居中对齐，l为靠左，r为靠右；&amp;为对齐符号，输出
+</p>
+<div class="math">$$\left( \begin{array}{ccc}
+        11 &amp; 12 &amp; 13 \\
+        21 &amp; 22 &amp; 23
+  \end{array}\right)$$</div>
+<p>
+从上面的例子中我们也可以知道如何输入多行公式及对齐，关键在于<code>\\</code>和<code>&amp;</code>符号。又如，</p>
+<div class="highlight"><pre><span></span><span class="p">$$</span><span class="nv">f</span><span class="p">(</span><span class="err">x</span><span class="p">)</span><span class="x">=\left\</span><span class="err">{</span><span class="x"></span>
+<span class="x">    \begin</span><span class="err">{</span><span class="x">array}</span><span class="err">{</span><span class="x">ll}</span>
+<span class="x">        1 &amp;\mbox</span><span class="err">{</span><span class="x">当</span><span class="p">$</span><span class="nv">x</span><span class="x">\ge 0</span><span class="p">$</span><span class="x">时;}\\</span>
+<span class="x">        0 &amp;\mbox</span><span class="err">{</span><span class="x">其他情形.}</span>
+<span class="x">    \end</span><span class="err">{</span><span class="x">array}</span>
+<span class="x">    \right.</span><span class="p">$$</span><span class="x"></span>
+</pre></div>
+
+
+<p>输出
+</p>
+<div class="math">$$f(x)=\left\{
+    \begin{array}{ll}
+        1 &amp;\mbox{当$x\ge 0$时;}\\
+        0 &amp;\mbox{其他情形.}
+    \end{array}
+    \right.$$</div>
+<p><strong>物理学中常用字母符号</strong></p>
+<p>物理量（希腊字母）</p>
+<table>
+<thead>
+<tr>
+<th align="center">输出（Output）</th>
+<th align="left">输入（Input）</th>
+<th align="left">大写字母（Upcase）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><span class="math">\(\alpha\)</span></td>
+<td align="left"><code>$\alpha$</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\beta\)</span></td>
+<td align="left"><code>$\beta$</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\gamma\)</span></td>
+<td align="left"><code>$\gamma$</code></td>
+<td align="left"><span class="math">\(\Gamma\)</span>，<code>$\Gamma$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\delta\)</span></td>
+<td align="left"><code>$\delta$</code></td>
+<td align="left"><span class="math">\(\Delta\)</span>，<code>$\Delta$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\epsilon\)</span></td>
+<td align="left"><code>$\epsilon$</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\varepsilon\)</span></td>
+<td align="left"><code>$\varepsilon$</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\zeta\)</span></td>
+<td align="left"><code>$\zeta$</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\eta\)</span></td>
+<td align="left"><code>$\eta$</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\theta\)</span></td>
+<td align="left"><code>$\theta$</code></td>
+<td align="left"><span class="math">\(\theta\)</span>，<code>$\Theta$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\kappa\)</span></td>
+<td align="left"><code>$\kappa$</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\lambda\)</span></td>
+<td align="left"><code>$\lambda$</code></td>
+<td align="left"><span class="math">\(\Lambda\)</span> ，<code>$\Lambda$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\mu\)</span></td>
+<td align="left"><code>$\mu$</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\nu\)</span></td>
+<td align="left"><code>$\nu$</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\xi\)</span></td>
+<td align="left"><code>$\xi$</code></td>
+<td align="left"><span class="math">\(\Xi\)</span>，<code>$\Xi$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\pi\)</span></td>
+<td align="left"><code>$\pi$</code></td>
+<td align="left"><span class="math">\(\Pi\)</span>，<code>$\Pi$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\rho\)</span></td>
+<td align="left"><code>$rho$</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\sigma\)</span></td>
+<td align="left"><code>$\sigma$</code></td>
+<td align="left"><span class="math">\(\Sigma\)</span>，<code>$\Sigma$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\tau\)</span></td>
+<td align="left"><code>$\tau$</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\upsilon\)</span></td>
+<td align="left"><code>$\upsilon$</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\phi\)</span></td>
+<td align="left"><code>$\phi$</code></td>
+<td align="left"><span class="math">\(\Phi\)</span>，<code>$\Phi$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\varphi\)</span></td>
+<td align="left"><code>$\varphi$</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\chi\)</span></td>
+<td align="left"><code>$\chi$</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\psi\)</span></td>
+<td align="left"><code>$\psi$</code></td>
+<td align="left"><span class="math">\(\Psi\)</span>，<code>$\Psi$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\omega\)</span></td>
+<td align="left"><code>$\omega$</code></td>
+<td align="left"><span class="math">\(\Omega\)</span>，<code>$\Omega$</code></td>
+</tr>
+</tbody>
+</table>
+<p>其他物理量、常数和单位</p>
+<table>
+<thead>
+<tr>
+<th align="center">其他物理量</th>
+<th align="left"></th>
+<th align="center">物理常数或单位</th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">[注1]</td>
+<td align="left"><code>$\bm{A}$</code></td>
+<td align="center"><span class="math">\(\hbar\)</span></td>
+<td align="left"><code>$\hbar$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\vec{a}\)</span></td>
+<td align="left"><code>$\vec{a}$</code></td>
+<td align="center"><span class="math">\(\mathring{A}\)</span></td>
+<td align="left"><code>$\mathring{A}$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(A^{\dagger}\)</span></td>
+<td align="left"><code>$A^{\dagger}$</code></td>
+<td align="center"><span class="math">\(\mu m\)</span></td>
+<td align="left"><code>$\mu m$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(x^{\ast}\)</span></td>
+<td align="left"><code>$x^{\ast}$</code></td>
+<td align="center">[注2]</td>
+<td align="left"><code>$\textperthousand$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(B_{\bot}\)</span></td>
+<td align="left"><code>$B_{\bot}$</code></td>
+<td align="center"><span class="math">\(^{\circ}\)</span>C</td>
+<td align="left"><code>$^{\circ}$C</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(B_{\parallel}\)</span></td>
+<td align="left"><code>$B_{\parallel}$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\dot{x}\)</span></td>
+<td align="left"><code>$\dot{x}$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\ddot{x}\)</span></td>
+<td align="left"><code>$\ddot{x}$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\bar{x}\)</span></td>
+<td align="left"><code>$\bar{x}$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\ell_i(x)\)</span></td>
+<td align="left"><code>$\ell_i(x)$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(x'\)</span></td>
+<td align="left"><code>$x'$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>[注1] 加粗字母，如矢量，需宏包\usepackage{bm}</p>
+<p>[注2] 千分号，需宏包textcomp</p>
+<p>量子态</p>
+<p>bra      <span class="math">\(\left | \psi \right \rangle\)</span> <code>$\left | \psi \right \rangle$</code></p>
+<p>ket      <span class="math">\(\left \langle \psi \right |\)</span> <code>$\left \langle \psi \right |$</code></p>
+<p>bra-ket  <span class="math">\(\left \langle \psi \right. \left | \psi \right \rangle\)</span> <code>$\left \langle \psi \right. \left | \psi \right \rangle$</code></p>
+<p>运算符和其他符号</p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="left"></th>
+<th align="center">其他符号</th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><span class="math">\(\pm\)</span></td>
+<td align="left"><code>$\pm$</code></td>
+<td align="center"><span class="math">\(\infty\)</span></td>
+<td align="left"><code>$\infty$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\nabla\)</span></td>
+<td align="left"><code>$\nabla$</code></td>
+<td align="center"><span class="math">\(\forall\)</span></td>
+<td align="left"><code>$\forall$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\mp\)</span></td>
+<td align="left"><code>$\mp$</code></td>
+<td align="center"><span class="math">\(\exists\)</span></td>
+<td align="left"><code>$\exists$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\times\)</span></td>
+<td align="left"><code>$\times$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\div\)</span></td>
+<td align="left"><code>$\div$</code></td>
+<td align="center"><span class="math">\(\rightarrow\)</span></td>
+<td align="left"><code>$\rightarrow$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\oplus\)</span></td>
+<td align="left"><code>$\oplus$</code></td>
+<td align="center"><span class="math">\(\Rightarrow\)</span></td>
+<td align="left"><code>$\Rightarrow$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\otimes\)</span></td>
+<td align="left"><code>$\otimes$</code></td>
+<td align="center"><span class="math">\(\uparrow\)</span></td>
+<td align="left"><code>$\uparrow$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\bullet\)</span></td>
+<td align="left"><code>$\bullet</code></td>
+<td align="center"><span class="math">\(\downarrow\)</span></td>
+<td align="left"><code>$\downarrow$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\le\)</span></td>
+<td align="left"><code>$\le$</code></td>
+<td align="center"><span class="math">\(\Box\)</span></td>
+<td align="left"><code>$\Box$</code></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\ge\)</span></td>
+<td align="left"><code>$\ge$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\ll\)</span></td>
+<td align="left"><code>$\ll$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\gg\)</span></td>
+<td align="left"><code>$\gg$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\ne\)</span></td>
+<td align="left"><code>$\ne$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\propto\)</span></td>
+<td align="left"><code>$\propto$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\approx\)</span></td>
+<td align="left"><code>$\approx$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\sim\)</span></td>
+<td align="left"><code>$\sim$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\simeq\)</span></td>
+<td align="left"><code>$\simeq$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\in\)</span></td>
+<td align="left"><code>$\in$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\ni\)</span></td>
+<td align="left"><code>$\ni$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><span class="math">\(\equiv\)</span></td>
+<td align="left"><code>$\equiv$</code></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>这些符号也可供复制。对了，我遗漏什么了吗？（Continue...）请联系我！</p>
+<p>扩展链接：</p>
+<ol>
+<li>
+<p>Johan Wevers博客提供了许多常用的物理公式 <a href="http://johanw.home.xs4all.nl/contents.html" target="_blank">Physical Formula</a></p>
+</li>
+<li>
+<p>CTAN提供了LaTeX的各种知识和技巧，符号部分见 <a href="http://www.tex.ac.uk/ctan/info/symbols/comprehensive/symbols-a4.pdf" target="_blank">Latex Symbols</a> </p>
+</li>
+</ol>
+<blockquote>
+<p>Last Modified: 2014-10-09</p>
+</blockquote>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://sciencefan.org">ScienceFan</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://github.com/X0Leon">Github</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

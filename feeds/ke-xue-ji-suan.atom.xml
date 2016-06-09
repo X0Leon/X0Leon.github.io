@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Leon's blog</title><link href="http://domuse.com/" rel="alternate"></link><link href="http://domuse.com/feeds/ke-xue-ji-suan.atom.xml" rel="self"></link><id>http://domuse.com/</id><updated>2014-10-13T00:00:00+08:00</updated><entry><title>Why physics students and physicists need python?</title><link href="http://domuse.com/why-physicist-need-python.html" rel="alternate"></link><published>2014-10-13T00:00:00+08:00</published><author><name>Leon</name></author><id>tag:domuse.com,2014-10-13:why-physicist-need-python.html</id><summary type="html">&lt;p&gt;Nowadays, the &lt;a href="https://www.python.org/" target="_blank"&gt;Python&lt;/a&gt; language has become a widely used tool for scientists and engineers, which is fully stacked with powerful support packages, such as numpy and scipy. However, I came across Python due to the need of an easy-to-use web framework until last summer. After several days of trails, I found Python was such an elegent and easy-to-learn language. So I immediately got out of PHP and turned to Python for the purpose of Web programming. When I realized its capability for scientific computing three months ago, I decided to dig deeper into it.&lt;/p&gt;
+&lt;p&gt;Why python for physics? In other words, why Python language is suitable for physics students or physicists? &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Computer skills are called. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Regardless of the specific displine in physics, or other sciences, the processing of dataset and visualization are in our workflow. In the last decade, all the experimental datasets are almost acquired by computers. We must handle different kinds of data format supplied by our devices, such as fitting, filtering, plotting. Previously, We can do this by MS Excel, Origin, Matlab or others. But now, Python is at hand. &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Python is easy to learn. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This is important since physicists are not professional programmers. They are just problem solvers in real world. Non-physics skills should not be much too time-consuming. The gentle learning curve of the technique tool is preferred. Luckily, Python is clean, elegent and easily readable. What's more, Python is a interpreted language, which means the programs can be run without any changes between different operating systems.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Python is extended by abundant libraries. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Like many other modern language, Python is extendable. The most important thing is Python has a huge and active community for scientific computation. You can almost find any fundamental applications just via the speicific module or liabrary. &lt;a href="http://www.numpy.org/" target="_blank"&gt;Numpy&lt;/a&gt; and &lt;a href="http://scipy.org/" target="_blank"&gt;Scipy&lt;/a&gt; are ready for numercal work, which are very fast and offer many predefined functions. They have built-in linear algebra, sparse matrices, Fourier tansform, optimization and other things. &lt;a href="http://matplotlib.org/" target="_blank"&gt;Matplotlib&lt;/a&gt; and &lt;a href="http://vpython.org/" target="_blank"&gt;visual&lt;/a&gt; (or other libraris) can make 2D/3D graphics for you. Some other famous libraries are also on the list, such as Sympy, pandas, scikit-learn...&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Binding with your browser.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You will realize that Python is cool when you invoke &lt;a href="http://ipython.org/" target="_blank"&gt;Ipython Notebook&lt;/a&gt; in your favorite browsers, such as Chrome and Firefox. The binding between Python and JS (or other Web techniques) tells that the day of computing in browsers is coming. IPython Notebook promises you can easily share the data with your colleagues. The interactive widgets from IPython Notebook version 2.0 and later makes the interacting with the data via figures real-time.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The last but not the least, Python can integrate with C/C++ and Fortran codes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Once you want to perform computation, simulation, data processing or visualsization work, you should give Python a try!&lt;/p&gt;</summary><category term="python"></category><category term="physics"></category><category term="scipy"></category><category term="numerical"></category></entry></feed>
