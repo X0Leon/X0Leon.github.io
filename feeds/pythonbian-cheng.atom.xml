@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Leon's blog</title><link href="http://domuse.com/" rel="alternate"></link><link href="http://domuse.com/feeds/pythonbian-cheng.atom.xml" rel="self"></link><id>http://domuse.com/</id><updated>2014-10-09T00:00:00+08:00</updated><entry><title>Markdown语法和LaTeX数学记号速查手册</title><link href="http://domuse.com/markdown-and-latex-equation-handbook.html" rel="alternate"></link><published>2014-10-09T00:00:00+08:00</published><author><name>Leon</name></author><id>tag:domuse.com,2014-10-08:markdown-and-latex-equation-handbook.html</id><summary type="html">&lt;p&gt;&amp;emsp;&amp;emsp;
+
+这篇文章是Markdown和LaTex的速查手册，阅读人群为科学工作者，尤其是物理领域的同行。常用的Markdown语法和数学符号、公式的LaTex的记号都列举在文中。本手册的用例如，Ipython Notebook或者支持Markdownd的博客。如果读者需要用到高级的技巧或完整的LaTex语法，请直接参与其官方文档。简而言之，我写本手册时权衡了完整和快查两个需求，力求简明而不简单
+。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; This post is intended to be a concise instruction for physics workers or others, who want to properly render mathematical euqations in Markdown. The frequently-used markdown syntaxs and LaTeX notations of math are listed here. The typical usage of this handbook is Ipython Notebook or Markdown-supported blog, such as Pelican. If you are interested in advanced Markdown skills (acually, it is easy enough!) or publication-ready LaTeX technique, please look elsewhere. The original codes and (some) outputs are put together. And I write the main body in Chinese at present, maybe I will translate it into English later.&lt;/p&gt;
+&lt;h1&gt;Markdown和LaTeX数学公式速查表&lt;/h1&gt;
+&lt;h2&gt;Markdown极简手册&lt;/h2&gt;
+&lt;p&gt;Markdown是语法简单、易于书写的标记语言，其支持HTML，直接插入标签即可。Markdown中实现某种功能可能有不止一种语法，这里一般只演示一种。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;标题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Atx形式的语法（另一种为Setex）：在行首插入1-6个#，如&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# H1标题
+### H3标题
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;行尾可以加上同等数量的#，仅仅是为了美观。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;段落和换行&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;文本行前后有一个以上的空行即可。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;区块引用&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在每行前加&amp;gt;即可，更简单的方式是只在段落首行添加&amp;gt;。允许嵌套，根据层次使用不同数量的&amp;gt;即可，例如：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt; Level 1.
+&amp;gt;
+&amp;gt;&amp;gt; Level 2.
+&amp;gt;
+&amp;gt; Back to Level 1.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;引用区块内允许其他Markdown语法，如标题、代码块等。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;列表&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;无序列表在行首使用*、+、-中的一种，有序列表使用数字加一个英文句点。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;* Python
+* C++
+* Java
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;列表项目可以包含多个段落，中间空行，且段落首行应缩进一次。如果段落中包含代码块，额外缩进一次。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;强调&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;使用&lt;code&gt;*&lt;/code&gt;或&lt;code&gt;_&lt;/code&gt;包围的字体或显示成斜体，用两个&lt;code&gt;*&lt;/code&gt;或&lt;code&gt;_&lt;/code&gt;包围则加粗。（中文字体不建议使用斜体，易读性降低）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码块&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;全部缩进一次（4个空格或1个Tab）即可。代码块的Markdown语法不会被转换。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;行内代码&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果要标记一小段行内代码，可以使用反引号抱起来(&lt;code&gt;&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;分割线&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;用三个以上的*、-、_来建立一条分割线，中间允许空格存在&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;* * *
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;链接&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;链接文字放入方括号中，链接地址放入圆括号中，允许相对路径。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;这是一个[例子](http://example.com/)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;或者使用参考式链接：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;[例子][id]&lt;/span&gt;
+
+&lt;span class="err"&gt;[id]:&lt;/span&gt; &lt;span class="err"&gt;http://example.com/&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果希望链接在浏览器的新标签页中打开，只需要添加{:target="_blank"}在圆括号后即可。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;图片&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;同链接一样，同样有行内式和参考式来标记图片：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Alt&lt;/span&gt; &lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;](&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;jpg&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;或者：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Alt&lt;/span&gt; &lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="kt"&gt;id&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;然后在某处指明图片参考名称&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[id]: url/to/image.jpg
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;自动链接&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;用尖括号包围的网址转换成链接地址和链接文字一样的自动链接，适用于短的网址，如：&lt;a href="http://www.domuse.com"&gt;http://www.domuse.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;中文缩进·空格&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果写中文想在段首缩进两个空格，在前面直接加全放大的空格两个&lt;code&gt;&amp;amp;emsp;&amp;amp;emsp;&lt;/code&gt;，半方大的空格&lt;code&gt;&amp;amp;ensp;&lt;/code&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;hr /&gt;
+&lt;h2&gt;LaTeX常用数学符号极简手册&lt;/h2&gt;
+&lt;p&gt;LaTeX擅长于写科技和学术论文，这里列出的数学符号仅限于物理学工作者常用的部分。标题中指出的“极简”另一层涵义是，按此方法得到的数学公式没有考究其美学细节，例如字母a和b开方时如何使根号的横线齐平等。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;上标·下标&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Latex math环境行内公式标记&lt;code&gt;\(...\)&lt;/code&gt;，行间公式&lt;code&gt;\[...\]&lt;/code&gt;（需LaTeX中更多功能时使用&lt;code&gt;\begin{...} ....\end{...}&lt;/code&gt;)，或者可以使用TEX原有的标记激活：&lt;code&gt;$...$&lt;/code&gt;为行内公式或符号，&lt;code&gt;$$...$$&lt;/code&gt;为行间公式或符号。在数学模式中，空格均不起作用，需要诸如&lt;code&gt;\quad，\qquad&lt;/code&gt;的命令。&lt;/p&gt;
+&lt;p&gt;上标命令为&lt;code&gt;^{...}&lt;/code&gt;，下标为&lt;code&gt;_{...}&lt;/code&gt;，角标为单个字符时可不用花括号，同时有上标和下标时，输入次序不重要。如果角标的位置看起来不明显，可以强制改变角标的层次，如一级角标改为二级角标，如&lt;code&gt;y_N&lt;/code&gt;渲染为&lt;span class="math"&gt;\(y_N\)&lt;/span&gt;看不出角标，可以使N为二级下标，&lt;code&gt;y_{_N}&lt;/code&gt;渲染&lt;span class="math"&gt;\(y_{_N}\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;分式·根式&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;短分数线直接使用&lt;code&gt;/&lt;/code&gt;，水平分数线&lt;code&gt;$\frac{x+y}{2}$&lt;/code&gt;输出&lt;span class="math"&gt;\(\frac{x+y}{2}\)&lt;/span&gt;，当然也可以通过在花括号中添加一个分数的方式得到连分数。&lt;/p&gt;
+&lt;p&gt;开平方&lt;code&gt;$\sqrt{x}$&lt;/code&gt;输出&lt;span class="math"&gt;\(\sqrt{x}\)&lt;/span&gt;，开高次方&lt;code&gt;$\sqrt[n]{x}$&lt;/code&gt;，同样也可以嵌套。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;求和·连乘·积分·微分&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;行内求和&lt;code&gt;$\sum_{k=1}^n$&lt;/code&gt;，输出为&lt;span class="math"&gt;\(\sum_{k=1}^n\)&lt;/span&gt;；行内连乘&lt;code&gt;$\prod_{i=0}^n$&lt;/code&gt;；行内积分&lt;code&gt;$\int_{k=1}^n$&lt;/code&gt;，输出为&lt;span class="math"&gt;\(\int_{k=1}^n\)&lt;/span&gt;，行间求和与积分只需要用两个&lt;code&gt;$$&lt;/code&gt;包围，&lt;/p&gt;
+&lt;div class="math"&gt;$$\sum_{k=1}^n, \prod_{i=0}^n, \quad \int_{k=1}^n$$&lt;/div&gt;
+&lt;p&gt;偏微分符号&lt;code&gt;\partial&lt;/code&gt;，微分算法“d”应该是直体，输入为&lt;code&gt;\mathrm{d}&lt;/code&gt;,&lt;span class="math"&gt;\(\mathrm{d}x\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;上划线·下划线·其他线&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;公式上划线&lt;code&gt;$\overline{x+y}$&lt;/code&gt;，输出&lt;span class="math"&gt;\(\overline{x+y}\)&lt;/span&gt;；下划线&lt;code&gt;$\underline{x+y}$&lt;/code&gt;，或者上方或下放花括号，使用&lt;code&gt;\overbrace{}&lt;/code&gt;或&lt;code&gt;\underbrace{}&lt;/code&gt;，例如&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$$\underbrace{a + \overbrace{b + \dots + b}^{m\mbox{个}} + c}_{20\mbox{个}}$$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;输出&lt;/p&gt;
+&lt;div class="math"&gt;$$\underbrace{a + \overbrace{b + \dots + b}^{m\mbox{个}} + c}_{20\mbox{个}}$$&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;堆叠符号&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在一个符号上面堆叠另一个符号，使用&lt;code&gt;\stackrel{上方符号}{基位符号}&lt;/code&gt;，如&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$$\vec{x} \stackrel{\mathrm{def}}{=}(x_1,\dots,x_n)$$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;输出&lt;/p&gt;
+&lt;div class="math"&gt;$$\vec{x} \stackrel{\mathrm{def}}{=}(x_1,\dots,x_n)$$&lt;/div&gt;
+&lt;p&gt;这种方式得到的上下符号字号不同，要得到平等地位的结构，使用&lt;code&gt;{上公式 \atop 下公式}&lt;/code&gt;，如&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$$\sum_{k+0,k_1,\ldots&amp;gt;0 \atop k_0+k_1+\cdots=n} A_{0k_0}A_{1K_1}\cdots$$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;输出&lt;/p&gt;
+&lt;div class="math"&gt;$$\sum_{k+0,k_1,\ldots&amp;gt;0 \atop k_0+k_1+\cdots=n} A_{0k_0}A_{1K_1}\cdots$$&lt;/div&gt;
+&lt;p&gt;
+或者，使用&lt;code&gt;{上公式 \atop 下公式}&lt;/code&gt;，整个公式被包围在括号中&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$${n+1 \choose k} = {n \choose k} + {n \choose k-1}$$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;输出&lt;/p&gt;
+&lt;div class="math"&gt;$${n+1 \choose k} = {n \choose k} + {n \choose k-1}$$&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;定界符尺寸&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;诸如()、[]、{}、|等分割公式的称为定界符，前面加上\big，\Big，\bigg，\Bigg可以放大这些符号，我比较喜欢用自适应的放大命令，&lt;code&gt;\left...\right&lt;/code&gt;，例如&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$$\left. \frac{\partial f(x, y)}{\partial x}\right|_{x=0}$$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;输出&lt;/p&gt;
+&lt;div class="math"&gt;$$\left. \frac{\partial f(x, y)}{\partial x}\right|_{x=0}$$&lt;/div&gt;
+&lt;p&gt;
+由于只有右侧有|需要变化，左侧没有需要变化的定界符，所以用英文句点.代替。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;矩阵&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;输入&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$$\left( \begin{array}{ccc}
+    11 &amp;amp; 12 &amp;amp; 13 \\
+    21 &amp;amp; 22 &amp;amp; 23
+\end{array}\right)$$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在{}中指定了对应的列格式，c为内容居中对齐，l为靠左，r为靠右；&amp;amp;为对齐符号，输出
+&lt;/p&gt;
+&lt;div class="math"&gt;$$\left( \begin{array}{ccc}
+        11 &amp;amp; 12 &amp;amp; 13 \\
+        21 &amp;amp; 22 &amp;amp; 23
+  \end{array}\right)$$&lt;/div&gt;
+&lt;p&gt;
+从上面的例子中我们也可以知道如何输入多行公式及对齐，关键在于&lt;code&gt;\\&lt;/code&gt;和&lt;code&gt;&amp;amp;&lt;/code&gt;符号。又如，&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;$$&lt;/span&gt;&lt;span class="nv"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="x"&gt;=\left\&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;span class="x"&gt;    \begin&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="x"&gt;array}&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="x"&gt;ll}&lt;/span&gt;
+&lt;span class="x"&gt;        1 &amp;amp;\mbox&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="x"&gt;当&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;x&lt;/span&gt;&lt;span class="x"&gt;\ge 0&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="x"&gt;时;}\\&lt;/span&gt;
+&lt;span class="x"&gt;        0 &amp;amp;\mbox&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="x"&gt;其他情形.}&lt;/span&gt;
+&lt;span class="x"&gt;    \end&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="x"&gt;array}&lt;/span&gt;
+&lt;span class="x"&gt;    \right.&lt;/span&gt;&lt;span class="p"&gt;$$&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;输出
+&lt;/p&gt;
+&lt;div class="math"&gt;$$f(x)=\left\{
+    \begin{array}{ll}
+        1 &amp;amp;\mbox{当$x\ge 0$时;}\\
+        0 &amp;amp;\mbox{其他情形.}
+    \end{array}
+    \right.$$&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;物理学中常用字母符号&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;物理量（希腊字母）&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="center"&gt;输出（Output）&lt;/th&gt;
+&lt;th align="left"&gt;输入（Input）&lt;/th&gt;
+&lt;th align="left"&gt;大写字母（Upcase）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\alpha\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\alpha$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\beta\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\beta$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\gamma\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\gamma$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Gamma\)&lt;/span&gt;，&lt;code&gt;$\Gamma$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\delta\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\delta$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Delta\)&lt;/span&gt;，&lt;code&gt;$\Delta$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\epsilon\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\epsilon$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\varepsilon\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\varepsilon$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\zeta\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\zeta$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\eta\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\eta$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\theta\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\theta$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\theta\)&lt;/span&gt;，&lt;code&gt;$\Theta$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\kappa\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\kappa$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\lambda\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\lambda$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Lambda\)&lt;/span&gt; ，&lt;code&gt;$\Lambda$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\mu\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\mu$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\nu\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\nu$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\xi\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\xi$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Xi\)&lt;/span&gt;，&lt;code&gt;$\Xi$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\pi\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\pi$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Pi\)&lt;/span&gt;，&lt;code&gt;$\Pi$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\rho\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$rho$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\sigma\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\sigma$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Sigma\)&lt;/span&gt;，&lt;code&gt;$\Sigma$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\tau\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\tau$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\upsilon\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\upsilon$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\phi\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\phi$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Phi\)&lt;/span&gt;，&lt;code&gt;$\Phi$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\varphi\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\varphi$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\chi\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\chi$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\psi\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\psi$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Psi\)&lt;/span&gt;，&lt;code&gt;$\Psi$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\omega\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\omega$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Omega\)&lt;/span&gt;，&lt;code&gt;$\Omega$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;其他物理量、常数和单位&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="center"&gt;其他物理量&lt;/th&gt;
+&lt;th align="left"&gt;&lt;/th&gt;
+&lt;th align="center"&gt;物理常数或单位&lt;/th&gt;
+&lt;th align="left"&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;[注1]&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\bm{A}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\hbar\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\hbar$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\vec{a}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\vec{a}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\mathring{A}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\mathring{A}$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(A^{\dagger}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$A^{\dagger}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\mu m\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\mu m$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(x^{\ast}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$x^{\ast}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;[注2]&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\textperthousand$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(B_{\bot}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$B_{\bot}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(^{\circ}\)&lt;/span&gt;C&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$^{\circ}$C&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(B_{\parallel}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$B_{\parallel}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\dot{x}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\dot{x}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\ddot{x}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\ddot{x}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\bar{x}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\bar{x}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\ell_i(x)\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\ell_i(x)$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(x'\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$x'$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;[注1] 加粗字母，如矢量，需宏包\usepackage{bm}&lt;/p&gt;
+&lt;p&gt;[注2] 千分号，需宏包textcomp&lt;/p&gt;
+&lt;p&gt;量子态&lt;/p&gt;
+&lt;p&gt;bra      &lt;span class="math"&gt;\(\left | \psi \right \rangle\)&lt;/span&gt; &lt;code&gt;$\left | \psi \right \rangle$&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;ket      &lt;span class="math"&gt;\(\left \langle \psi \right |\)&lt;/span&gt; &lt;code&gt;$\left \langle \psi \right |$&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;bra-ket  &lt;span class="math"&gt;\(\left \langle \psi \right. \left | \psi \right \rangle\)&lt;/span&gt; &lt;code&gt;$\left \langle \psi \right. \left | \psi \right \rangle$&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;运算符和其他符号&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="center"&gt;运算符&lt;/th&gt;
+&lt;th align="left"&gt;&lt;/th&gt;
+&lt;th align="center"&gt;其他符号&lt;/th&gt;
+&lt;th align="left"&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\pm\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\pm$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\infty\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\infty$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\nabla\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\nabla$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\forall\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\forall$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\mp\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\mp$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\exists\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\exists$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\times\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\times$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\div\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\div$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\rightarrow\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\rightarrow$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\oplus\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\oplus$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\Rightarrow\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\Rightarrow$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\otimes\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\otimes$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\uparrow\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\uparrow$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\bullet\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\bullet&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\downarrow\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\downarrow$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\le\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\le$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\Box\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\Box$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\ge\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\ge$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\ll\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\ll$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\gg\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\gg$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\ne\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\ne$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\propto\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\propto$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\approx\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\approx$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\sim\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\sim$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\simeq\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\simeq$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\in\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\in$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\ni\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\ni$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\equiv\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\equiv$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;这些符号也可供复制。对了，我遗漏什么了吗？（Continue...）请联系我！&lt;/p&gt;
+&lt;p&gt;扩展链接：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Johan Wevers博客提供了许多常用的物理公式 &lt;a href="http://johanw.home.xs4all.nl/contents.html" target="_blank"&gt;Physical Formula&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CTAN提供了LaTeX的各种知识和技巧，符号部分见 &lt;a href="http://www.tex.ac.uk/ctan/info/symbols/comprehensive/symbols-a4.pdf" target="_blank"&gt;Latex Symbols&lt;/a&gt; &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Last Modified: 2014-10-09&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="markdown"></category><category term="laTeX"></category><category term="physics"></category></entry></feed>
