@@ -23,7 +23,145 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/peom-suzhou.html">旅行的诗</a></h1>
+                    <h1 class="entry-title"><a href="/landauer-buttiker.html">Landauer-Buttiker公式与S矩阵</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2016-06-14T00:00:00+08:00">
+                Published: 2016-06-14
+        </abbr>
+		<br />
+        <abbr class="modified" title="2016-06-15T00:00:00+08:00">
+                Updated: 2016-06-15
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/leon.html">Leon</a>
+        </address>
+<p>In <a href="/category/physics.html">Physics</a>.</p>
+<p>tags: <a href="/tag/physics.html">physics</a> </p>
+</footer><!-- /.post-info --><p>介观物理体系中的“实验-理论-计算”的全栈探究。</p>
+<p>介观物理体系的尺度接近表征量子行为的特征长度——（1）在Fermi面附近的电子de Broglie波长<span class="math">\(\lambda_F\)</span>、（2）动量本征态散射的平均自由程<span class="math">\(l\)</span>或相位相干长度<span class="math">\(l_{\varphi}\)</span>，电子的输运表现出很多新奇的特性，如电阻的非局域性，普适电导涨落等，所有这些特性都是由量子规律支配的，更具体地说，是由于电子的量子相干所产生的。八十年代以来，介观体系的研究逐渐发展成一个凝聚态物理的一个新领域，成为沟通宏观和量子、统计力学的一个桥梁。</p>
+<p>目前已经有几套理论可以用来研究介观体系的电子输运现象，著名的有Landauer理论（1957）和Kubo与Greenwood提出的线性响应理论（1957），80年代后期，Buttiker等推广了两端的Landauer理论，使其使用于多端多通道，即著名的Landauer-Buttiker（L-B）公式。Kubo线性响应公式主要采用量子统计方法计算非局域响应函数<span class="math">\(\sigma(x,x^{'})\)</span>，而L-B公式基于量子力学的散射理论，通过计算电子在散射区域的散射矩阵来计算电导。后来，人们发现L-B公式对介观输运的计算更加合适，用电子波的散射来描述其中的物理过程比较直观，数学上也不是很难处理。现在Landauer-Buttiker公式在介观物理中具有非常重要的地位。</p>
+<p>具体计算散射区域的透射反射系数有转移矩阵（或称传输矩阵）方法、递归格林函数方法（RGF）等。其中又以递归格林函数的算法比较稳定，能克服数值溢出的问题，但随着体系增大，RGF方法也比较耗时。以上算法都是单电子近似下发展起来的，且我们这里主要讨论紧束缚近似。</p>
+<p>对于相关的理论介绍可以参考经典之作 <em>Electrionic transport in mesoscopic systems</em>(Supriyo Datta)。在理论部分我们直接引用相关的结果，而不提供详细的数学推导，但给出核心的思路和物理图像。</p>
+<h2>Landauer公式</h2>
+<p>Landauer将电导解释成电子在两个电极之间的透射反射（可以将导体看作一个势垒），推导出
+</p>
+<div class="math">$$G=\frac{2e^2}{h}MT$$</div>
+<p>
+T代表电子从导体一端透射到另一端的平均几率，M是传输的模式（或称为通道），例如我们需要考虑尺寸效应劈裂的M个子能带。如果只有一个能带，M=1。此公式得到的一个令人惊讶的结果是“接触电阻”<span class="math">\(G^{-1}_C\)</span>，即使T=1，我们也会观察到电子库和导体的接触电阻，缘由是具有大量通道的电子库向较少通道边界的几何过渡。</p>
+<div class="math">$$G^{-1}=\frac{h}{2e^2M}\frac{1}{T}=G^{-1}_C+\frac{h}{2e^2M}\frac{1-T}{T}$$</div>
+<p>考虑两个电极的电化学式<span class="math">\(\mu\)</span>（即理想电子库），并将<span class="math">\(MT\)</span>写成<span class="math">\(\bar{T}\)</span>，得到两端的线性响应公式：
+</p>
+<div class="math">$$I=\frac{2e}{h}\bar{T}[\mu_1-\mu_2]$$</div>
+<h2>Buttiker公式</h2>
+<p>实际测量中往往既有电流端，又有电压端，常见的测量方式如四端法、Hall bar等，如何处理电压的电极呢？Buttiker提出一个优雅的解决方案：认为电流端和电压端没有本质区别，对它们使用同一角标（p和q）：</p>
+<div class="math">$$I_p=\frac{2e}{h}\sum_q[\bar{T}_{q\leftarrow p}\mu_p-\bar{T}_{p\leftarrow q}\mu_q]$$</div>
+<p>箭头表示电子是从第二个角标的电极传输到第一个角标的电极，为了简洁，后面我们省略此箭头。
+使用<span class="math">\(V=\mu/e\)</span>，并定义<span class="math">\(G_{pq}\equiv \frac{2e^2}{h}\bar{T}_{p\leftarrow q}\)</span>，改写成
+</p>
+<div class="math">$$I_p=\sum_q[G_{qp}V_p-G_{pq}V_q]$$</div>
+<p>由于电流守恒或者说所有电极电势相等时电流为零，我们有"sum rule"：<span class="math">\(\sum_q G_{qp}=\sum_q G_{pq}\)</span>，得到：
+</p>
+<div class="math">$$I_p=\sum_qG_{pq}[V_p-V_q]$$</div>
+<p>除了两电极时，<span class="math">\(G_{pq}=G_{qp}\)</span>，一般而言此式都不成立，有磁场B时的正确的“倒易关系”（Onsager-Casimir对称性）是：<span class="math">\([G_qp]_{+B}=[G_pq]_{-B}\)</span>。此式在下面介绍了散射矩阵后，很容易通过薛定谔方程来证明。用我们更熟悉的实验语言表述是，正负磁场下电阻不对称，但是同时交换电流和电压端，则曲线可以重合，表达式为：<span class="math">\(R_{mn,kl}(+B)=R_{kl,mn}(-B)\)</span>。这表明了介观系统的电导（电阻）具有非局域性。</p>
+<p>非零温时，需要考虑Fermi-Dirac分布，对于p电极<span class="math">\(f_p=1/(exp(\frac{E-\mu_p}{k_B T})+1)\)</span>，则
+</p>
+<div class="math">$$I_p=\int i_p(E)dE, \quad I_p(E)=\frac{2e}{h}\sum_q \bar{T}_{pq}(E)[f_p(E)-f_q(E)].$$</div>
+<p>Buttiker公式是比Landauer公式更普遍的情形，一般合称为Landauer-Buttiker公式。</p>
+<h2>散射矩阵</h2>
+<p>如果导体的尺寸比相位相干长度小，电子输运就是相干的。前面我们展示了电流可以用透射函数来表达，现在我们来探讨透射函数和散射矩阵（S矩阵）的关系。对于一个具有量子相干性的金属导体，处于同一能量的在不同电极的电子的出射波函数振幅b正负通过S矩阵可以用入射波幅a表示。例如：对于两电极（p有两个通道1,2；q有一个通道3）三个通道的体系：
+</p>
+<div class="math">$$\left( \begin{array}{c}
+    b_1 \\
+    b_2 \\
+    b_3
+\end{array}\right)
+=
+\left[ \begin{array}{ccc}
+    s_{11} &amp; s_{12} &amp; s_{13} \\
+    s_{21} &amp; s_{22} &amp; s_{23} \\
+    s_{31} &amp; s_{32} &amp; s_{33}
+\end{array}\right]
+\left( \begin{array}{c}
+    a_1 \\
+    a_2 \\
+    a_3
+\end{array}\right)$$</div>
+<p>在给定能量E下，电极p的通道数记为<span class="math">\(M_p(E)\)</span>，所有通道数为<span class="math">\(M_T(E)=\sum M_p(E)\)</span>，则散射矩阵是<span class="math">\(M_T\times M_T\)</span>的，上例中为<span class="math">\(3\times 3\)</span>的矩阵。</p>
+<p>透射几率<span class="math">\(T_{mn}\)</span>与相应的S矩阵的矩阵元的关系是<span class="math">\(T_{m\leftarrow n}=|s_{m\leftarrow n}|^2\)</span>，表示n通道的电子散射到m通过的几率。电子在m通道的反射几率是<span class="math">\(R_{mm}=T_{mm}=|s_{mm}|^2\)</span>。也就是说，S矩阵的对角元的绝对值平方表示电子的反射几率，非对角元的绝对值平方和表示电子的透射几率。</p>
+<p>透射函数<span class="math">\(\bar{T}_{pq}(E)\)</span>是对q电极的n个通道和p电极的m个通道求和：
+</p>
+<div class="math">$$\bar{T}_{p\leftarrow q}=\sum_{n\in q}\sum_{m\in p}T_{m\leftarrow n}$$</div>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/peom-suzhou.html" rel="bookmark"
+                           title="Permalink to 旅行的诗">旅行的诗</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2015-09-26T00:00:00+08:00">
                 Published: 2015-09-26
@@ -34,24 +172,13 @@
         </address>
 <p>In <a href="/category/muse.html">Muse</a>.</p>
 <p>tags: <a href="/tag/muse.html">muse</a> <a href="/tag/essay.html">essay</a> <a href="/tag/poetry.html">poetry</a> </p>
-</footer><!-- /.post-info -->
+</footer><!-- /.post-info -->                
 
 <p>题注：忽然想去旅行，于是休了假。第一站是苏州，只买到慢车卧铺票，父亲说：旅行是急不来的，路上的风景即时旅行。在去上海的途中，我问自己：干嘛不去青岛看看啊？！便取消了第三站嘉兴的行程，临时买了机票从虹桥飞到流亭。景语皆情语，得几句小诗，抄录如下。其中，我在苏州写了三首，上海一首，而在青岛只顾吃海鲜、走海滩、泡海澡、喝青啤咯
-。</p>
-<p><br />
-《旅行随感三首·苏州》</p>
-<p>&emsp;&emsp;朝霞出碧空，万里了无云。决眦三千丈，一览苏园林。</p>
-<p>&emsp;&emsp;水可蕴灵气，山能洞仙人。神游方须臾，已味凡俗真。</p>
-<p>&emsp;&emsp;桥上姑苏园里城，乘船流水浣轻纱。白墙墨瓦分青巷，移步换景折桂花。</p>
-<p><br />
-《旅行随感一首·上海》</p>
-<p>&emsp;&emsp;登顶远望可凭栏，身处高楼不觉寒。一眼收尽万千户，亡兴苦乐才百年。</p>
-<p>PS：这首诗就不配图了，拍了绝美的东方明珠塔，但放上来有点违和，算了。其实我更想放在青岛喝的原浆啤酒 :( </p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+
+                <a class="readmore" href="/peom-suzhou.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -201,30 +328,6 @@
 <p>&emsp;&emsp;物理的奇妙之处在于，它试图探究世界的本原、真实客观的存在；善用数学但不囿于数学，而且有哲学思辨的魅力。理解物理规律往往先从现象（自然语言）描述出发，经过理论（数学公式）推演，最后直达事物本质。这篇短文藉此谈谈篇首说的“物质分子处于不停顿的无规则的运动状态”，直观来看，比较容易接受。但仔细想想什么意思？这句话有两个定语，我们可以审视一番。“不停顿”是指微观粒子不会待着不动，动能不为零，这句话没有提到限定条件，也即是说在任何情形下微观粒子都在运动。说到“任何情形”，有人可能就会怀疑了，怀疑是可贵的
 
                 <a class="readmore" href="/thermal-motion-concept.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/markdown-and-latex-equation-handbook.html" rel="bookmark"
-                           title="Permalink to Markdown语法和LaTeX数学记号速查手册">Markdown语法和LaTeX数学记号速查手册</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-10-08T00:00:00+08:00">
-                Published: 2014-10-08
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/leon.html">Leon</a>
-        </address>
-<p>In <a href="/category/python.html">Python</a>.</p>
-<p>tags: <a href="/tag/markdown.html">markdown</a> <a href="/tag/latex.html">laTeX</a> <a href="/tag/physics.html">physics</a> </p>
-</footer><!-- /.post-info -->                
-这篇文章是Markdown和LaTex的速查手册，阅读人群为科学工作者，尤其是物理领域的同行。常用的Markdown语法和数学符号、公式的LaTex的记号都列举在文中。本手册的用例如，Ipython Notebook或者支持Markdownd的博客。如果读者需要用到高级的技巧或完整的LaTex语法，请直接参与其官方文档。简而言之，我写本手册时权衡了完整和快查两个需求，力求简明而不简单
-
-                <a class="readmore" href="/markdown-and-latex-equation-handbook.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
