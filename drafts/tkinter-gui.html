@@ -3,7 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <title>Tkinter GUI编程实践与入门指南</title>
-        <link rel="stylesheet" href="http://www.domuse.com/theme/css/main.css" />
+        <link rel="stylesheet" href="http://localhost:8000/theme/css/main.css" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,29 +12,30 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="http://www.domuse.com/">Leon's blog  <strong>读书写字和思考的地方</strong></a></h1>
+                <h1><a href="http://localhost:8000/">Leon's blog  <strong>读书写字和思考的地方</strong></a></h1>
                 <nav><ul>
-                    <li><a href="http://www.domuse.com/pages/about.html">About</a></li>
-                    <li><a href="http://www.domuse.com/category/muse.html">Muse</a></li>
-                    <li><a href="http://www.domuse.com/category/physics.html">Physics</a></li>
-                    <li class="active"><a href="http://www.domuse.com/category/python.html">Python</a></li>
+                    <li><a href="/archives.html">Archive</a></li>
+                    <li><a href="http://localhost:8000/pages/about.html">About</a></li>
+                    <li><a href="http://localhost:8000/category/muse.html">Muse</a></li>
+                    <li><a href="http://localhost:8000/category/physics.html">Physics</a></li>
+                    <li class="active"><a href="http://localhost:8000/category/python.html">Python</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 <section id="content" class="body">
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="http://www.domuse.com/drafts/tkinter-gui.html" rel="bookmark"
+        <a href="http://localhost:8000/drafts/tkinter-gui.html" rel="bookmark"
            title="Permalink to Tkinter GUI编程实践与入门指南">Tkinter GUI编程实践与入门指南</a></h1>
     </header>
 
     <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2015-08-30T00:00:00+08:00">
-                发表时间: 2015-08-30
+                发表: 2015-08-30
         </abbr>
 
-<p>标签: <a href="http://www.domuse.com/tag/python.html">python</a> <a href="http://www.domuse.com/tag/gui.html">GUI</a> <a href="http://www.domuse.com/tag/tkinter.html">tkinter</a> </p>
+<p>标签: <a href="http://localhost:8000/tag/python.html">python</a> <a href="http://localhost:8000/tag/gui.html">GUI</a> <a href="http://localhost:8000/tag/tkinter.html">tkinter</a> </p>
 </footer><!-- /.post-info -->      <p>Tkinter是Python内建的GUI库，简单易学。上周我用了三天时间实现了自己的第一个GUI应用——Data Preview，在编写过程中我发现tkinter的中文资料不多，且比较零散，本文是我的个人总结，同时也有意写成新手入门指南的风格，本文预计会不断更新以使架构更加合理，行文更加流畅易懂。</p>
 <p>GUI（图形用户界面）应用其实非常适合用面向对象（OOP）的编程范式来组织代码，虽然在网络上搜索到的诸多代码片段都是用快速的方式来调用tkinter库，但是这不利于较大的GUI编写。tkinter标准库封装了Tk/Tcl语言，实际上我并不了解，但无碍于我们写一个真实世界的GUI应用（不然封装API干嘛）。可以想象，整个GUI程序就是个父对象，其包含的一些控件（widgets）是子对象，对象的属性可以呈现出可见的状态，当我们通过鼠标或键盘等方式输入时，这些事件（event-driven）会调用对象的方法（即一些函数）来完成对象属性的改变和对象间消息的传递，于是我们看到GUI的外观刷新了。在我写Data Preview的过程中，我理解了GUI的抽象逻辑，所以重构过一次代码，这对编写复杂的GUI应用会有帮助。</p>
     </div><!-- /.entry-content -->
@@ -45,7 +46,7 @@
                 <div class="blogroll">
                         <h2>links</h2>
                         <ul>
-                            <li><a href="http://python.org/">Python</a></li>
+                            <li><a href="http://www.domuse.com/">DoMuse</a></li>
                             <li><a href="http://scipy.org/">Scipy.org</a></li>
                             <li><a href="http://sciencefan.org/">ScienceFan</a></li>
                         </ul>

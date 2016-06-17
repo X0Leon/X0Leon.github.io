@@ -3,7 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <title>Leon's blog - Leon</title>
-        <link rel="stylesheet" href="http://www.domuse.com/theme/css/main.css" />
+        <link rel="stylesheet" href="http://localhost:8000/theme/css/main.css" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,29 +12,34 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="http://www.domuse.com/">Leon's blog  <strong>读书写字和思考的地方</strong></a></h1>
+                <h1><a href="http://localhost:8000/">Leon's blog  <strong>读书写字和思考的地方</strong></a></h1>
                 <nav><ul>
-                    <li><a href="http://www.domuse.com/pages/about.html">About</a></li>
-                    <li><a href="http://www.domuse.com/category/muse.html">Muse</a></li>
-                    <li><a href="http://www.domuse.com/category/physics.html">Physics</a></li>
-                    <li><a href="http://www.domuse.com/category/python.html">Python</a></li>
+                    <li><a href="/archives.html">Archive</a></li>
+                    <li><a href="http://localhost:8000/pages/about.html">About</a></li>
+                    <li><a href="http://localhost:8000/category/muse.html">Muse</a></li>
+                    <li><a href="http://localhost:8000/category/physics.html">Physics</a></li>
+                    <li><a href="http://localhost:8000/category/python.html">Python</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://www.domuse.com/landauer-buttiker.html">Landauer-Buttiker公式与S矩阵</a></h1>
+                    <h1 class="entry-title"><a href="http://localhost:8000/landauer-buttiker.html">Landauer-Buttiker公式与S矩阵</a></h1>
 <footer class="post-info">
         <abbr class="published" title="2016-06-14T00:00:00+08:00">
-                发表时间: 2016-06-14
+                发表: 2016-06-14
         </abbr>
 
-<p>标签: <a href="http://www.domuse.com/tag/physics.html">physics</a> </p>
+<p>标签: <a href="http://localhost:8000/tag/physics.html">physics</a> </p>
 </footer><!-- /.post-info -->
 
 <p>介观物理体系中的“实验-理论-计算”的全栈探究。</p>
 <p>介观物理体系的尺度接近表征量子行为的特征长度——在Fermi面附近的电子de Broglie波长<span class="math">\(\lambda_F\)</span>、动量本征态散射的平均自由程<span class="math">\(l\)</span>或相位相干长度<span class="math">\(l_{\varphi}\)</span>，电子的输运表现出很多新奇的特性，如电阻的非局域性，普适电导涨落等，所有这些特性都是由量子规律支配的，更具体地说，是由于电子的量子相干所产生的。八十年代以来，介观体系的研究逐渐发展成一个凝聚态物理的一个新领域，成为沟通宏观和量子、统计力学的一个桥梁。
 </p>
+<div class="highlight"><pre><span></span>经典的输运理论核心是由牛顿力学（+熵）得到的玻尔兹曼方程；量子输运的主要理论是薛定谔方程（+熵）[导体+电极的影响]得到的（非平衡）格林函数方法。在介观的体系中，主要的问题落在求解薛定谔方程中的Halmitonian。
+</pre></div>
+
+
 <p>目前已经有几套理论可以用来研究介观体系的电子输运现象，著名的有Landauer理论（1957）和Kubo与Greenwood提出的线性响应理论（1957），80年代后期，Buttiker等推广了两端的Landauer理论，使其使用于多端多通道，即著名的Landauer-Buttiker（L-B）公式。Kubo线性响应公式主要采用量子统计方法计算非局域响应函数<span class="math">\(\sigma(x,x^{'})\)</span>，而L-B公式基于量子力学的散射理论，通过计算电子在散射区域的散射矩阵来计算电导。后来，人们发现L-B公式对介观输运的计算更加合适，用电子波的散射来描述其中的物理过程比较直观，数学上也不是很难处理。现在Landauer-Buttiker公式在介观物理中具有非常重要的地位。</p>
 <p>具体计算散射区域的透射反射系数有转移矩阵（或称传输矩阵）方法、递归格林函数方法（RGF）等。其中又以递归格林函数的算法比较稳定，能克服数值溢出的问题，但随着体系增大，RGF方法也比较耗时。以上算法都是单电子近似下发展起来的，且我们这里主要讨论紧束缚近似。</p>
 <p>对于相关的理论介绍可以参考经典之作 <em>Electrionic transport in mesoscopic systems</em>(Supriyo Datta)。在理论部分我们直接引用相关的结果，而不提供详细的数学推导，但给出核心的思路和物理图像。</p>
@@ -243,7 +248,7 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-</script><p><a href="http://www.domuse.com/landauer-buttiker.html#disqus_thread">查看评论</a>.</p>                </article>
+</script><p><a href="http://localhost:8000/landauer-buttiker.html#disqus_thread">查看评论</a>.</p>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
@@ -252,7 +257,7 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://www.domuse.com/peom-suzhou.html" rel="bookmark"
+                    <h1><a href="http://localhost:8000/peom-suzhou.html" rel="bookmark"
                            title="Permalink to 旅行的诗">旅行的诗</a></h1>
                 </header>
 
@@ -261,13 +266,13 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
 
 <p>题注：忽然想去旅行，于是休了假。第一站是苏州，只买到慢车卧铺票，父亲说：旅行是急不来的，路上的风景即时旅行。在去上海的途中，我问自己：干嘛不去青岛看看啊？！便取消了第三站嘉兴的行程，临时买了机票从虹桥飞到流亭。景语皆情语，得几句小诗，抄录如下。其中，我在苏州写了三首，上海一首，而在青岛只顾吃海鲜、走海滩、泡海澡、喝青啤咯
 
-                <a class="readmore" href="http://www.domuse.com/peom-suzhou.html">阅读全文</a>
+                <a class="readmore" href="http://localhost:8000/peom-suzhou.html">阅读全文</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://www.domuse.com/liquid-nitrogen-ice-cream.html" rel="bookmark"
+                    <h1><a href="http://localhost:8000/liquid-nitrogen-ice-cream.html" rel="bookmark"
                            title="Permalink to 液氮冰淇淋制作">液氮冰淇淋制作</a></h1>
                 </header>
 
@@ -275,25 +280,25 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
                 
 
 <p>&emsp;&emsp;去年夏天就想做液氮冰淇淋，而这个想法更早是来源于本科时代的《超导理论》课，记得教授还提醒我们说刚做完之后不要立刻吃，否则会粘舌头云云。那时我的内心是激动的，用知乎体来表述就是“吃液氮冰淇淋是一种怎样的体验？”不过，对于我这种geek型吃货而言，做的过程显然也是一种享受呐
-                <a class="readmore" href="http://www.domuse.com/liquid-nitrogen-ice-cream.html">阅读全文</a>
+                <a class="readmore" href="http://localhost:8000/liquid-nitrogen-ice-cream.html">阅读全文</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://www.domuse.com/data-preview-release.html" rel="bookmark"
+                    <h1><a href="http://localhost:8000/data-preview-release.html" rel="bookmark"
                            title="Permalink to Data Preview v0.1 released">Data Preview v0.1 released</a></h1>
                 </header>
 
                 <div class="entry-content">
                 <p>Data Preview is a simple Python GUI program (using tkinter at present, maybe PyQt in the next version) to automatically convert the experimental data (just tsv format in this version) to graph by clicking the filename. A set of data files can also be simply merged together into a single ...</p>
-                <a class="readmore" href="http://www.domuse.com/data-preview-release.html">阅读全文</a>
+                <a class="readmore" href="http://localhost:8000/data-preview-release.html">阅读全文</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://www.domuse.com/is-the-world-understandable.html" rel="bookmark"
+                    <h1><a href="http://localhost:8000/is-the-world-understandable.html" rel="bookmark"
                            title="Permalink to 不确定性与不可知论">不确定性与不可知论</a></h1>
                 </header>
 
@@ -302,13 +307,13 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
 
 <p>&emsp;&emsp;牛顿的静态、机械的宇宙观蕴含着决定论，到拉普拉斯时为甚，他认为只要能收集到宇宙运行的足够数据，就可以预测宇宙的未来。抛开哲学思辨的探讨，决定论真正受到严肃的科学挑战是上世纪量子论的发展。量子理论的诞生不仅在科学上是一次开天辟地的大事，在哲学上也不同凡响：一方面，过去哲学中休眠的观念又有了生命活力，例如客观实在性
 
-                <a class="readmore" href="http://www.domuse.com/is-the-world-understandable.html">阅读全文</a>
+                <a class="readmore" href="http://localhost:8000/is-the-world-understandable.html">阅读全文</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://www.domuse.com/unnamed-peom.html" rel="bookmark"
+                    <h1><a href="http://localhost:8000/unnamed-peom.html" rel="bookmark"
                            title="Permalink to 未名的诗">未名的诗</a></h1>
                 </header>
 
@@ -317,25 +322,25 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
 
 <p>题注：前天晚上，翻到几首小诗，誊抄在这。只有第一首有题目，其他几乎都是以类似于“燕园速写”为题，故皆集于此。以“未名”为题也妥当，切情切景，园子里是流传着一句诗文的：未名湖是个海洋，诗人都藏在水底。我虽然不能成为诗人，但谁也不能阻止我瞎写啊。另外，此页的存在也有助于我寻找那些曾经遗失的文字
 
-                <a class="readmore" href="http://www.domuse.com/unnamed-peom.html">阅读全文</a>
+                <a class="readmore" href="http://localhost:8000/unnamed-peom.html">阅读全文</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://www.domuse.com/why-physicist-need-python.html" rel="bookmark"
+                    <h1><a href="http://localhost:8000/why-physicist-need-python.html" rel="bookmark"
                            title="Permalink to Why physics students and physicists need python?">Why physics students and physicists need python?</a></h1>
                 </header>
 
                 <div class="entry-content">
                 <p>Nowadays, the <a href="https://www.python.org/" target="_blank">Python</a> language has become a widely used tool for scientists and engineers, which is fully stacked with powerful support packages, such as numpy and scipy. However, I came across Python due to the need of an easy-to-use web framework until last summer. After several days of trails, I ...</p>
-                <a class="readmore" href="http://www.domuse.com/why-physicist-need-python.html">阅读全文</a>
+                <a class="readmore" href="http://localhost:8000/why-physicist-need-python.html">阅读全文</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://www.domuse.com/thermal-motion-concept.html" rel="bookmark"
+                    <h1><a href="http://localhost:8000/thermal-motion-concept.html" rel="bookmark"
                            title="Permalink to 浅析热运动">浅析热运动</a></h1>
                 </header>
 
@@ -344,20 +349,20 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
 
 <p>&emsp;&emsp;物理的奇妙之处在于，它试图探究世界的本原、真实客观的存在；善用数学但不囿于数学，而且有哲学思辨的魅力。理解物理规律往往先从现象（自然语言）描述出发，经过理论（数学公式）推演，最后直达事物本质。这篇短文藉此谈谈篇首说的“物质分子处于不停顿的无规则的运动状态”，直观来看，比较容易接受。但仔细想想什么意思？这句话有两个定语，我们可以审视一番。“不停顿”是指微观粒子不会待着不动，动能不为零，这句话没有提到限定条件，也即是说在任何情形下微观粒子都在运动。说到“任何情形”，有人可能就会怀疑了，怀疑是可贵的
 
-                <a class="readmore" href="http://www.domuse.com/thermal-motion-concept.html">阅读全文</a>
+                <a class="readmore" href="http://localhost:8000/thermal-motion-concept.html">阅读全文</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
 <p class="paginator">
     Page 1 / 2
-        <a href="http://www.domuse.com/author/leon2.html">&raquo;</a>
+        <a href="http://localhost:8000/author/leon2.html">&raquo;</a>
 </p>
                 </section><!-- /#content -->
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>links</h2>
                         <ul>
-                            <li><a href="http://python.org/">Python</a></li>
+                            <li><a href="http://www.domuse.com/">DoMuse</a></li>
                             <li><a href="http://scipy.org/">Scipy.org</a></li>
                             <li><a href="http://sciencefan.org/">ScienceFan</a></li>
                         </ul>
