@@ -3,7 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <title>Leon's blog - Physics</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link rel="stylesheet" href="http://www.domuse.com/theme/css/main.css" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,32 +12,24 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">Leon's blog  <strong>读书写字和思考的地方</strong></a></h1>
+                <h1><a href="http://www.domuse.com/">Leon's blog  <strong>读书写字和思考的地方</strong></a></h1>
                 <nav><ul>
-                    <li><a href="/pages/about.html">About</a></li>
-                    <li><a href="/category/muse.html">Muse</a></li>
-                    <li class="active"><a href="/category/physics.html">Physics</a></li>
-                    <li><a href="/category/python.html">Python</a></li>
+                    <li><a href="http://www.domuse.com/pages/about.html">About</a></li>
+                    <li><a href="http://www.domuse.com/category/muse.html">Muse</a></li>
+                    <li class="active"><a href="http://www.domuse.com/category/physics.html">Physics</a></li>
+                    <li><a href="http://www.domuse.com/category/python.html">Python</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/landauer-buttiker.html">Landauer-Buttiker公式与S矩阵</a></h1>
+                    <h1 class="entry-title"><a href="http://www.domuse.com/landauer-buttiker.html">Landauer-Buttiker公式与S矩阵</a></h1>
 <footer class="post-info">
         <abbr class="published" title="2016-06-14T00:00:00+08:00">
-                Published: 2016-06-14
-        </abbr>
-		<br />
-        <abbr class="modified" title="2016-06-16T00:00:00+08:00">
-                Updated: 2016-06-16
+                发表时间: 2016-06-14
         </abbr>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/leon.html">Leon</a>
-        </address>
-<p>In <a href="/category/physics.html">Physics</a>.</p>
-<p>tags: <a href="/tag/physics.html">physics</a> </p>
+<p>标签: <a href="http://www.domuse.com/tag/physics.html">physics</a> </p>
 </footer><!-- /.post-info -->
 
 <p>介观物理体系中的“实验-理论-计算”的全栈探究。</p>
@@ -167,7 +159,7 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
 \end{array}\right]$$</div>
 <p>
 这和我们直接写紧束缚近似下一维原子链的Hamiltonian是一样的，原子处的局域势<span class="math">\(U_j+2t\)</span>，t是相邻原子的跃迁矩阵元，或者称为交叠积分。波函数的求解，以及色散关系也很简单，固体物理书都有，不再讨论。</p>
-<p>**自能（Self-enengy）</p>
+<p><strong>自能</strong>（Self-enengy）</p>
 <p>似乎我们求逆<span class="math">\(G_R=[(E+i\eta)I-H]^{-1}\)</span>就可以求解到格林函数，但并不是，因为导体上连接了半无线长的电极呢，这里是一个开放体系，矩阵是无穷大的，解决的方法是考虑电极和导体最近邻的原子才有耦合，<span class="math">\(\tau_p(p_i,i)=t\)</span>。将矩阵分块写成
 </p>
 <div class="math">$$\left( \begin{array}{cc}
@@ -185,7 +177,7 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
 <p>
 其中自能<span class="math">\(\Sigma^R=\sum_p\Sigma_p^R\)</span>，<span class="math">\(\Sigma_p^R(i,j)=t^2g_p^R(p_i,p_j)\)</span>，<span class="math">\(g_p^R=[(E+i\eta)I-H_p]^{-1}\)</span>
 这样，我们把电极的影响通过自能项表达出来，矩阵的大小变成有限。<span class="math">\(g_p^R(p_i,p_j)\)</span>也可以进一步算出来。</p>
-<p>**透射函数</p>
+<p><strong>透射函数</strong></p>
 <p>于是我们通过Fisher-Lee关系，可以计算得到
 </p>
 <div class="math">$$\bar{T}_{pq}=Tr[\Gamma_p G^R \Gamma_q G^A]$$</div>
@@ -194,7 +186,7 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
 <p>Green函数和其他物理量（普函数、局域态密度等）、及其他理论方法（Kubo响应、转移矩阵方法）的关系不再讨论。</p>
 <p>考虑电子-电子、电子-声子相互作用时，非平衡格林函数方法（NEGF）应用很广泛，但是超出了本文的范畴，可以参考Datta的著作。</p>
 <h1>Python计算</h1>
-<p>别忘了，我们的目标是使用紧束缚近似来计算真实的介观体系，目前这里打算用Python开源库kwant来进行计算，关于这方面的详细介绍，我们下一篇文章再探究和展示。</p>
+<p>别忘了，我们还有一个目标是使用紧束缚近似模型来计算真实的介观物理体系，目前打算用Python来计算，下一篇文章介绍。</p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
@@ -251,7 +243,7 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-</script>                </article>
+</script><p><a href="http://www.domuse.com/landauer-buttiker.html#disqus_thread">查看评论</a>.</p>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
@@ -260,101 +252,57 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="/liquid-nitrogen-ice-cream.html" rel="bookmark"
+                    <h1><a href="http://www.domuse.com/liquid-nitrogen-ice-cream.html" rel="bookmark"
                            title="Permalink to 液氮冰淇淋制作">液氮冰淇淋制作</a></h1>
                 </header>
 
                 <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2015-08-25T00:00:00+08:00">
-                Published: 2015-08-25
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/leon.html">Leon</a>
-        </address>
-<p>In <a href="/category/physics.html">Physics</a>.</p>
-<p>tags: <a href="/tag/life.html">life</a> <a href="/tag/physics.html">physics</a> </p>
-</footer><!-- /.post-info -->                
+                
 
 <p>&emsp;&emsp;去年夏天就想做液氮冰淇淋，而这个想法更早是来源于本科时代的《超导理论》课，记得教授还提醒我们说刚做完之后不要立刻吃，否则会粘舌头云云。那时我的内心是激动的，用知乎体来表述就是“吃液氮冰淇淋是一种怎样的体验？”不过，对于我这种geek型吃货而言，做的过程显然也是一种享受呐
-                <a class="readmore" href="/liquid-nitrogen-ice-cream.html">read more</a>
+                <a class="readmore" href="http://www.domuse.com/liquid-nitrogen-ice-cream.html">阅读全文</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="/is-the-world-understandable.html" rel="bookmark"
+                    <h1><a href="http://www.domuse.com/is-the-world-understandable.html" rel="bookmark"
                            title="Permalink to 不确定性与不可知论">不确定性与不可知论</a></h1>
                 </header>
 
                 <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2015-07-22T00:00:00+08:00">
-                Published: 2015-07-22
-        </abbr>
-		<br />
-        <abbr class="modified" title="2015-07-24T00:00:00+08:00">
-                Updated: 2015-07-24
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/leon.html">Leon</a>
-        </address>
-<p>In <a href="/category/physics.html">Physics</a>.</p>
-<p>tags: <a href="/tag/physcics.html">physcics</a> <a href="/tag/muse.html">muse</a> </p>
-</footer><!-- /.post-info -->                
+                
 
 <p>&emsp;&emsp;牛顿的静态、机械的宇宙观蕴含着决定论，到拉普拉斯时为甚，他认为只要能收集到宇宙运行的足够数据，就可以预测宇宙的未来。抛开哲学思辨的探讨，决定论真正受到严肃的科学挑战是上世纪量子论的发展。量子理论的诞生不仅在科学上是一次开天辟地的大事，在哲学上也不同凡响：一方面，过去哲学中休眠的观念又有了生命活力，例如客观实在性
 
-                <a class="readmore" href="/is-the-world-understandable.html">read more</a>
+                <a class="readmore" href="http://www.domuse.com/is-the-world-understandable.html">阅读全文</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="/why-physicist-need-python.html" rel="bookmark"
+                    <h1><a href="http://www.domuse.com/why-physicist-need-python.html" rel="bookmark"
                            title="Permalink to Why physics students and physicists need python?">Why physics students and physicists need python?</a></h1>
                 </header>
 
                 <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-10-13T00:00:00+08:00">
-                Published: 2014-10-13
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/leon.html">Leon</a>
-        </address>
-<p>In <a href="/category/physics.html">Physics</a>.</p>
-<p>tags: <a href="/tag/python.html">python</a> <a href="/tag/physics.html">physics</a> <a href="/tag/scipy.html">scipy</a> <a href="/tag/numerical.html">numerical</a> </p>
-</footer><!-- /.post-info -->                <p>Nowadays, the <a href="https://www.python.org/" target="_blank">Python</a> language has become a widely used tool for scientists and engineers, which is fully stacked with powerful support packages, such as numpy and scipy. However, I came across Python due to the need of an easy-to-use web framework until last summer. After several days of trails, I ...</p>
-                <a class="readmore" href="/why-physicist-need-python.html">read more</a>
+                <p>Nowadays, the <a href="https://www.python.org/" target="_blank">Python</a> language has become a widely used tool for scientists and engineers, which is fully stacked with powerful support packages, such as numpy and scipy. However, I came across Python due to the need of an easy-to-use web framework until last summer. After several days of trails, I ...</p>
+                <a class="readmore" href="http://www.domuse.com/why-physicist-need-python.html">阅读全文</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="/thermal-motion-concept.html" rel="bookmark"
+                    <h1><a href="http://www.domuse.com/thermal-motion-concept.html" rel="bookmark"
                            title="Permalink to 浅析热运动">浅析热运动</a></h1>
                 </header>
 
                 <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-10-11T00:00:00+08:00">
-                Published: 2014-10-11
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/leon.html">Leon</a>
-        </address>
-<p>In <a href="/category/physics.html">Physics</a>.</p>
-<p>tags: <a href="/tag/physics.html">physics</a> </p>
-</footer><!-- /.post-info -->                
+                
 
 <p>&emsp;&emsp;物理的奇妙之处在于，它试图探究世界的本原、真实客观的存在；善用数学但不囿于数学，而且有哲学思辨的魅力。理解物理规律往往先从现象（自然语言）描述出发，经过理论（数学公式）推演，最后直达事物本质。这篇短文藉此谈谈篇首说的“物质分子处于不停顿的无规则的运动状态”，直观来看，比较容易接受。但仔细想想什么意思？这句话有两个定语，我们可以审视一番。“不停顿”是指微观粒子不会待着不动，动能不为零，这句话没有提到限定条件，也即是说在任何情形下微观粒子都在运动。说到“任何情形”，有人可能就会怀疑了，怀疑是可贵的
 
-                <a class="readmore" href="/thermal-motion-concept.html">read more</a>
+                <a class="readmore" href="http://www.domuse.com/thermal-motion-concept.html">阅读全文</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
@@ -393,5 +341,14 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
     </script>
+<script type="text/javascript">
+    var disqus_shortname = 'leonpelican';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
 </body>
 </html>

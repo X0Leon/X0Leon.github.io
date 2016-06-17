@@ -91,6 +91,7 @@ li { margin-top: 0.5em;
     float:right;
     margin:10px;
     padding:5px;
+    /* display: none; /* 自己添加的 */
 }
 
 .post-info p{
@@ -450,3 +451,11 @@ li:last-child .hentry, #content > .hentry {border: 0; margin: 0;}
 	
 	#add-comment input[type='submit'] {float: right; margin: 0 .5em;}
 	#add-comment * {margin-bottom: .5em;}
+
+/* 修改 */
+div.input_prompt{
+	min-width: 0px
+}
+div.output_prompt{
+	min-width: 0px
+}

@@ -3,7 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <title>Leon's blog - pelican</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link rel="stylesheet" href="http://www.domuse.com/theme/css/main.css" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,32 +12,24 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">Leon's blog  <strong>读书写字和思考的地方</strong></a></h1>
+                <h1><a href="http://www.domuse.com/">Leon's blog  <strong>读书写字和思考的地方</strong></a></h1>
                 <nav><ul>
-                    <li><a href="/pages/about.html">About</a></li>
-                    <li><a href="/category/muse.html">Muse</a></li>
-                    <li><a href="/category/physics.html">Physics</a></li>
-                    <li><a href="/category/python.html">Python</a></li>
+                    <li><a href="http://www.domuse.com/pages/about.html">About</a></li>
+                    <li><a href="http://www.domuse.com/category/muse.html">Muse</a></li>
+                    <li><a href="http://www.domuse.com/category/physics.html">Physics</a></li>
+                    <li><a href="http://www.domuse.com/category/python.html">Python</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/this-blog.html">Pelican静态博客架设</a></h1>
+                    <h1 class="entry-title"><a href="http://www.domuse.com/this-blog.html">Pelican静态博客架设</a></h1>
 <footer class="post-info">
         <abbr class="published" title="2014-10-04T00:00:00+08:00">
-                Published: 2014-10-04
-        </abbr>
-		<br />
-        <abbr class="modified" title="2016-06-09T00:00:00+08:00">
-                Updated: 2016-06-09
+                发表时间: 2014-10-04
         </abbr>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/leon.html">Leon</a>
-        </address>
-<p>In <a href="/category/python.html">Python</a>.</p>
-<p>tags: <a href="/tag/pelican.html">pelican</a> <a href="/tag/python.html">python</a> </p>
+<p>标签: <a href="http://www.domuse.com/tag/pelican.html">pelican</a> <a href="http://www.domuse.com/tag/python.html">python</a> </p>
 </footer><!-- /.post-info -->
 
 <p>虽然是更新，但这篇文章是完全重写，之前的版本是英文写的。</p>
@@ -81,7 +73,13 @@
 </pre></div>
 
 
-<p>希望支持Ipython/Jupyter Notebook，使用<a href="https://github.com/getpelican/pelican-plugins/tree/master/liquid_tags" target="_blank">liquid_tags</a>插件或者<a href="https://github.com/danielfrg/pelican-ipynbs" target="_blank">pelican-ipynb</a>。</p>                </article>
+<p>希望支持Ipython/Jupyter Notebook，使用<a href="https://github.com/getpelican/pelican-plugins/tree/master/liquid_tags" target="_blank">liquid_tags</a>插件或者<a href="https://github.com/danielfrg/pelican-ipynb" target="_blank">pelican-ipynb</a>。</p>
+<p>更新：2016-06-17</p>
+<ul>
+<li>使用pelican-ipynb支持Ipython Notebook作为博文发表</li>
+<li>对由notmyidea衍生的littleidea主题进行较多修改：本地化、简化文章信息、CSS使用ipython notebook</li>
+<li>使用Disqus支持评论</li>
+</ul><p><a href="http://www.domuse.com/this-blog.html#disqus_thread">查看评论</a>.</p>                </article>
             </aside><!-- /#featured -->
         <section id="extras" class="body">
                 <div class="blogroll">
@@ -117,5 +115,14 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
     </script>
+<script type="text/javascript">
+    var disqus_shortname = 'leonpelican';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
 </body>
 </html>

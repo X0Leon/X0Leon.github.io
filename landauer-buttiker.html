@@ -3,7 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <title>Landauer-Buttiker公式与S矩阵</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link rel="stylesheet" href="http://www.domuse.com/theme/css/main.css" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,37 +12,29 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">Leon's blog  <strong>读书写字和思考的地方</strong></a></h1>
+                <h1><a href="http://www.domuse.com/">Leon's blog  <strong>读书写字和思考的地方</strong></a></h1>
                 <nav><ul>
-                    <li><a href="/pages/about.html">About</a></li>
-                    <li><a href="/category/muse.html">Muse</a></li>
-                    <li class="active"><a href="/category/physics.html">Physics</a></li>
-                    <li><a href="/category/python.html">Python</a></li>
+                    <li><a href="http://www.domuse.com/pages/about.html">About</a></li>
+                    <li><a href="http://www.domuse.com/category/muse.html">Muse</a></li>
+                    <li class="active"><a href="http://www.domuse.com/category/physics.html">Physics</a></li>
+                    <li><a href="http://www.domuse.com/category/python.html">Python</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 <section id="content" class="body">
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="/landauer-buttiker.html" rel="bookmark"
+        <a href="http://www.domuse.com/landauer-buttiker.html" rel="bookmark"
            title="Permalink to Landauer-Buttiker公式与S矩阵">Landauer-Buttiker公式与S矩阵</a></h1>
     </header>
 
     <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2016-06-14T00:00:00+08:00">
-                Published: 2016-06-14
-        </abbr>
-		<br />
-        <abbr class="modified" title="2016-06-16T00:00:00+08:00">
-                Updated: 2016-06-16
+                发表时间: 2016-06-14
         </abbr>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/leon.html">Leon</a>
-        </address>
-<p>In <a href="/category/physics.html">Physics</a>.</p>
-<p>tags: <a href="/tag/physics.html">physics</a> </p>
+<p>标签: <a href="http://www.domuse.com/tag/physics.html">physics</a> </p>
 </footer><!-- /.post-info -->      
 
 <p>介观物理体系中的“实验-理论-计算”的全栈探究。</p>
@@ -172,7 +164,7 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
 \end{array}\right]$$</div>
 <p>
 这和我们直接写紧束缚近似下一维原子链的Hamiltonian是一样的，原子处的局域势<span class="math">\(U_j+2t\)</span>，t是相邻原子的跃迁矩阵元，或者称为交叠积分。波函数的求解，以及色散关系也很简单，固体物理书都有，不再讨论。</p>
-<p>**自能（Self-enengy）</p>
+<p><strong>自能</strong>（Self-enengy）</p>
 <p>似乎我们求逆<span class="math">\(G_R=[(E+i\eta)I-H]^{-1}\)</span>就可以求解到格林函数，但并不是，因为导体上连接了半无线长的电极呢，这里是一个开放体系，矩阵是无穷大的，解决的方法是考虑电极和导体最近邻的原子才有耦合，<span class="math">\(\tau_p(p_i,i)=t\)</span>。将矩阵分块写成
 </p>
 <div class="math">$$\left( \begin{array}{cc}
@@ -190,7 +182,7 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
 <p>
 其中自能<span class="math">\(\Sigma^R=\sum_p\Sigma_p^R\)</span>，<span class="math">\(\Sigma_p^R(i,j)=t^2g_p^R(p_i,p_j)\)</span>，<span class="math">\(g_p^R=[(E+i\eta)I-H_p]^{-1}\)</span>
 这样，我们把电极的影响通过自能项表达出来，矩阵的大小变成有限。<span class="math">\(g_p^R(p_i,p_j)\)</span>也可以进一步算出来。</p>
-<p>**透射函数</p>
+<p><strong>透射函数</strong></p>
 <p>于是我们通过Fisher-Lee关系，可以计算得到
 </p>
 <div class="math">$$\bar{T}_{pq}=Tr[\Gamma_p G^R \Gamma_q G^A]$$</div>
@@ -199,7 +191,7 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
 <p>Green函数和其他物理量（普函数、局域态密度等）、及其他理论方法（Kubo响应、转移矩阵方法）的关系不再讨论。</p>
 <p>考虑电子-电子、电子-声子相互作用时，非平衡格林函数方法（NEGF）应用很广泛，但是超出了本文的范畴，可以参考Datta的著作。</p>
 <h1>Python计算</h1>
-<p>别忘了，我们的目标是使用紧束缚近似来计算真实的介观体系，目前这里打算用Python开源库kwant来进行计算，关于这方面的详细介绍，我们下一篇文章再探究和展示。</p>
+<p>别忘了，我们还有一个目标是使用紧束缚近似模型来计算真实的介观物理体系，目前打算用Python来计算，下一篇文章介绍。</p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
@@ -258,6 +250,21 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
 }
 </script>
     </div><!-- /.entry-content -->
+    <div class="comments">
+      <h2>评论</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_shortname = 'leonpelican';
+        var disqus_identifier = 'landauer-buttiker.html';
+        var disqus_url = 'http://www.domuse.com/landauer-buttiker.html';
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//leonpelican.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
 
   </article>
 </section>
@@ -295,5 +302,14 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
     </script>
+<script type="text/javascript">
+    var disqus_shortname = 'leonpelican';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
 </body>
 </html>
