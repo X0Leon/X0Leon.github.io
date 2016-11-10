@@ -19,6 +19,7 @@
                     <li><a href="http://www.domuse.com/category/muse.html">Muse</a></li>
                     <li><a href="http://www.domuse.com/category/physics.html">Physics</a></li>
                     <li><a href="http://www.domuse.com/category/python.html">Python</a></li>
+                    <li><a href="http://www.domuse.com/category/quant.html">Quant</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
@@ -38,38 +39,38 @@
 </p>
 <h2>基础配置</h2>
 <p>使用GitShell:</p>
-<div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">d</span><span class="p">:</span><span class="o">//</span>
+<div class="highlight"><pre><span class="n">cd</span> <span class="n">d</span><span class="p">:</span><span class="o">//</span>
 <span class="n">mkdir</span> <span class="n">pelicanblog</span>
 <span class="n">cd</span> <span class="n">pelicanblog</span>
-<span class="n">virtualenv</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">site</span><span class="o">-</span><span class="n">package</span> <span class="n">venv</span> <span class="c1"># no extra packages, pure Python</span>
+<span class="n">virtualenv</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">site</span><span class="o">-</span><span class="n">package</span> <span class="n">venv</span> <span class="c"># no extra packages, pure Python</span>
 <span class="n">venv</span>\<span class="n">Scripts</span>\<span class="n">activate</span>
 
-<span class="n">pip</span> <span class="n">install</span> <span class="n">pelican</span> <span class="n">markdown</span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">pelican</span> <span class="n">markdown</span>
 
-<span class="n">mkdir</span> <span class="n">blog</span> <span class="c1"># Now, the fold &#39;blog&#39; and &#39;venv&#39; inside the top fold</span>
-<span class="n">cd</span> <span class="n">blog</span>
-<span class="n">pelican</span><span class="o">-</span><span class="n">quickstart</span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">mkdir</span> <span class="n">blog</span> <span class="c"># Now, the fold &#39;blog&#39; and &#39;venv&#39; inside the top fold</span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">cd</span> <span class="n">blog</span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">pelican</span><span class="o">-</span><span class="n">quickstart</span>
 </pre></div>
 
 
 <p>回答一些问题，就可以，后面pelicanconf.py中可以改。我们可以使用<a href="http://docs.getpelican.com/" target="_blank">Pelican官方教程</a>中的pelican命令来完成实验性的架设，实践中我们在Windows平台下最适合使用<a href="http://www.equation.com/servlet/equation.cmd?fa=make" target="_blank">make</a>来自动化生成博客内容。为了避免添加PATH路径，我们把make.exe文件直接放在系统中安装的Python文件夹中即可，这样在虚拟的环境中仍然可以使用。</p>
-<div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">html</span>
-<span class="n">make</span> <span class="n">regenerate</span> <span class="c1"># Or, make publish, we can find the meaning in the ‘Makefile’</span>
+<div class="highlight"><pre><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">make</span> <span class="n">html</span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">make</span> <span class="n">regenerate</span> <span class="c"># Or, make publish, we can find the meaning in the ‘Makefile’</span>
 </pre></div>
 
 
 <p>其实第一个指令会将content文件夹中的markdown文件转成output中的html文件，这个时候整个output中的内容已经可以使用，例如提交到Github Pages中。第二个命令是可以实时更新你在content中的修改。</p>
-<p>如果我们想在本地的开发服务器中看看网站的样子，需要另外用一个GitShell（默认的cmd也可以），进入venv下的blog中使用</p>
-<div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">serve</span>
+<p>如果我们想在本地的开发服务器 (http://localhost:8000/)中看看网站的样子，需要另外用一个GitShell（默认的cmd也可以），进入venv下的blog中使用</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">make</span> <span class="n">serve</span>
 </pre></div>
 
 
 <p>启用Pelican自带的开发服务器，指令的具体含义在Makefile文件中可以看，如果用python3的话，注意第一行<code>PY?=python3</code>，可能需要改成python，我这里就是这样，因为PATH路径中就是python命令。</p>
 <p>截止当前，写markdown文章，生成html，查看效果的循环已经备齐。学习使用markdown和LaTeX，参考博文<a href="/markdown-and-latex-equation-handbook.html">Markdown语法和LaTeX数学记号速查手册</a></p>
 <h2>常用插件</h2>
-<div class="highlight"><pre><span></span><span class="n">PLUGIN_PATHS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pelican-plugins&#39;</span><span class="p">]</span>
-<span class="n">PLUGINS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;render_math&#39;</span><span class="p">,</span>
+<div class="highlight"><pre><span class="n">PLUGIN_PATHS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;pelican-plugins&#39;</span><span class="p">]</span>
+<span class="n">PLUGINS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;summary&#39;</span><span class="p">,</span>
+           <span class="s">&#39;render_math&#39;</span><span class="p">,</span>
           <span class="p">]</span>
 </pre></div>
 

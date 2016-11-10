@@ -19,182 +19,68 @@
                     <li><a href="http://www.domuse.com/category/muse.html">Muse</a></li>
                     <li><a href="http://www.domuse.com/category/physics.html">Physics</a></li>
                     <li><a href="http://www.domuse.com/category/python.html">Python</a></li>
+                    <li><a href="http://www.domuse.com/category/quant.html">Quant</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://www.domuse.com/landauer-buttiker.html">Landauer-Buttiker公式与S矩阵</a></h1>
+                    <h1 class="entry-title"><a href="http://www.domuse.com/quant-backtester.html">量化回测框架</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2016-06-14T00:00:00+08:00">
-                发表: 2016-06-14
+        <abbr class="published" title="2016-11-10T00:00:00+08:00">
+                发表: 2016-11-10
         </abbr>
 
-<p>标签: <a href="http://www.domuse.com/tag/physics.html">physics</a> </p>
+<p>标签: <a href="http://www.domuse.com/tag/quant.html">quant</a> <a href="http://www.domuse.com/tag/backtest.html">backtest</a> </p>
 </footer><!-- /.post-info -->
+
+<p>让我们来设计一个真实的量化回测框架，由需求驱动，从简单到复杂，你准备好了吗？</p>
+<p>回测框架大致分为两种：for-loop(轮询)和event-driven(事件驱动)，前者进行向量化计算，速度更快，但不符合实盘交易的流程，后者采用逐个bar/tick读取数据，并产生交易信号的方式，利于统一回测和实盘的代码，部分解决“回测易、实盘难”的困境。
+</p>
+<h2>Roadmap</h2>
+<p>采用Python语言开发，开源框架XQuant</p>
+<p>Version 0.2: 完整的事件驱动引擎engine (2016年9月)</p>
+<p>Version 0.3: 清晰的架构，持续完善finance/utils/visual模块 (2016年10月)</p>
+<p><strong>TODO：</strong></p>
+<p>Version 0.4: 支持股票和CTA策略的滑点、手续费；logging功能</p>
+<p>Version 0.*: 模拟交易功能</p>
+<p>Version 0.*: Web GUI可视化</p>
+<p>Version 1.0: 支持实盘交易</p>
+<p>Copyright 2016 Leon，版权所有。供个人研究使用，不构成投资建议。</p><p><a href="http://www.domuse.com/quant-backtester.html#disqus_thread">查看评论</a>.</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://www.domuse.com/learn-redis.html" rel="bookmark"
+                           title="Permalink to Redis入门实践">Redis入门实践</a></h1>
+                </header>
+
+                <div class="entry-content">
+                
+
+<p>Redis（REmote DIctionaray Server）是key-value型内存数据库，值（value）可以是 符串(String), 哈希(Map), 列表(list), 集合(sets) 和有序集合(sorted sets)等类型，常用于热数据的<strong>缓存</strong>服务。常用的Python client是<a href="https://github.com/andymccurdy/redis-py">redis-py</a>。</p>
+<p>相比于python直接对内存操作，redis可以多进程和分布式使用，所以有便利性。我初次使用的诉求是将需要频繁IO的数据放入redis中，便于python调用。</p>
+
+                <a class="readmore" href="http://www.domuse.com/learn-redis.html">阅读全文</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://www.domuse.com/landauer-buttiker.html" rel="bookmark"
+                           title="Permalink to Landauer-Buttiker公式与S矩阵">Landauer-Buttiker公式与S矩阵</a></h1>
+                </header>
+
+                <div class="entry-content">
+                
 
 <p>介观物理体系中的“实验-理论-计算”的全栈探究。</p>
 <p>介观物理体系的尺度接近表征量子行为的特征长度——在Fermi面附近的电子de Broglie波长<span class="math">\(\lambda_F\)</span>、动量本征态散射的平均自由程<span class="math">\(l\)</span>或相位相干长度<span class="math">\(l_{\varphi}\)</span>，电子的输运表现出很多新奇的特性，如电阻的非局域性，普适电导涨落等，所有这些特性都是由量子规律支配的，更具体地说，是由于电子的量子相干所产生的。八十年代以来，介观体系的研究逐渐发展成一个凝聚态物理的一个新领域，成为沟通宏观和量子、统计力学的一个桥梁。
-</p>
-<div class="highlight"><pre><span></span>经典的输运理论核心是由牛顿力学（+熵）得到的玻尔兹曼方程；
-量子输运的主要理论是薛定谔方程（+熵）（导体+电极的影响）得到的非平衡格林函数方法。
-在介观的体系中，主要的问题落在求解薛定谔方程中的Halmitonian。
-</pre></div>
-
-
-<p>目前已经有几套理论可以用来研究介观体系的电子输运现象，著名的有Landauer理论（1957）和Kubo与Greenwood提出的线性响应理论（1957），80年代后期，Buttiker等推广了两端的Landauer理论，使其使用于多端多通道，即著名的Landauer-Buttiker（L-B）公式。Kubo线性响应公式主要采用量子统计方法计算非局域响应函数<span class="math">\(\sigma(x,x^{'})\)</span>，而L-B公式基于量子力学的散射理论，通过计算电子在散射区域的散射矩阵来计算电导。后来，人们发现L-B公式对介观输运的计算更加合适，用电子波的散射来描述其中的物理过程比较直观，数学上也不是很难处理。现在Landauer-Buttiker公式在介观物理中具有非常重要的地位。</p>
-<p>具体计算散射区域的透射反射系数有转移矩阵（或称传输矩阵）方法、递归格林函数方法（RGF）等。其中又以递归格林函数的算法比较稳定，能克服数值溢出的问题，但随着体系增大，RGF方法也比较耗时。以上算法都是单电子近似下发展起来的，且我们这里主要讨论紧束缚近似。</p>
-<p>对于相关的理论介绍可以参考经典之作 <em>Electrionic transport in mesoscopic systems</em>(Supriyo Datta)。在理论部分我们直接引用相关的结果，而不提供详细的数学推导，但给出核心的思路和物理图像。</p>
-<h1>Landauer公式</h1>
-<p>Landauer将电导解释成电子在两个电极之间的透射反射（可以将导体看作一个势垒），推导出
-</p>
-<div class="math">$$G=\frac{2e^2}{h}MT$$</div>
-<p>
-T代表电子从导体一端透射到另一端的平均几率，M是传输的模式（或称为通道），例如我们需要考虑尺寸效应劈裂的M个子能带。如果只有一个能带，M=1。此公式得到的一个令人惊讶的结果是“接触电阻”<span class="math">\(G^{-1}_C\)</span>，即使T=1，我们也会观察到电子库和导体的接触电阻，缘由是具有大量通道的电子库向较少通道边界的几何过渡。</p>
-<div class="math">$$G^{-1}=\frac{h}{2e^2M}\frac{1}{T}=G^{-1}_C+\frac{h}{2e^2M}\frac{1-T}{T}$$</div>
-<p>考虑两个电极的电化学式<span class="math">\(\mu\)</span>（即理想电子库），并将<span class="math">\(MT\)</span>写成<span class="math">\(\bar{T}\)</span>，得到两端的线性响应公式：
-</p>
-<div class="math">$$I=\frac{2e}{h}\bar{T}[\mu_1-\mu_2]$$</div>
-<h1>Buttiker公式</h1>
-<p>实际测量中往往既有电流端，又有电压端，常见的测量方式如四端法、Hall bar等，如何处理电压的电极呢？Buttiker提出一个优雅的解决方案：认为电流端和电压端没有本质区别，对它们使用同一角标（p和q）：</p>
-<div class="math">$$I_p=\frac{2e}{h}\sum_q[\bar{T}_{q\leftarrow p}\mu_p-\bar{T}_{p\leftarrow q}\mu_q]$$</div>
-<p>箭头表示电子是从第二个角标的电极传输到第一个角标的电极，为了简洁，后面我们省略此箭头。
-使用<span class="math">\(V=\mu/e\)</span>，并定义<span class="math">\(G_{pq}\equiv \frac{2e^2}{h}\bar{T}_{p\leftarrow q}\)</span>，改写成
-</p>
-<div class="math">$$I_p=\sum_q[G_{qp}V_p-G_{pq}V_q]$$</div>
-<p>由于电流守恒或者说所有电极电势相等时电流为零，我们有"sum rule"：<span class="math">\(\sum_q G_{qp}=\sum_q G_{pq}\)</span>，得到：
-</p>
-<div class="math">$$I_p=\sum_qG_{pq}[V_p-V_q]$$</div>
-<p>除了两电极时，<span class="math">\(G_{pq}=G_{qp}\)</span>，一般而言此式都不成立，有磁场B时的正确的“倒易关系”（Onsager-Casimir对称性）是：<span class="math">\([G_qp]_{+B}=[G_pq]_{-B}\)</span>。此式在下面介绍了散射矩阵后，很容易通过薛定谔方程来证明。用我们更熟悉的实验语言表述是，正负磁场下电阻不对称，但是同时交换电流和电压端，则曲线可以重合，表达式为：<span class="math">\(R_{mn,kl}(+B)=R_{kl,mn}(-B)\)</span>。这表明了介观系统的电导（电阻）具有非局域性。</p>
-<p>非零温时，需要考虑Fermi-Dirac分布，对于p电极<span class="math">\(f_p=1/(exp(\frac{E-\mu_p}{k_B T})+1)\)</span>，则
-</p>
-<div class="math">$$I_p=\int i_p(E)dE, \quad I_p(E)=\frac{2e}{h}\sum_q \bar{T}_{pq}(E)[f_p(E)-f_q(E)].$$</div>
-<p>Buttiker公式是比Landauer公式更普遍的情形，一般合称为Landauer-Buttiker公式。</p>
-<p><strong>如何使用呢？</strong>通常情况下只使用L-B公式并不能得到一个体系的电导，但如果体系为边缘态输运（如QH、QSH），<span class="math">\(T_{ij}\)</span>只在0和1之间取值，这时候可以立马得到不同测量方案中的电导，例如量子自选Hall效应中，<span class="math">\(R_{xx}=\frac{h}{2e^2}\)</span>，或者其他非标准Hall测量中的电阻也很容易计算出来。</p>
-<p>那更一般的体系呢？导体是如何计算电导和其他物理量，如局域态密度的呢？我们继续介绍散射矩阵和格林函数。</p>
-<h1>散射矩阵</h1>
-<p>如果导体的尺寸比相位相干长度小，电子输运就是相干的。前面我们展示了电流可以用透射函数来表达，现在我们来探讨透射函数和散射矩阵（S矩阵）的关系。对于一个具有量子相干性的金属导体，处于同一能量的在不同电极的电子的出射波函数振幅b正负通过S矩阵可以用入射波幅a表示。例如：对于两电极（p有两个通道1,2；q有一个通道3）三个通道的体系：
-</p>
-<div class="math">$$\left( \begin{array}{c}
-    b_1 \\
-    b_2 \\
-    b_3
-\end{array}\right)
-=
-\left[ \begin{array}{ccc}
-    s_{11} &amp; s_{12} &amp; s_{13} \\
-    s_{21} &amp; s_{22} &amp; s_{23} \\
-    s_{31} &amp; s_{32} &amp; s_{33}
-\end{array}\right]
-\left( \begin{array}{c}
-    a_1 \\
-    a_2 \\
-    a_3
-\end{array}\right)$$</div>
-<p>在给定能量E下，电极p的通道数记为<span class="math">\(M_p(E)\)</span>，所有通道数为<span class="math">\(M_T(E)=\sum M_p(E)\)</span>，则散射矩阵是<span class="math">\(M_T\times M_T\)</span>的，上例中为<span class="math">\(3\times 3\)</span>的矩阵。</p>
-<p>透射几率<span class="math">\(T_{mn}\)</span>与相应的S矩阵的矩阵元的关系是<span class="math">\(T_{m\leftarrow n}=|s_{m\leftarrow n}|^2\)</span>，表示n通道的电子散射到m通过的几率。电子在m通道的反射几率是<span class="math">\(R_{mm}=T_{mm}=|s_{mm}|^2\)</span>。也就是说，S矩阵的对角元的绝对值平方表示电子的反射几率，非对角元的绝对值平方和表示电子的透射几率。</p>
-<p>前面我们将<span class="math">\(MT\)</span>写成<span class="math">\(\bar{T}\)</span>，具体看来，透射函数<span class="math">\(\bar{T}_{pq}(E)\)</span>是对q电极的n个通道和p电极的m个通道求和：
-</p>
-<div class="math">$$\bar{T}_{p\leftarrow q}=\sum_{n\in q}\sum_{m\in p}T_{m\leftarrow n}$$</div>
-<p>S矩阵的关系式可以用矩阵标记和列向量标记简写成{b}=[S]{a}，如果我们认为通道m的电流正比于波函数振幅的几率<span class="math">\(|a_m|^2\)</span>或<span class="math">\(|b_m|^2\)</span>，可以得到S矩阵是幺正的（+表示共轭转置）
-</p>
-<div class="math">$$[S]^+[S]=I=[S][S]^+$$</div>
-<p>
-用矩阵元来表述为
-</p>
-<div class="math">$$\sum_{m=1}^{M_T}|s_{mn}|^2=1=\sum_{m=1}^{M_T}|s_{nm}|^2$$</div>
-<p>从给定的通道m散射到其他通道的几率累加起来为1，这似乎也挺直观的。</p>
-<p>关于S矩阵还可以深入讨论很多内容，但是这里不是全面的介绍，只是最核心的概念。接下来我们需要将理论往实际计算再推进一步。</p>
-<h1>Green函数</h1>
-<p>学习过数学物理方法的人都知道，格林函数是求解椭圆型方程（一种二次偏微分方程）的方法。S矩阵体现了一个电极处有激发，另一个电极处有响应的结果。<span class="math">\(G(r,r')\)</span>可以描述在任意点（导体内外）的激发和任意点的响应。对于无相互作用的体系，原则上不需要引入Green函数，但是它对计算任意形状的导体的S矩阵非常方便。格林函数更强大的能力体现在相互作用（如电子-电子、电子-声子等）的情形，这时候S矩阵就无法描述了，但是我们这里不讨论。我们还是围绕在紧束缚近似的框架中。使用Green函数的另一个重要好处是，我们可以将散射的观点和其他观点，如Kubo响应、转移矩阵等联系起来。</p>
-<div class="highlight"><pre><span></span>数学不只是计算的工具，而且是思考的工具。
-</pre></div>
-
-
-<p>在场论中格林函数经常被使用，响应R可以通过一个微分算符<span class="math">\(D_{op}\)</span>与激发S联系起来（<span class="math">\(D_{op}R=S\)</span>），于是有<span class="math">\(R=D_{op}^{-1}S=GS\)</span>，<span class="math">\(G\equiv D_{op}^{-1}\)</span>定义格林函数。</p>
-<p>我们这里的问题是<span class="math">\([E-H_{op}\Psi = S]\)</span>，S是一个电极有波函数入射时导致的激发项，于是格林函数
-</p>
-<div class="math">$$G=[E-H_{op}]^{-1}$$</div>
-<p>
-其中Hamiltonian算符
-</p>
-<div class="math">$$H\equiv \frac{(i\hbar \nabla +e\vec{A})^2}{2m}+U(\vec{r})$$</div>
-<p>考虑一维情况，在<span class="math">\(x'\)</span>点激发时，响应向两边传播（或者两边向此传播），G的解称为推迟格林函数<span class="math">\(G^R\)</span>（或超前格林函数<span class="math">\(G^A\)</span>）。推迟和超前格林函数都满足方程，但是边界条件不同，前者是出射波，后者是入射波。可以把结合这两种情况，在方程中写入一个无穷小的虚数，
-</p>
-<div class="math">$$[E-H_{op}(\vec{r})+i\eta]G^R(\vec{r};\vec{r}')=\delta(\vec{r}-\vec{r}')$$</div>
-<p>1981年，D. S. Fisher和 P. A.Lee两位著名物理学家用Green函数给出了S矩阵元的表达式，称为Fisher-Lee关系。由实际介观体系的<span class="math">\(G^R_{qp}(y_q;y_p)\)</span>和<span class="math">\(s_{nm}\)</span>的关系，我们可以得到具体地表达式，但是这里不打算给出来，我们需要知道的是由Green函数可以直接得到S矩阵。那如何得到Green函数？这是我们下面关注的问题。</p>
-<p>原则上我们可以求解Green函数的微分方程，在实际的数值化计算中需要将空间坐标离散化，</p>
-<div class="math">$$G^R(\vec{r};\vec{r}') \rightarrow G^R(i,j)$$</div>
-<p>，i,j标记离散格点。于是，微分等式转变成矩阵等式：
-</p>
-<div class="math">$$[(E+i\eta )I-H)]G^R=I$$</div>
-<p>
-其中，I是单位矩阵，[H]是<span class="math">\(H_{op}\)</span>的矩阵表示，于是<span class="math">\(G^R\)</span>可以通过数值法求矩阵<span class="math">\([(E-i\eta)I-H]\)</span>的逆，于是问题进一步变成如何求[H]？</p>
-<p><strong>紧束缚模型</strong>（有限差分方法）</p>
-<p>下面展示一下一维（1D）时的情形，如果对离散数学熟悉的话，很容易推广到高维。</p>
-<p>考虑Hamiltonian算符<span class="math">\(H_{op}=-\frac{\hbar^2}{2m}\frac{d^2}{dx^2}+U(x)\)</span>，对于x的任意函数F(x)，一维无限原子链晶格常数为a时，位置<span class="math">\(x=ja\)</span>，j为整数。于是，<span class="math">\(F_j \rightarrow F(x=ja) \quad U_j \rightarrow U(ja)\)</span>，我们有
-</p>
-<div class="math">$$[H_{op}F]_{x=ja}=[-\frac{\hbar^2}{2m}\frac{d^2F}{dx^2}]_{x=ja}+U_jF_j$$</div>
-<p>
-接下来我们用有限差分的方法来处理（只考虑一阶），令人惊奇的是，结果体现了最近邻跃迁的情形。</p>
-<p>通常a非常小，一阶微分：</p>
-<div class="math">$$[\frac{dF}{dx}]_{x=(j+1/2)a}\rightarrow \frac{1}{a}[F_{j+1}-F_j]$$</div>
-<p>
-二阶微分：</p>
-<div class="math">$$[\frac{d^2F}{dx^2}]_{x=ja}\rightarrow \frac{1}{a^2}{F_{j+1}-2F_j+F_{j-1}}$$</div>
-<p>使用这样的近似，我们得到<span class="math">\([H_{op}F]_{x=ja}=(U_j+2t)F_j-tF_{j-1}-tF_{j+1}\)</span>，其中<span class="math">\(t\equiv \hbar^2/2ma^2\)</span>。形式上，我们写成</p>
-<div class="math">$$[H_{op}F(x)]_{x=ja}=\sum_i H(j,i)F_i$$</div>
-<p>
-其中，
-</p>
-<div class="math">$$H(j,i)=\left\{
-    \begin{array}{ll}
-        U_i+2t &amp;\mbox{当i=j时;}\\
-        -t     &amp;\mbox{i和j最近邻;}\\
-        0      &amp;\mbox{其他情形.}
-    \end{array}
-    \right.$$</div>
-<p>
-我们可以具体写成矩阵形式：</p>
-<div class="math">$$H=
-\left[ \begin{array}{ccccc}
-    \cdots &amp; -t        &amp; 0      &amp; 0      &amp; 0 \\
-    -t     &amp; U_{-1}+2t &amp; -t     &amp; 0      &amp; 0 \\
-    0      &amp; -t        &amp; U_0+2t &amp; -t     &amp; 0 \\
-    0      &amp; 0         &amp; -t     &amp; U_1+2t &amp; -t \\
-    0      &amp; 0         &amp; 0      &amp; -t     &amp; \cdots
-\end{array}\right]$$</div>
-<p>
-这和我们直接写紧束缚近似下一维原子链的Hamiltonian是一样的，原子处的局域势<span class="math">\(U_j+2t\)</span>，t是相邻原子的跃迁矩阵元，或者称为交叠积分。波函数的求解，以及色散关系也很简单，固体物理书都有，不再讨论。</p>
-<p><strong>自能</strong>（Self-enengy）</p>
-<p>似乎我们求逆<span class="math">\(G_R=[(E+i\eta)I-H]^{-1}\)</span>就可以求解到格林函数，但并不是，因为导体上连接了半无线长的电极呢，这里是一个开放体系，矩阵是无穷大的，解决的方法是考虑电极和导体最近邻的原子才有耦合，<span class="math">\(\tau_p(p_i,i)=t\)</span>。将矩阵分块写成
-</p>
-<div class="math">$$\left( \begin{array}{cc}
-    G_p    &amp; G_{pC} \\
-    G_{Cp} &amp; G_C
-\end{array}\right)
-=
-\left( \begin{array}{cc}
-    (E+i\eta)I-H_p &amp; \tau_p \\
-    \tau_p^+       &amp; (E+i\eta)I-H_C
-\end{array}\right)$$</div>
-<p>
-我们需要的部分是导体的电导<span class="math">\(G_C\)</span>，后面直接写成<span class="math">\(G^R\)</span>，可以得到</p>
-<div class="math">$$G^R=[EI-H_C-\Sigma^R]^{-1}$$</div>
-<p>
-其中自能<span class="math">\(\Sigma^R=\sum_p\Sigma_p^R\)</span>，<span class="math">\(\Sigma_p^R(i,j)=t^2g_p^R(p_i,p_j)\)</span>，<span class="math">\(g_p^R=[(E+i\eta)I-H_p]^{-1}\)</span>
-这样，我们把电极的影响通过自能项表达出来，矩阵的大小变成有限。<span class="math">\(g_p^R(p_i,p_j)\)</span>也可以进一步算出来。</p>
-<p><strong>透射函数</strong></p>
-<p>于是我们通过Fisher-Lee关系，可以计算得到
-</p>
-<div class="math">$$\bar{T}_{pq}=Tr[\Gamma_p G^R \Gamma_q G^A]$$</div>
-<p>
-其中，<span class="math">\(\Gamma_p=i[\Sigma_p^R-\Sigma_p^A]\)</span>，推迟自能和超前自能为厄米共轭的关系：<span class="math">\(\Sigma_p^A=(\Sigma_p^R){\dagger}\)</span>。</p>
-<p>Green函数和其他物理量（普函数、局域态密度等）、及其他理论方法（Kubo响应、转移矩阵方法）的关系不再讨论。</p>
-<p>考虑电子-电子、电子-声子相互作用时，非平衡格林函数方法（NEGF）应用很广泛，但是超出了本文的范畴，可以参考Datta的著作。</p>
-<h1>Python计算</h1>
-<p>别忘了，我们还有一个目标是使用紧束缚近似模型来计算真实的介观物理体系，目前打算用Python来计算，下一篇文章介绍。</p>
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+<script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
         linebreak = "false";
@@ -250,12 +136,10 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-</script><p><a href="http://www.domuse.com/landauer-buttiker.html#disqus_thread">查看评论</a>.</p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</script>
+                <a class="readmore" href="http://www.domuse.com/landauer-buttiker.html">阅读全文</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -325,33 +209,6 @@ T代表电子从导体一端透射到另一端的平均几率，M是传输的模
 <p>题注：前天晚上，翻到几首小诗，誊抄在这。只有第一首有题目，其他几乎都是以类似于“燕园速写”为题，故皆集于此。以“未名”为题也妥当，切情切景，园子里是流传着一句诗文的：未名湖是个海洋，诗人都藏在水底。我虽然不能成为诗人，但谁也不能阻止我瞎写啊。另外，此页的存在也有助于我寻找那些曾经遗失的文字
 
                 <a class="readmore" href="http://www.domuse.com/unnamed-peom.html">阅读全文</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://www.domuse.com/why-physicist-need-python.html" rel="bookmark"
-                           title="Permalink to Why physics students and physicists need python?">Why physics students and physicists need python?</a></h1>
-                </header>
-
-                <div class="entry-content">
-                <p>Nowadays, the <a href="https://www.python.org/" target="_blank">Python</a> language has become a widely used tool for scientists and engineers, which is fully stacked with powerful support packages, such as numpy and scipy. However, I came across Python due to the need of an easy-to-use web framework until last summer. After several days of trails, I ...</p>
-                <a class="readmore" href="http://www.domuse.com/why-physicist-need-python.html">阅读全文</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://www.domuse.com/thermal-motion-concept.html" rel="bookmark"
-                           title="Permalink to 浅析热运动">浅析热运动</a></h1>
-                </header>
-
-                <div class="entry-content">
-                
-
-<p>&emsp;&emsp;物理的奇妙之处在于，它试图探究世界的本原、真实客观的存在；善用数学但不囿于数学，而且有哲学思辨的魅力。理解物理规律往往先从现象（自然语言）描述出发，经过理论（数学公式）推演，最后直达事物本质。这篇短文藉此谈谈篇首说的“物质分子处于不停顿的无规则的运动状态”，直观来看，比较容易接受。但仔细想想什么意思？这句话有两个定语，我们可以审视一番。“不停顿”是指微观粒子不会待着不动，动能不为零，这句话没有提到限定条件，也即是说在任何情形下微观粒子都在运动。说到“任何情形”，有人可能就会怀疑了，怀疑是可贵的
-
-                <a class="readmore" href="http://www.domuse.com/thermal-motion-concept.html">阅读全文</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
