@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>Leon's blog</title>
+        <title>量化回测框架</title>
         <link rel="stylesheet" href="http://www.domuse.com/theme/css/main.css" />
 
         <!--[if IE]>
@@ -18,39 +18,61 @@
                     <li><a href="http://www.domuse.com/pages/about.html">About</a></li>
                     <li><a href="http://www.domuse.com/category/coding.html">Coding</a></li>
                     <li><a href="http://www.domuse.com/category/muse.html">Muse</a></li>
-                    <li><a href="http://www.domuse.com/category/quant.html">Quant</a></li>
+                    <li class="active"><a href="http://www.domuse.com/category/quant.html">Quant</a></li>
                     <li><a href="http://www.domuse.com/category/science.html">Science</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 <section id="content" class="body">
-<h1>Leon's blog 文章归档</h1>
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://www.domuse.com/quant-backtest.html" rel="bookmark"
+           title="Permalink to 量化回测框架">量化回测框架</a></h1>
+    </header>
 
-<dl>
-    <dt>2016-11-10</dt>
-    <dd><a href="http://www.domuse.com/quant-backtest.html">量化回测框架</a></dd>
-    <dt>2016-11-03</dt>
-    <dd><a href="http://www.domuse.com/learn-redis.html">Redis入门实践</a></dd>
-    <dt>2016-06-14</dt>
-    <dd><a href="http://www.domuse.com/landauer-buttiker.html">Landauer-Buttiker公式与S矩阵</a></dd>
-    <dt>2015-09-26</dt>
-    <dd><a href="http://www.domuse.com/peom-suzhou.html">旅行的诗</a></dd>
-    <dt>2015-08-25</dt>
-    <dd><a href="http://www.domuse.com/liquid-nitrogen-ice-cream.html">液氮冰淇淋制作</a></dd>
-    <dt>2015-08-24</dt>
-    <dd><a href="http://www.domuse.com/data-preview-release.html">Data Preview v0.1 released</a></dd>
-    <dt>2015-07-22</dt>
-    <dd><a href="http://www.domuse.com/is-the-world-understandable.html">不确定性与不可知论</a></dd>
-    <dt>2015-07-18</dt>
-    <dd><a href="http://www.domuse.com/unnamed-peom.html">未名的诗</a></dd>
-    <dt>2014-10-13</dt>
-    <dd><a href="http://www.domuse.com/why-physicist-need-python.html">Why physics students and physicists need python?</a></dd>
-    <dt>2014-10-11</dt>
-    <dd><a href="http://www.domuse.com/thermal-motion-concept.html">浅析热运动</a></dd>
-    <dt>2014-10-08</dt>
-    <dd><a href="http://www.domuse.com/markdown-and-latex-equation-handbook.html">Markdown语法和LaTeX数学记号速查手册</a></dd>
-    <dt>2014-10-04</dt>
-    <dd><a href="http://www.domuse.com/this-blog.html">Pelican静态博客架设</a></dd>
-</dl>
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-11-10T00:00:00+08:00">
+                发表: 2016-11-10
+        </abbr>
+
+<p>标签: <a href="http://www.domuse.com/tag/quant.html">quant</a> <a href="http://www.domuse.com/tag/backtest.html">backtest</a> </p>
+</footer><!-- /.post-info -->      
+
+<p>让我们来设计一个真实的量化回测框架，由需求驱动，从简单到复杂，你准备好了吗？</p>
+<p>回测框架大致分为两种：for-loop(轮询)和event-driven(事件驱动)，前者进行向量化计算，速度更快，但不符合实盘交易的流程，后者采用逐个bar/tick读取数据，并产生交易信号的方式，利于统一回测和实盘的代码，部分解决“回测易、实盘难”的困境。
+</p>
+<h2>Roadmap</h2>
+<p>采用Python语言开发，开源框架Github·<a href="https://github.com/X0Leon/XQuant">XQuant</a>：</p>
+<p>Version 0.2: 完整的事件驱动引擎engine (2016年9月)</p>
+<p>Version 0.3: 清晰的架构，持续完善finance/utils/visual模块 (2016年10月)</p>
+<p>Version 0.4: 支持股票和期货的滑点、手续费模型；logging功能 (2016年11月)</p>
+<p>Version 0.5：回测结束强制平仓；可选回测区间；分品种交易记录 (2016年12月)</p>
+<p>TODO:</p>
+<p>Version 0.*: 模拟交易功能</p>
+<p>Version 0.*: Web GUI可视化</p>
+<p>Version 1.0: 支持实盘交易</p>
+<h2>Example</h2>
+<p>待添加。</p>
+<p>声明：供个人研究使用，不构成投资建议。</p>
+    </div><!-- /.entry-content -->
+    <div class="comments">
+      <h2>评论</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_shortname = 'leonpelican';
+        var disqus_identifier = 'quant-backtest.html';
+        var disqus_url = 'http://www.domuse.com/quant-backtest.html';
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//leonpelican.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+
+  </article>
 </section>
         <section id="extras" class="body">
                 <div class="blogroll">

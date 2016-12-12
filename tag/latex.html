@@ -16,10 +16,10 @@
                 <nav><ul>
                     <li><a href="/archives.html">Archive</a></li>
                     <li><a href="http://www.domuse.com/pages/about.html">About</a></li>
+                    <li><a href="http://www.domuse.com/category/coding.html">Coding</a></li>
                     <li><a href="http://www.domuse.com/category/muse.html">Muse</a></li>
-                    <li><a href="http://www.domuse.com/category/physics.html">Physics</a></li>
-                    <li><a href="http://www.domuse.com/category/python.html">Python</a></li>
                     <li><a href="http://www.domuse.com/category/quant.html">Quant</a></li>
+                    <li><a href="http://www.domuse.com/category/science.html">Science</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
@@ -42,7 +42,7 @@
 <p>Markdown是语法简单、易于书写的标记语言，其支持HTML，直接插入标签即可。Markdown中实现某种功能可能有不止一种语法，这里一般只演示一种。</p>
 <p><strong>标题</strong></p>
 <p>Atx形式的语法（另一种为Setex）：在行首插入1-6个#，如</p>
-<div class="highlight"><pre># H1标题
+<div class="highlight"><pre><span></span># H1标题
 ### H3标题
 </pre></div>
 
@@ -52,7 +52,7 @@
 <p>文本行前后有一个以上的空行即可。</p>
 <p><strong>区块引用</strong></p>
 <p>在每行前加&gt;即可，更简单的方式是只在段落首行添加&gt;。允许嵌套，根据层次使用不同数量的&gt;即可，例如：</p>
-<div class="highlight"><pre>&gt; Level 1.
+<div class="highlight"><pre><span></span>&gt; Level 1.
 &gt;
 &gt;&gt; Level 2.
 &gt;
@@ -63,7 +63,7 @@
 <p>引用区块内允许其他Markdown语法，如标题、代码块等。</p>
 <p><strong>列表</strong></p>
 <p>无序列表在行首使用*、+、-中的一种，有序列表使用数字加一个英文句点。</p>
-<div class="highlight"><pre>* Python
+<div class="highlight"><pre><span></span>* Python
 * C++
 * Java
 </pre></div>
@@ -78,18 +78,18 @@
 <p>如果要标记一小段行内代码，可以使用反引号抱起来(<code></code>)</p>
 <p><strong>分割线</strong></p>
 <p>用三个以上的*、-、_来建立一条分割线，中间允许空格存在</p>
-<div class="highlight"><pre>* * *
+<div class="highlight"><pre><span></span>* * *
 </pre></div>
 
 
 <p><strong>链接</strong></p>
 <p>链接文字放入方括号中，链接地址放入圆括号中，允许相对路径。</p>
-<div class="highlight"><pre>这是一个[例子](http://example.com/)
+<div class="highlight"><pre><span></span>这是一个[例子](http://example.com/)
 </pre></div>
 
 
 <p>或者使用参考式链接：</p>
-<div class="highlight"><pre><span class="k">[例子][id]</span>
+<div class="highlight"><pre><span></span><span class="k">[例子][id]</span>
 
 <span class="err">[id]:</span> <span class="err">http://example.com/</span>
 </pre></div>
@@ -98,17 +98,17 @@
 <p>如果希望链接在浏览器的新标签页中打开，只需要添加{:target="_blank"}在圆括号后即可。</p>
 <p><strong>图片</strong></p>
 <p>同链接一样，同样有行内式和参考式来标记图片：</p>
-<div class="highlight"><pre><span class="o">!</span><span class="p">[</span><span class="n">Alt</span> <span class="n">text</span><span class="p">](</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">img</span><span class="p">.</span><span class="n">jpg</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="o">!</span><span class="p">[</span><span class="n">Alt</span> <span class="n">text</span><span class="p">](</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">img</span><span class="p">.</span><span class="n">jpg</span><span class="p">)</span>
 </pre></div>
 
 
 <p>或者：</p>
-<div class="highlight"><pre><span class="o">!</span><span class="p">[</span><span class="n">Alt</span> <span class="n">text</span><span class="p">][</span><span class="kt">id</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><span class="o">!</span><span class="p">[</span><span class="n">Alt</span> <span class="n">text</span><span class="p">][</span><span class="kt">id</span><span class="p">]</span>
 </pre></div>
 
 
 <p>然后在某处指明图片参考名称</p>
-<div class="highlight"><pre>[id]: url/to/image.jpg
+<div class="highlight"><pre><span></span>[id]: url/to/image.jpg
 </pre></div>
 
 
@@ -132,7 +132,7 @@
 <p>偏微分符号<code>\partial</code>，微分算法“d”应该是直体，输入为<code>\mathrm{d}</code>,<span class="math">\(\mathrm{d}x\)</span>。</p>
 <p><strong>上划线·下划线·其他线</strong></p>
 <p>公式上划线<code>$\overline{x+y}$</code>，输出<span class="math">\(\overline{x+y}\)</span>；下划线<code>$\underline{x+y}$</code>，或者上方或下放花括号，使用<code>\overbrace{}</code>或<code>\underbrace{}</code>，例如</p>
-<div class="highlight"><pre>$$\underbrace{a + \overbrace{b + \dots + b}^{m\mbox{个}} + c}_{20\mbox{个}}$$
+<div class="highlight"><pre><span></span>$$\underbrace{a + \overbrace{b + \dots + b}^{m\mbox{个}} + c}_{20\mbox{个}}$$
 </pre></div>
 
 
@@ -140,14 +140,14 @@
 <div class="math">$$\underbrace{a + \overbrace{b + \dots + b}^{m\mbox{个}} + c}_{20\mbox{个}}$$</div>
 <p><strong>堆叠符号</strong></p>
 <p>在一个符号上面堆叠另一个符号，使用<code>\stackrel{上方符号}{基位符号}</code>，如</p>
-<div class="highlight"><pre>$$\vec{x} \stackrel{\mathrm{def}}{=}(x_1,\dots,x_n)$$
+<div class="highlight"><pre><span></span>$$\vec{x} \stackrel{\mathrm{def}}{=}(x_1,\dots,x_n)$$
 </pre></div>
 
 
 <p>输出</p>
 <div class="math">$$\vec{x} \stackrel{\mathrm{def}}{=}(x_1,\dots,x_n)$$</div>
 <p>这种方式得到的上下符号字号不同，要得到平等地位的结构，使用<code>{上公式 \atop 下公式}</code>，如</p>
-<div class="highlight"><pre>$$\sum_{k+0,k_1,\ldots&gt;0 \atop k_0+k_1+\cdots=n} A_{0k_0}A_{1K_1}\cdots$$
+<div class="highlight"><pre><span></span>$$\sum_{k+0,k_1,\ldots&gt;0 \atop k_0+k_1+\cdots=n} A_{0k_0}A_{1K_1}\cdots$$
 </pre></div>
 
 
@@ -155,7 +155,7 @@
 <div class="math">$$\sum_{k+0,k_1,\ldots&gt;0 \atop k_0+k_1+\cdots=n} A_{0k_0}A_{1K_1}\cdots$$</div>
 <p>
 或者，使用<code>{上公式 \atop 下公式}</code>，整个公式被包围在括号中</p>
-<div class="highlight"><pre>$${n+1 \choose k} = {n \choose k} + {n \choose k-1}$$
+<div class="highlight"><pre><span></span>$${n+1 \choose k} = {n \choose k} + {n \choose k-1}$$
 </pre></div>
 
 
@@ -163,7 +163,7 @@
 <div class="math">$${n+1 \choose k} = {n \choose k} + {n \choose k-1}$$</div>
 <p><strong>定界符尺寸</strong></p>
 <p>诸如()、[]、{}、|等分割公式的称为定界符，前面加上\big，\Big，\bigg，\Bigg可以放大这些符号，我比较喜欢用自适应的放大命令，<code>\left...\right</code>，例如</p>
-<div class="highlight"><pre>$$\left. \frac{\partial f(x, y)}{\partial x}\right|_{x=0}$$
+<div class="highlight"><pre><span></span>$$\left. \frac{\partial f(x, y)}{\partial x}\right|_{x=0}$$
 </pre></div>
 
 
@@ -173,7 +173,7 @@
 由于只有右侧有|需要变化，左侧没有需要变化的定界符，所以用英文句点.代替。</p>
 <p><strong>矩阵</strong></p>
 <p>输入</p>
-<div class="highlight"><pre>$$\left( \begin{array}{ccc}
+<div class="highlight"><pre><span></span>$$\left( \begin{array}{ccc}
     11 &amp; 12 &amp; 13 \\
     21 &amp; 22 &amp; 23
 \end{array}\right)$$
@@ -188,7 +188,7 @@
   \end{array}\right)$$</div>
 <p>
 从上面的例子中我们也可以知道如何输入多行公式及对齐，关键在于<code>\\</code>和<code>&amp;</code>符号。又如，</p>
-<div class="highlight"><pre><span class="p">$$</span><span class="nv">f</span><span class="p">(</span><span class="err">x</span><span class="p">)</span><span class="x">=\left\</span><span class="err">{</span><span class="x"></span>
+<div class="highlight"><pre><span></span><span class="p">$$</span><span class="nv">f</span><span class="p">(</span><span class="err">x</span><span class="p">)</span><span class="x">=\left\</span><span class="err">{</span><span class="x"></span>
 <span class="x">    \begin</span><span class="err">{</span><span class="x">array}</span><span class="err">{</span><span class="x">ll}</span>
 <span class="x">        1 &amp;\mbox</span><span class="err">{</span><span class="x">当</span><span class="p">$</span><span class="nv">x</span><span class="x">\ge 0</span><span class="p">$</span><span class="x">时;}\\</span>
 <span class="x">        0 &amp;\mbox</span><span class="err">{</span><span class="x">其他情形.}</span>
@@ -564,6 +564,7 @@
 </table>
 <p>这些符号也可供复制。对了，我遗漏什么了吗？（Continue...）请联系我！</p>
 <p>各式符号 <a href="https://www.artofproblemsolving.com/wiki/index.php/LaTeX:Symbols">LaTeX:Symbols</a></p>
+<p>画图匹配符号 <a href="http://detexify.kirelabs.org/classify.html">Detexify</a></p>
 <p>扩展链接：</p>
 <ol>
 <li>
