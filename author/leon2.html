@@ -1,134 +1,232 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="utf-8" />
-        <title>Leon's blog - Leon</title>
-        <link rel="stylesheet" href="http://www.domuse.com/theme/css/main.css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+    <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="http://www.domuse.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Leon's blog Atom">
+
+
+    <link rel="shortcut icon" href="http://www.domuse.com/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://www.domuse.com/images/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="author" content="Leon" />
+    <meta name="description" content="" />
+<meta property="og:site_name" content="Leon's blog"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Leon's blog"/>
+<meta property="og:description" content=""/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://www.domuse.com"/>
+<meta property="og:image" content="http://www.domuse.com/images/leon.png">
+
+  <title>Leon's blog &ndash;     Posts by Leon
+:</title>
+
 </head>
+<body>
+  <aside>
+    <div>
+      <a href="http://www.domuse.com">
+        <img src="http://www.domuse.com/images/leon.png" alt="Leon" title="Leon">
+      </a>
+      <h1><a href="http://www.domuse.com">Leon</a></h1>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://www.domuse.com/">Leon's blog  <strong>读书写字和思考的地方</strong></a></h1>
-                <nav><ul>
-                    <li><a href="/archives.html">Archive</a></li>
-                    <li><a href="http://www.domuse.com/pages/about.html">About</a></li>
-                    <li><a href="http://www.domuse.com/category/coding.html">Coding</a></li>
-                    <li><a href="http://www.domuse.com/category/muse.html">Muse</a></li>
-                    <li><a href="http://www.domuse.com/category/quant.html">Quant</a></li>
-                    <li><a href="http://www.domuse.com/category/science.html">Science</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
+<p>读书写字和思考的地方</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://www.domuse.com/pages/about.html#about">About</a></li>
 
-                <section id="content" class="body">
-                    <ol id="posts-list" class="hfeed" start="7">
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://www.domuse.com/why-physicist-need-python.html" rel="bookmark"
-                           title="Permalink to Why physics students and physicists need python?">Why physics students and physicists need python?</a></h1>
-                </header>
+          <li><a href="http://sciencefan.org/" target="_blank">wiki</a></li>
+        </ul>
+      </nav>
 
-                <div class="entry-content">
-                <p>Nowadays, the <a href="https://www.python.org/" target="_blank">Python</a> language has become a widely used tool for scientists and engineers, which is fully stacked with powerful support packages, such as numpy and scipy. However, I came across Python due to the need of an easy-to-use web framework until last summer. After several days of trails, I ...</p>
-                <a class="readmore" href="http://www.domuse.com/why-physicist-need-python.html">阅读全文</a>
-                </div><!-- /.entry-content -->
-            </article></li>
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/X0Leon" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-rss" href="//www.domuse.com/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+      </ul>
+    </div>
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://www.domuse.com/thermal-motion-concept.html" rel="bookmark"
-                           title="Permalink to 浅析热运动">浅析热运动</a></h1>
-                </header>
 
-                <div class="entry-content">
-                
+  </aside>
+  <main>
 
-<p>&emsp;&emsp;物理的奇妙之处在于，它试图探究世界的本原、真实客观的存在；善用数学但不囿于数学，而且有哲学思辨的魅力。理解物理规律往往先从现象（自然语言）描述出发，经过理论（数学公式）推演，最后直达事物本质。这篇短文藉此谈谈篇首说的“物质分子处于不停顿的无规则的运动状态”，直观来看，比较容易接受。但仔细想想什么意思？这句话有两个定语，我们可以审视一番。“不停顿”是指微观粒子不会待着不动，动能不为零，这句话没有提到限定条件，也即是说在任何情形下微观粒子都在运动。说到“任何情形”，有人可能就会怀疑了，怀疑是可贵的
+    <nav>
+      <a href="http://www.domuse.com">    Home
+</a>
 
-                <a class="readmore" href="http://www.domuse.com/thermal-motion-concept.html">阅读全文</a>
-                </div><!-- /.entry-content -->
-            </article></li>
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://www.domuse.com/markdown-and-latex-equation-handbook.html" rel="bookmark"
-                           title="Permalink to Markdown语法和LaTeX数学记号速查手册">Markdown语法和LaTeX数学记号速查手册</a></h1>
-                </header>
+      <a href="http://www.domuse.com/feeds/all.atom.xml">    Atom
+</a>
 
-                <div class="entry-content">
-                
-这篇文章是Markdown和LaTex的速查手册，阅读人群为科学工作者，尤其是物理领域的同行。常用的Markdown语法和数学符号、公式的LaTex的记号都列举在文中。本手册的用例如，Ipython Notebook或者支持Markdownd的博客。如果读者需要用到高级的技巧或完整的LaTex语法，请直接参与其官方文档。简而言之，我写本手册时权衡了完整和快查两个需求，力求简明而不简单
+    </nav>
 
-                <a class="readmore" href="http://www.domuse.com/markdown-and-latex-equation-handbook.html">阅读全文</a>
-                </div><!-- /.entry-content -->
-            </article></li>
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://www.domuse.com/this-blog.html" rel="bookmark"
-                           title="Permalink to Pelican静态博客架设">Pelican静态博客架设</a></h1>
-                </header>
 
-                <div class="entry-content">
-                
+<article>
+  <header>
+    <h2><a href="http://www.domuse.com/why-physicist-need-python.html#why-physicist-need-python">Why physics students and physicists need python?</a></h2>
+    <p>
+          Posted on 2014-10-13 in <a href="http://www.domuse.com/category/science.html">Science</a>
+
+
+          &#8226;     Tagged with
+
+              <a href="http://www.domuse.com/tag/python.html">python</a>,              <a href="http://www.domuse.com/tag/physics.html">physics</a>,              <a href="http://www.domuse.com/tag/scipy.html">scipy</a>,              <a href="http://www.domuse.com/tag/numerical.html">numerical</a>
+    </p>
+  </header>
+  <div>
+      <p>Nowadays, the <a href="https://www.python.org/" target="_blank">Python</a> language has become a widely used tool for scientists and engineers, which is fully stacked with powerful support packages, such as numpy and scipy. However, I came across Python due to the need of an easy-to-use web framework until last summer. After several days of trails, I ...</p>
+      <br>
+      <a class="btn" href="http://www.domuse.com/why-physicist-need-python.html#why-physicist-need-python">    Continue reading
+</a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="http://www.domuse.com/thermal-motion-concept.html#thermal-motion-concept">浅析热运动</a></h2>
+    <p>
+          Posted on 2014-10-11 in <a href="http://www.domuse.com/category/science.html">Science</a>
+
+
+          &#8226;     Tagged with
+
+              <a href="http://www.domuse.com/tag/physics.html">physics</a>
+    </p>
+  </header>
+  <div>
+      
+
+<p>&emsp;&emsp;物理的奇妙之处在于，它试图探究世界的本原、真实客观的存在；善用数学但不囿于数学，而且有哲学思辨的魅力。理解物理规律往往先从现象（自然语言）描述出发，经过理论（数学公式）推演，最后直达事物本质。这篇短文藉此谈谈篇首说的“物质分子处于不停顿的无规则的运动状态”，直观来看，比较容易接受。但仔细想想什么意思？这句话有两个定语，我们可以审视一番。“不停顿”是指微观粒子不会待着不动，动能不为零，这句话没有提到限定条件，也即是说在任何情形下微观粒子都在运动。说到“任何情形”，有人可能就会怀疑了，怀疑是可贵的。</p>
+
+      <br>
+      <a class="btn" href="http://www.domuse.com/thermal-motion-concept.html#thermal-motion-concept">    Continue reading
+</a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="http://www.domuse.com/markdown-and-latex-equation-handbook.html#markdown-and-latex-equation-handbook">Markdown语法和LaTeX数学记号速查手册</a></h2>
+    <p>
+          Posted on 2014-10-08 in <a href="http://www.domuse.com/category/coding.html">Coding</a>
+
+
+          &#8226;     Tagged with
+
+              <a href="http://www.domuse.com/tag/markdown.html">markdown</a>,              <a href="http://www.domuse.com/tag/latex.html">laTeX</a>,              <a href="http://www.domuse.com/tag/physics.html">physics</a>
+    </p>
+  </header>
+  <div>
+      
+这篇文章是Markdown和LaTex的速查手册，阅读人群为科学工作者，尤其是物理领域的同行。常用的Markdown语法和数学符号、公式的LaTex的记号都列举在文中。本手册的用例如，Ipython Notebook或者支持Markdownd的博客。如果读者需要用到高级的技巧或完整的LaTex语法，请直接参与其官方文档。简而言之，我写本手册时权衡了完整和快查两个需求，力求简明而不简单。</p>
+
+      <br>
+      <a class="btn" href="http://www.domuse.com/markdown-and-latex-equation-handbook.html#markdown-and-latex-equation-handbook">    Continue reading
+</a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="http://www.domuse.com/this-blog.html#this-blog">Pelican静态博客架设</a></h2>
+    <p>
+          Posted on 2014-10-04 in <a href="http://www.domuse.com/category/coding.html">Coding</a>
+
+
+          &#8226;     Tagged with
+
+              <a href="http://www.domuse.com/tag/pelican.html">pelican</a>,              <a href="http://www.domuse.com/tag/python.html">python</a>
+    </p>
+  </header>
+  <div>
+      
 
 <p>虽然是更新，但这篇文章是完全重写，之前的版本是英文写的。</p>
-<p>从新浪等博客平台到Wordpress，我折腾过不少次的博客。两年前我开始使用Pelican+Markdown来书写，托管在<a href="https://pages.github.com/" target="_blank">Github Pages</a>上，坚持使用了一年多时间。之前我使用基于pure的定制版主题，后来Pelican升级导致API有些变动，正好我忙于其他事情，博客就没法更新了，最大的问题是当时木有使用virtualenv来隔离运行环境。吃一堑，长一智，端午节有些时间，于是我升级了博客，主题基于官方默认的notmyidea，稍微变动了一点点成为littleidea。
+<p>从新浪等博客平台到Wordpress，我折腾过不少次的博客。两年前我开始使用Pelican+Markdown来书写，托管在<a href="https://pages.github.com/" target="_blank">Github Pages</a>上，坚持使用了一年多时间。之前我使用基于pure的定制版主题，后来Pelican升级导致API有些变动，正好我忙于其他事情，博客就没法更新了，最大的问题是当时木有使用virtualenv来隔离运行环境。吃一堑，长一智，端午节有些时间，于是我升级了博客，主题基于官方默认的notmyidea，稍微变动了一点点成为littleidea。</p>
 
-                <a class="readmore" href="http://www.domuse.com/this-blog.html">阅读全文</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-<p class="paginator">
-        <a href="http://www.domuse.com/author/leon.html">&laquo;</a>
-    Page 2 / 2
+      <br>
+      <a class="btn" href="http://www.domuse.com/this-blog.html#this-blog">    Continue reading
+</a>
+  </div>
+</article>
+
+  <div class="pagination">
+    <a class="btn float-right" href="http://www.domuse.com/author/leon.html">
+          Newer Posts
+ <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+    <footer>
+<p>
+  &copy; Leon 2016 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
 </p>
-                </section><!-- /#content -->
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://www.domuse.com/">DoMuse</a></li>
-                            <li><a href="http://scipy.org/">Scipy.org</a></li>
-                            <li><a href="http://sciencefan.org/">ScienceFan</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
 
-                            <li><a href="https://github.com/X0Leon">Github</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                &copy; 2014-2016 Leon. Proudly powered by Pelican and Python. The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>.
-                </address><!-- /#about -->
-        </footer><!-- /#contentinfo -->
-
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-78964080-1']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = 'https://ssl.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
+<!-- Google Analytics -->
 <script type="text/javascript">
-    var disqus_shortname = 'leonpelican';
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78964080-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Leon's blog ",
+  "url" : "http://www.domuse.com",
+  "image": "http://www.domuse.com/images/leon.png",
+  "description": ""
+}
 </script>
 </body>
 </html>

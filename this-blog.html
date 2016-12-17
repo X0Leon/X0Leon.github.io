@@ -1,47 +1,113 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="utf-8" />
-        <title>Pelican静态博客架设</title>
-        <link rel="stylesheet" href="http://www.domuse.com/theme/css/main.css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+    <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="http://www.domuse.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Leon's blog Atom">
+
+
+    <link rel="shortcut icon" href="http://www.domuse.com/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://www.domuse.com/images/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta name="author" content="Leon" />
+<meta name="description" content="虽然是更新，但这篇文章是完全重写，之前的版本是英文写的。 从新浪等博客平台到Wordpress，我折腾过不少次的博客。两年前我开始使用Pelican+Markdown来书写，托管在Github Pages上，坚持使用了一年多时间。之前我使用基于pure的定制版主题，后来Pelican升级导致API有些变动，正好我忙于其他事情，博客就没法更新了，最大的问题是当时木有使用virtualenv来隔离运行环境。吃一堑，长一智，端午节有些时间，于是我升级了博客，主题基于官方默认的notmyidea，稍微变动了一点点成为littleidea。" />
+<meta name="keywords" content="pelican, python">
+<meta property="og:site_name" content="Leon's blog"/>
+<meta property="og:title" content="Pelican静态博客架设"/>
+<meta property="og:description" content="虽然是更新，但这篇文章是完全重写，之前的版本是英文写的。 从新浪等博客平台到Wordpress，我折腾过不少次的博客。两年前我开始使用Pelican+Markdown来书写，托管在Github Pages上，坚持使用了一年多时间。之前我使用基于pure的定制版主题，后来Pelican升级导致API有些变动，正好我忙于其他事情，博客就没法更新了，最大的问题是当时木有使用virtualenv来隔离运行环境。吃一堑，长一智，端午节有些时间，于是我升级了博客，主题基于官方默认的notmyidea，稍微变动了一点点成为littleidea。"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://www.domuse.com/this-blog.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2014-10-04 00:00:00+08:00"/>
+<meta property="article:modified_time" content="2016-06-17 00:00:00+08:00"/>
+<meta property="article:author" content="http://www.domuse.com/author/leon.html">
+<meta property="article:section" content="Coding"/>
+<meta property="article:tag" content="pelican"/>
+<meta property="article:tag" content="python"/>
+<meta property="og:image" content="http://www.domuse.com/images/leon.png">
+
+  <title>Leon's blog &ndash; Pelican静态博客架设</title>
+
 </head>
+<body>
+  <aside>
+    <div>
+      <a href="http://www.domuse.com">
+        <img src="http://www.domuse.com/images/leon.png" alt="Leon" title="Leon">
+      </a>
+      <h1><a href="http://www.domuse.com">Leon</a></h1>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://www.domuse.com/">Leon's blog  <strong>读书写字和思考的地方</strong></a></h1>
-                <nav><ul>
-                    <li><a href="/archives.html">Archive</a></li>
-                    <li><a href="http://www.domuse.com/pages/about.html">About</a></li>
-                    <li class="active"><a href="http://www.domuse.com/category/coding.html">Coding</a></li>
-                    <li><a href="http://www.domuse.com/category/muse.html">Muse</a></li>
-                    <li><a href="http://www.domuse.com/category/quant.html">Quant</a></li>
-                    <li><a href="http://www.domuse.com/category/science.html">Science</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="http://www.domuse.com/this-blog.html" rel="bookmark"
-           title="Permalink to Pelican静态博客架设">Pelican静态博客架设</a></h1>
-    </header>
+<p>读书写字和思考的地方</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://www.domuse.com/pages/about.html#about">About</a></li>
 
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-10-04T00:00:00+08:00">
-                发表: 2014-10-04
-        </abbr>
+          <li><a href="http://sciencefan.org/" target="_blank">wiki</a></li>
+        </ul>
+      </nav>
 
-<p>标签: <a href="http://www.domuse.com/tag/pelican.html">pelican</a> <a href="http://www.domuse.com/tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->      
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/X0Leon" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-rss" href="//www.domuse.com/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="http://www.domuse.com">    Home
+</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+      <a href="http://www.domuse.com/feeds/all.atom.xml">    Atom
+</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+    <h1 id="this-blog">Pelican静态博客架设</h1>
+    <p>
+          Posted on 2014-10-04 in <a href="http://www.domuse.com/category/coding.html">Coding</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    
 
 <p>虽然是更新，但这篇文章是完全重写，之前的版本是英文写的。</p>
-<p>从新浪等博客平台到Wordpress，我折腾过不少次的博客。两年前我开始使用Pelican+Markdown来书写，托管在<a href="https://pages.github.com/" target="_blank">Github Pages</a>上，坚持使用了一年多时间。之前我使用基于pure的定制版主题，后来Pelican升级导致API有些变动，正好我忙于其他事情，博客就没法更新了，最大的问题是当时木有使用virtualenv来隔离运行环境。吃一堑，长一智，端午节有些时间，于是我升级了博客，主题基于官方默认的notmyidea，稍微变动了一点点成为littleidea。
-</p>
+<p>从新浪等博客平台到Wordpress，我折腾过不少次的博客。两年前我开始使用Pelican+Markdown来书写，托管在<a href="https://pages.github.com/" target="_blank">Github Pages</a>上，坚持使用了一年多时间。之前我使用基于pure的定制版主题，后来Pelican升级导致API有些变动，正好我忙于其他事情，博客就没法更新了，最大的问题是当时木有使用virtualenv来隔离运行环境。吃一堑，长一智，端午节有些时间，于是我升级了博客，主题基于官方默认的notmyidea，稍微变动了一点点成为littleidea。</p>
+
+
 <h2>基础配置</h2>
 <p>使用GitShell:</p>
 <div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">d</span><span class="p">:</span><span class="o">//</span>
@@ -87,67 +153,78 @@
 <li>对由notmyidea衍生的littleidea主题进行较多修改：本地化、简化文章信息、CSS使用ipython notebook</li>
 <li>使用Disqus支持评论</li>
 </ul>
-    </div><!-- /.entry-content -->
-    <div class="comments">
-      <h2>评论</h2>
-      <div id="disqus_thread"></div>
-      <script type="text/javascript">
-        var disqus_shortname = 'leonpelican';
-        var disqus_identifier = 'this-blog.html';
-        var disqus_url = 'http://www.domuse.com/this-blog.html';
-        (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//leonpelican.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-      </script>
-      <noscript>Please enable JavaScript to view the comments.</noscript>
-    </div>
+<p>更新：2016-12-17</p>
+<ul>
+<li>使用flex主题</li>
+</ul>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://www.domuse.com/tag/pelican.html">pelican</a>
+      <a href="http://www.domuse.com/tag/python.html">python</a>
+    </p>
+  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://www.domuse.com/">DoMuse</a></li>
-                            <li><a href="http://scipy.org/">Scipy.org</a></li>
-                            <li><a href="http://sciencefan.org/">ScienceFan</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
 
-                            <li><a href="https://github.com/X0Leon">Github</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                &copy; 2014-2016 Leon. Proudly powered by Pelican and Python. The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>.
-                </address><!-- /#about -->
-        </footer><!-- /#contentinfo -->
 
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-78964080-1']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = 'https://ssl.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
+<div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'leonpelican';
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>
+  &copy; Leon 2016 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78964080-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Leon's blog ",
+  "url" : "http://www.domuse.com",
+  "image": "http://www.domuse.com/images/leon.png",
+  "description": ""
+}
 </script>
 </body>
 </html>

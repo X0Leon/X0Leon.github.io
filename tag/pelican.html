@@ -1,130 +1,163 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="utf-8" />
-        <title>Leon's blog - pelican</title>
-        <link rel="stylesheet" href="http://www.domuse.com/theme/css/main.css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+    <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="http://www.domuse.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Leon's blog Atom">
+
+
+    <link rel="shortcut icon" href="http://www.domuse.com/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://www.domuse.com/images/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="author" content="Leon" />
+    <meta name="description" content="" />
+<meta property="og:site_name" content="Leon's blog"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Leon's blog"/>
+<meta property="og:description" content=""/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://www.domuse.com"/>
+<meta property="og:image" content="http://www.domuse.com/images/leon.png">
+
+  <title>Leon's blog &ndash;     Tag pelican
+</title>
+
 </head>
+<body>
+  <aside>
+    <div>
+      <a href="http://www.domuse.com">
+        <img src="http://www.domuse.com/images/leon.png" alt="Leon" title="Leon">
+      </a>
+      <h1><a href="http://www.domuse.com">Leon</a></h1>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://www.domuse.com/">Leon's blog  <strong>读书写字和思考的地方</strong></a></h1>
-                <nav><ul>
-                    <li><a href="/archives.html">Archive</a></li>
-                    <li><a href="http://www.domuse.com/pages/about.html">About</a></li>
-                    <li><a href="http://www.domuse.com/category/coding.html">Coding</a></li>
-                    <li><a href="http://www.domuse.com/category/muse.html">Muse</a></li>
-                    <li><a href="http://www.domuse.com/category/quant.html">Quant</a></li>
-                    <li><a href="http://www.domuse.com/category/science.html">Science</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
+<p>读书写字和思考的地方</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://www.domuse.com/pages/about.html#about">About</a></li>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="http://www.domuse.com/this-blog.html">Pelican静态博客架设</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2014-10-04T00:00:00+08:00">
-                发表: 2014-10-04
-        </abbr>
+          <li><a href="http://sciencefan.org/" target="_blank">wiki</a></li>
+        </ul>
+      </nav>
 
-<p>标签: <a href="http://www.domuse.com/tag/pelican.html">pelican</a> <a href="http://www.domuse.com/tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/X0Leon" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-rss" href="//www.domuse.com/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="http://www.domuse.com">    Home
+</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+      <a href="http://www.domuse.com/feeds/all.atom.xml">    Atom
+</a>
+
+    </nav>
+
+
+
+<article>
+  <header>
+    <h2><a href="http://www.domuse.com/this-blog.html#this-blog">Pelican静态博客架设</a></h2>
+    <p>
+          Posted on 2014-10-04 in <a href="http://www.domuse.com/category/coding.html">Coding</a>
+
+
+          &#8226;     Tagged with
+
+              <a href="http://www.domuse.com/tag/pelican.html">pelican</a>,              <a href="http://www.domuse.com/tag/python.html">python</a>
+    </p>
+  </header>
+  <div>
+      
 
 <p>虽然是更新，但这篇文章是完全重写，之前的版本是英文写的。</p>
-<p>从新浪等博客平台到Wordpress，我折腾过不少次的博客。两年前我开始使用Pelican+Markdown来书写，托管在<a href="https://pages.github.com/" target="_blank">Github Pages</a>上，坚持使用了一年多时间。之前我使用基于pure的定制版主题，后来Pelican升级导致API有些变动，正好我忙于其他事情，博客就没法更新了，最大的问题是当时木有使用virtualenv来隔离运行环境。吃一堑，长一智，端午节有些时间，于是我升级了博客，主题基于官方默认的notmyidea，稍微变动了一点点成为littleidea。
+<p>从新浪等博客平台到Wordpress，我折腾过不少次的博客。两年前我开始使用Pelican+Markdown来书写，托管在<a href="https://pages.github.com/" target="_blank">Github Pages</a>上，坚持使用了一年多时间。之前我使用基于pure的定制版主题，后来Pelican升级导致API有些变动，正好我忙于其他事情，博客就没法更新了，最大的问题是当时木有使用virtualenv来隔离运行环境。吃一堑，长一智，端午节有些时间，于是我升级了博客，主题基于官方默认的notmyidea，稍微变动了一点点成为littleidea。</p>
+
+      <br>
+      <a class="btn" href="http://www.domuse.com/this-blog.html#this-blog">    Continue reading
+</a>
+  </div>
+</article>
+
+  <div class="pagination">
+  </div>
+
+
+
+
+    <footer>
+<p>
+  &copy; Leon 2016 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
 </p>
-<h2>基础配置</h2>
-<p>使用GitShell:</p>
-<div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">d</span><span class="p">:</span><span class="o">//</span>
-<span class="n">mkdir</span> <span class="n">pelicanblog</span>
-<span class="n">cd</span> <span class="n">pelicanblog</span>
-<span class="n">virtualenv</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">site</span><span class="o">-</span><span class="n">package</span> <span class="n">venv</span> <span class="c1"># no extra packages, pure Python</span>
-<span class="n">venv</span>\<span class="n">Scripts</span>\<span class="n">activate</span>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
 
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">pelican</span> <span class="n">markdown</span>
-
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">mkdir</span> <span class="n">blog</span> <span class="c1"># Now, the fold &#39;blog&#39; and &#39;venv&#39; inside the top fold</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">cd</span> <span class="n">blog</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">pelican</span><span class="o">-</span><span class="n">quickstart</span>
-</pre></div>
-
-
-<p>回答一些问题，就可以，后面pelicanconf.py中可以改。我们可以使用<a href="http://docs.getpelican.com/" target="_blank">Pelican官方教程</a>中的pelican命令来完成实验性的架设，实践中我们在Windows平台下最适合使用<a href="http://www.equation.com/servlet/equation.cmd?fa=make" target="_blank">make</a>来自动化生成博客内容。为了避免添加PATH路径，我们把make.exe文件直接放在系统中安装的Python文件夹中即可，这样在虚拟的环境中仍然可以使用。</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">make</span> <span class="n">html</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">make</span> <span class="n">regenerate</span> <span class="c1"># Or, make publish, we can find the meaning in the ‘Makefile’</span>
-</pre></div>
-
-
-<p>其实第一个指令会将content文件夹中的markdown文件转成output中的html文件，这个时候整个output中的内容已经可以使用，例如提交到Github Pages中。第二个命令是可以实时更新你在content中的修改。</p>
-<p>如果我们想在本地的开发服务器 (http://localhost:8000/)中看看网站的样子，需要另外用一个GitShell（默认的cmd也可以），进入venv下的blog中使用</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">make</span> <span class="n">serve</span>
-</pre></div>
-
-
-<p>启用Pelican自带的开发服务器，指令的具体含义在Makefile文件中可以看，如果用python3的话，注意第一行<code>PY?=python3</code>，可能需要改成python，我这里就是这样，因为PATH路径中就是python命令。</p>
-<p>截止当前，写markdown文章，生成html，查看效果的循环已经备齐。学习使用markdown和LaTeX，参考博文<a href="/markdown-and-latex-equation-handbook.html">Markdown语法和LaTeX数学记号速查手册</a></p>
-<h2>常用插件</h2>
-<div class="highlight"><pre><span></span><span class="n">PLUGIN_PATHS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pelican-plugins&#39;</span><span class="p">]</span>
-<span class="n">PLUGINS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;render_math&#39;</span><span class="p">,</span>
-          <span class="p">]</span>
-</pre></div>
-
-
-<p>希望支持Ipython/Jupyter Notebook，使用<a href="https://github.com/getpelican/pelican-plugins/tree/master/liquid_tags" target="_blank">liquid_tags</a>插件或者<a href="https://github.com/danielfrg/pelican-ipynb" target="_blank">pelican-ipynb</a>。</p>
-<p>更新：2016-06-17</p>
-<ul>
-<li>使用pelican-ipynb支持Ipython Notebook作为博文发表</li>
-<li>对由notmyidea衍生的littleidea主题进行较多修改：本地化、简化文章信息、CSS使用ipython notebook</li>
-<li>使用Disqus支持评论</li>
-</ul><p><a href="http://www.domuse.com/this-blog.html#disqus_thread">查看评论</a>.</p>                </article>
-            </aside><!-- /#featured -->
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://www.domuse.com/">DoMuse</a></li>
-                            <li><a href="http://scipy.org/">Scipy.org</a></li>
-                            <li><a href="http://sciencefan.org/">ScienceFan</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-
-                            <li><a href="https://github.com/X0Leon">Github</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                &copy; 2014-2016 Leon. Proudly powered by Pelican and Python. The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>.
-                </address><!-- /#about -->
-        </footer><!-- /#contentinfo -->
-
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-78964080-1']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = 'https://ssl.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
+<!-- Google Analytics -->
 <script type="text/javascript">
-    var disqus_shortname = 'leonpelican';
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78964080-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Leon's blog ",
+  "url" : "http://www.domuse.com",
+  "image": "http://www.domuse.com/images/leon.png",
+  "description": ""
+}
 </script>
 </body>
 </html>

@@ -1,48 +1,115 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="utf-8" />
-        <title>量化回测框架</title>
-        <link rel="stylesheet" href="http://www.domuse.com/theme/css/main.css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+    <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="http://www.domuse.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Leon's blog Atom">
+
+
+    <link rel="shortcut icon" href="http://www.domuse.com/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://www.domuse.com/images/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta name="author" content="Leon" />
+<meta name="description" content="让我们来设计一个真实的量化回测框架，由需求驱动，从简单到复杂，你准备好了吗？ 回测框架大致分为两种：for-loop(轮询)和event-driven(事件驱动)，前者进行向量化计算，速度更快，但不符合实盘交易的流程，后者采用逐个bar/tick读取数据，并产生交易信号的方式，利于统一回测和实盘的代码，部分解决“回测易、实盘难”的困境。" />
+<meta name="keywords" content="quant, backtest">
+<meta property="og:site_name" content="Leon's blog"/>
+<meta property="og:title" content="量化回测框架"/>
+<meta property="og:description" content="让我们来设计一个真实的量化回测框架，由需求驱动，从简单到复杂，你准备好了吗？ 回测框架大致分为两种：for-loop(轮询)和event-driven(事件驱动)，前者进行向量化计算，速度更快，但不符合实盘交易的流程，后者采用逐个bar/tick读取数据，并产生交易信号的方式，利于统一回测和实盘的代码，部分解决“回测易、实盘难”的困境。"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://www.domuse.com/quant-backtest.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2016-11-10 00:00:00+08:00"/>
+<meta property="article:modified_time" content="2016-11-22 00:00:00+08:00"/>
+<meta property="article:author" content="http://www.domuse.com/author/leon.html">
+<meta property="article:section" content="Quant"/>
+<meta property="article:tag" content="quant"/>
+<meta property="article:tag" content="backtest"/>
+<meta property="og:image" content="http://www.domuse.com/images/leon.png">
+
+  <title>Leon's blog &ndash; 量化回测框架</title>
+
 </head>
+<body>
+  <aside>
+    <div>
+      <a href="http://www.domuse.com">
+        <img src="http://www.domuse.com/images/leon.png" alt="Leon" title="Leon">
+      </a>
+      <h1><a href="http://www.domuse.com">Leon</a></h1>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://www.domuse.com/">Leon's blog  <strong>读书写字和思考的地方</strong></a></h1>
-                <nav><ul>
-                    <li><a href="/archives.html">Archive</a></li>
-                    <li><a href="http://www.domuse.com/pages/about.html">About</a></li>
-                    <li><a href="http://www.domuse.com/category/coding.html">Coding</a></li>
-                    <li><a href="http://www.domuse.com/category/muse.html">Muse</a></li>
-                    <li class="active"><a href="http://www.domuse.com/category/quant.html">Quant</a></li>
-                    <li><a href="http://www.domuse.com/category/science.html">Science</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="http://www.domuse.com/quant-backtest.html" rel="bookmark"
-           title="Permalink to 量化回测框架">量化回测框架</a></h1>
-    </header>
+<p>读书写字和思考的地方</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://www.domuse.com/pages/about.html#about">About</a></li>
 
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2016-11-10T00:00:00+08:00">
-                发表: 2016-11-10
-        </abbr>
+          <li><a href="http://sciencefan.org/" target="_blank">wiki</a></li>
+        </ul>
+      </nav>
 
-<p>标签: <a href="http://www.domuse.com/tag/quant.html">quant</a> <a href="http://www.domuse.com/tag/backtest.html">backtest</a> </p>
-</footer><!-- /.post-info -->      
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/X0Leon" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-rss" href="//www.domuse.com/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="http://www.domuse.com">    Home
+</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+      <a href="http://www.domuse.com/feeds/all.atom.xml">    Atom
+</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+    <h1 id="quant-backtest">量化回测框架</h1>
+    <p>
+          Posted on 2016-11-10 in <a href="http://www.domuse.com/category/quant.html">Quant</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    
 
 <p>让我们来设计一个真实的量化回测框架，由需求驱动，从简单到复杂，你准备好了吗？</p>
-<p>回测框架大致分为两种：for-loop(轮询)和event-driven(事件驱动)，前者进行向量化计算，速度更快，但不符合实盘交易的流程，后者采用逐个bar/tick读取数据，并产生交易信号的方式，利于统一回测和实盘的代码，部分解决“回测易、实盘难”的困境。
-</p>
-<h2>Roadmap</h2>
+<p>回测框架大致分为两种：for-loop(轮询)和event-driven(事件驱动)，前者进行向量化计算，速度更快，但不符合实盘交易的流程，后者采用逐个bar/tick读取数据，并产生交易信号的方式，利于统一回测和实盘的代码，部分解决“回测易、实盘难”的困境。</p>
+
+
+<p>免责声明：供个人研究使用，不构成投资建议。</p>
+<h2>版本演进</h2>
 <p>采用Python语言开发，开源框架Github·<a href="https://github.com/X0Leon/XQuant">XQuant</a>：</p>
 <p>Version 0.2: 完整的事件驱动引擎engine (2016年9月)</p>
 <p>Version 0.3: 清晰的架构，持续完善finance/utils/visual模块 (2016年10月)</p>
@@ -52,70 +119,76 @@
 <p>Version 0.*: 模拟交易功能</p>
 <p>Version 0.*: Web GUI可视化</p>
 <p>Version 1.0: 支持实盘交易</p>
-<h2>Example</h2>
-<p>待添加。</p>
-<p>声明：供个人研究使用，不构成投资建议。</p>
-    </div><!-- /.entry-content -->
-    <div class="comments">
-      <h2>评论</h2>
-      <div id="disqus_thread"></div>
-      <script type="text/javascript">
-        var disqus_shortname = 'leonpelican';
-        var disqus_identifier = 'quant-backtest.html';
-        var disqus_url = 'http://www.domuse.com/quant-backtest.html';
-        (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//leonpelican.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-      </script>
-      <noscript>Please enable JavaScript to view the comments.</noscript>
-    </div>
+<h2>策略示例</h2>
+<p>参考github中移动双均线策略（Moving Average Cross Strategy）示例。</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://www.domuse.com/tag/quant.html">quant</a>
+      <a href="http://www.domuse.com/tag/backtest.html">backtest</a>
+    </p>
+  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://www.domuse.com/">DoMuse</a></li>
-                            <li><a href="http://scipy.org/">Scipy.org</a></li>
-                            <li><a href="http://sciencefan.org/">ScienceFan</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
 
-                            <li><a href="https://github.com/X0Leon">Github</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                &copy; 2014-2016 Leon. Proudly powered by Pelican and Python. The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>.
-                </address><!-- /#about -->
-        </footer><!-- /#contentinfo -->
 
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-78964080-1']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = 'https://ssl.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
+<div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'leonpelican';
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>
+  &copy; Leon 2016 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78964080-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Leon's blog ",
+  "url" : "http://www.domuse.com",
+  "image": "http://www.domuse.com/images/leon.png",
+  "description": ""
+}
 </script>
 </body>
 </html>

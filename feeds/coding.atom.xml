@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Leon's blog</title><link href="http://www.domuse.com/" rel="alternate"></link><link href="http://www.domuse.com/feeds/coding.atom.xml" rel="self"></link><id>http://www.domuse.com/</id><updated>2016-11-03T00:00:00+08:00</updated><entry><title>Redis入门实践</title><link href="http://www.domuse.com/learn-redis.html" rel="alternate"></link><published>2016-11-03T00:00:00+08:00</published><updated>2016-11-03T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2016-11-03:learn-redis.html</id><summary type="html">
+
+&lt;p&gt;Redis（REmote DIctionaray Server）是key-value型内存数据库，值（value）可以是 符串(String), 哈希(Map), 列表(list), 集合(sets) 和有序集合(sorted sets)等类型，常用于热数据的&lt;strong&gt;缓存&lt;/strong&gt;服务。常用的Python client是&lt;a href="https://github.com/andymccurdy/redis-py"&gt;redis-py&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;相比于python直接对内存操作，redis可以多进程和分布式使用，所以有便利性。我初次使用的诉求是将需要频繁IO的数据放入redis中，便于python调用。&lt;/p&gt;
+
+
+&lt;h1&gt;安装server和client&lt;/h1&gt;
+&lt;p&gt;Windows下安装使用：下载地址：https://github.com/MSOpenTech/redis/releases，我使用64bit，安装到D://Redis目录（任意一篇&lt;a href="http://www.runoob.com/redis/redis-install.html"&gt;参考教程&lt;/a&gt;）。启动redis服务（只要不关cmd窗口，后台就一直运行redis服务）：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cmd&amp;gt; redis-server.exe redis.windows.conf
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;安装redis-py:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pip install redis
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;实验小例子：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="random walk" src="../images/start-redis.png" /&gt;&lt;/p&gt;
+&lt;h1&gt;在redis中读取pandas&lt;/h1&gt;
+&lt;p&gt;这里不打算介绍redis使用基础，网上有诸多教程，直奔我的需求。可见，redis并不支持复杂的数据结构，如DataFrame，怎么办？&lt;/p&gt;
+&lt;p&gt;思路（stackoverflow上的redis-pickle方案）：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;redis&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;StrictRedis&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;cPickle&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;pickle&lt;/span&gt;
+
+&lt;span class="c1"&gt;# StrictRedis类的子类，可以pickling和unpickling复杂对象，&lt;/span&gt;
+&lt;span class="c1"&gt;# &amp;quot;pset&amp;quot;和&amp;quot;pget&amp;quot;方法代替StrictRedis类的&amp;quot;set&amp;quot;和&amp;quot;get&amp;quot;方法&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;PickledRedis&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StrictRedis&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;pset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ex&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;nx&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;xx&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;value_pickled&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pickle&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dumps&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value_pickled&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ex&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;nx&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;xx&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;pget&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;value_pickled&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;pickle&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;loads&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;value_pickled&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;另一种思路：参考&lt;a href="https://github.com/trbck/timeseries2redis/blob/master/timeseries2redis.py"&gt;timeseries2redis&lt;/a&gt;，可以将Tick或Bar数据在redis中读取，实现方法很有趣。&lt;/p&gt;
+&lt;p&gt;不过我在看其performance时发现并没有pd.read_csv快，pandas的csv读取底层是C实现的，可以达到几十ms量级，如果希望再快几倍，可以考虑用HDF5，pandas读写性能的比较：&lt;a href="http://pandas.pydata.org/pandas-docs/stable/io.html#performance-considerations"&gt;performance-considerations&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;思路三：pandas序列化方法&lt;a href="http://pandas.pydata.org/pandas-docs/stable/io.html#io-msgpack"&gt;msgpack&lt;/a&gt;：pd.read_msgpack()/to_msgpack()。虽然目前是实验性支持，但应该是最简洁的方法。在读取时其支持迭代化序列。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;
+&lt;span class="n"&gt;redis_db&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;redis&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;StrictRedis&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;host&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;localhost&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;port&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;6379&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to_msgpack&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;compress&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;zlib&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c1"&gt;# &lt;/span&gt;
+&lt;span class="n"&gt;redis_db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;expire_time&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;cached_data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;redis_db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;df&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read_msgpack&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cached_data&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="redis"></category><category term="python"></category></entry><entry><title>Data Preview v0.1 released</title><link href="http://www.domuse.com/data-preview-release.html" rel="alternate"></link><published>2015-08-24T00:00:00+08:00</published><updated>2015-08-24T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2015-08-24:data-preview-release.html</id><summary type="html">&lt;p&gt;Data Preview is a simple Python GUI program (using tkinter at present, maybe PyQt in the next version) to automatically convert the experimental data (just tsv format in this version) to graph by clicking the filename. A set of data files can also be simply merged together into a single data file with the selected data columns (i.e. variables). The data preprocess function has been proposed to be enhanced in the following release.&lt;/p&gt;
+&lt;p&gt;This program is a experimental project launched in last week. Our target is to avoid the time-consuming and repeating work on the preview and preprocess of data generated by the instrument in our lab. By employing the easy-to-use Python language, I finished the first primitive version in three days without any GUI programing experience before. At this stage, the Data Preview with simple functions has been put to use.&lt;/p&gt;
+&lt;p&gt;Features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Preview tsv data automatically or manully (click the 'Plot Show' popon with matplotlib builtin figure dialog) allowing to select data column&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Fast merge datafiles with specific variables&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Dependencies:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;pandas&lt;/li&gt;
+&lt;li&gt;matplotlib&lt;/li&gt;
+&lt;li&gt;PIL (NOTE: install image other than Pillow)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Open source in Github: to be coming...&lt;/p&gt;</summary><category term="python"></category><category term="GUI"></category></entry><entry><title>Markdown语法和LaTeX数学记号速查手册</title><link href="http://www.domuse.com/markdown-and-latex-equation-handbook.html" rel="alternate"></link><published>2014-10-08T00:00:00+08:00</published><updated>2014-10-08T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2014-10-08:markdown-and-latex-equation-handbook.html</id><summary type="html">&lt;p&gt;&amp;emsp;&amp;emsp;
+
+这篇文章是Markdown和LaTex的速查手册，阅读人群为科学工作者，尤其是物理领域的同行。常用的Markdown语法和数学符号、公式的LaTex的记号都列举在文中。本手册的用例如，Ipython Notebook或者支持Markdownd的博客。如果读者需要用到高级的技巧或完整的LaTex语法，请直接参与其官方文档。简而言之，我写本手册时权衡了完整和快查两个需求，力求简明而不简单。&lt;/p&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; This post is intended to be a concise instruction for physics workers or others, who want to properly render mathematical euqations in Markdown. The frequently-used markdown syntaxs and LaTeX notations of math are listed here. The typical usage of this handbook is Ipython Notebook or Markdown-supported blog, such as Pelican. If you are interested in advanced Markdown skills (acually, it is easy enough!) or publication-ready LaTeX technique, please look elsewhere. The original codes and (some) outputs are put together. And I write the main body in Chinese at present, maybe I will translate it into English later.&lt;/p&gt;
+&lt;h1&gt;Markdown和LaTeX数学公式速查表&lt;/h1&gt;
+&lt;h2&gt;Markdown极简手册&lt;/h2&gt;
+&lt;p&gt;Markdown是语法简单、易于书写的标记语言，其支持HTML，直接插入标签即可。Markdown中实现某种功能可能有不止一种语法，这里一般只演示一种。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;标题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Atx形式的语法（另一种为Setex）：在行首插入1-6个#，如&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# H1标题
+### H3标题
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;行尾可以加上同等数量的#，仅仅是为了美观。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;段落和换行&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;文本行前后有一个以上的空行即可。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;区块引用&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在每行前加&amp;gt;即可，更简单的方式是只在段落首行添加&amp;gt;。允许嵌套，根据层次使用不同数量的&amp;gt;即可，例如：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt; Level 1.
+&amp;gt;
+&amp;gt;&amp;gt; Level 2.
+&amp;gt;
+&amp;gt; Back to Level 1.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;引用区块内允许其他Markdown语法，如标题、代码块等。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;列表&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;无序列表在行首使用*、+、-中的一种，有序列表使用数字加一个英文句点。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;* Python
+* C++
+* Java
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;列表项目可以包含多个段落，中间空行，且段落首行应缩进一次。如果段落中包含代码块，额外缩进一次。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;强调&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;使用&lt;code&gt;*&lt;/code&gt;或&lt;code&gt;_&lt;/code&gt;包围的字体或显示成斜体，用两个&lt;code&gt;*&lt;/code&gt;或&lt;code&gt;_&lt;/code&gt;包围则加粗。（中文字体不建议使用斜体，易读性降低）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码块&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;全部缩进一次（4个空格或1个Tab）即可。代码块的Markdown语法不会被转换。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;行内代码&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果要标记一小段行内代码，可以使用反引号抱起来(&lt;code&gt;&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;分割线&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;用三个以上的*、-、_来建立一条分割线，中间允许空格存在&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;* * *
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;链接&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;链接文字放入方括号中，链接地址放入圆括号中，允许相对路径。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;这是一个[例子](http://example.com/)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;或者使用参考式链接：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;[例子][id]&lt;/span&gt;
+
+&lt;span class="err"&gt;[id]:&lt;/span&gt; &lt;span class="err"&gt;http://example.com/&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果希望链接在浏览器的新标签页中打开，只需要添加{:target="_blank"}在圆括号后即可。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;图片&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;同链接一样，同样有行内式和参考式来标记图片：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Alt&lt;/span&gt; &lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;](&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;jpg&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;或者：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Alt&lt;/span&gt; &lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="kt"&gt;id&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;然后在某处指明图片参考名称&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[id]: url/to/image.jpg
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;自动链接&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;用尖括号包围的网址转换成链接地址和链接文字一样的自动链接，适用于短的网址，如：&lt;a href="http://www.domuse.com"&gt;http://www.domuse.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;中文缩进·空格&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果写中文想在段首缩进两个空格，在前面直接加全放大的空格两个&lt;code&gt;&amp;amp;emsp;&amp;amp;emsp;&lt;/code&gt;，半方大的空格&lt;code&gt;&amp;amp;ensp;&lt;/code&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;hr /&gt;
+&lt;h2&gt;LaTeX常用数学符号极简手册&lt;/h2&gt;
+&lt;p&gt;LaTeX擅长于写科技和学术论文，这里列出的数学符号仅限于物理学工作者常用的部分。标题中指出的“极简”另一层涵义是，按此方法得到的数学公式没有考究其美学细节，例如字母a和b开方时如何使根号的横线齐平等。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;上标·下标&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Latex math环境行内公式标记&lt;code&gt;\(...\)&lt;/code&gt;，行间公式&lt;code&gt;\[...\]&lt;/code&gt;（需LaTeX中更多功能时使用&lt;code&gt;\begin{...} ....\end{...}&lt;/code&gt;)，或者可以使用TEX原有的标记激活：&lt;code&gt;$...$&lt;/code&gt;为行内公式或符号，&lt;code&gt;$$...$$&lt;/code&gt;为行间公式或符号。在数学模式中，空格均不起作用，需要诸如&lt;code&gt;\, ~ \quad，\qquad&lt;/code&gt;的命令。&lt;/p&gt;
+&lt;p&gt;上标命令为&lt;code&gt;^{...}&lt;/code&gt;，下标为&lt;code&gt;_{...}&lt;/code&gt;，角标为单个字符时可不用花括号，同时有上标和下标时，输入次序不重要。如果角标的位置看起来不明显，可以强制改变角标的层次，如一级角标改为二级角标，如&lt;code&gt;y_N&lt;/code&gt;渲染为&lt;span class="math"&gt;\(y_N\)&lt;/span&gt;看不出角标，可以使N为二级下标，&lt;code&gt;y_{_N}&lt;/code&gt;渲染&lt;span class="math"&gt;\(y_{_N}\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;分式·根式&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;短分数线直接使用&lt;code&gt;/&lt;/code&gt;，水平分数线&lt;code&gt;$\frac{x+y}{2}$&lt;/code&gt;输出&lt;span class="math"&gt;\(\frac{x+y}{2}\)&lt;/span&gt;，当然也可以通过在花括号中添加一个分数的方式得到连分数。&lt;/p&gt;
+&lt;p&gt;开平方&lt;code&gt;$\sqrt{x}$&lt;/code&gt;输出&lt;span class="math"&gt;\(\sqrt{x}\)&lt;/span&gt;，开高次方&lt;code&gt;$\sqrt[n]{x}$&lt;/code&gt;，同样也可以嵌套。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;求和·连乘·积分·微分&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;行内求和&lt;code&gt;$\sum_{k=1}^n$&lt;/code&gt;，输出为&lt;span class="math"&gt;\(\sum_{k=1}^n\)&lt;/span&gt;；行内连乘&lt;code&gt;$\prod_{i=0}^n$&lt;/code&gt;；行内积分&lt;code&gt;$\int_{k=1}^n$&lt;/code&gt;，输出为&lt;span class="math"&gt;\(\int_{k=1}^n\)&lt;/span&gt;，行间求和与积分只需要用两个&lt;code&gt;$$&lt;/code&gt;包围，&lt;/p&gt;
+&lt;div class="math"&gt;$$\sum_{k=1}^n, \prod_{i=0}^n, \quad \int_{k=1}^n$$&lt;/div&gt;
+&lt;p&gt;偏微分符号&lt;code&gt;\partial&lt;/code&gt;，微分算法“d”应该是直体，输入为&lt;code&gt;\mathrm{d}&lt;/code&gt;,&lt;span class="math"&gt;\(\mathrm{d}x\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;上划线·下划线·其他线&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;公式上划线&lt;code&gt;$\overline{x+y}$&lt;/code&gt;，输出&lt;span class="math"&gt;\(\overline{x+y}\)&lt;/span&gt;；下划线&lt;code&gt;$\underline{x+y}$&lt;/code&gt;，或者上方或下放花括号，使用&lt;code&gt;\overbrace{}&lt;/code&gt;或&lt;code&gt;\underbrace{}&lt;/code&gt;，例如&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$$\underbrace{a + \overbrace{b + \dots + b}^{m\mbox{个}} + c}_{20\mbox{个}}$$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;输出&lt;/p&gt;
+&lt;div class="math"&gt;$$\underbrace{a + \overbrace{b + \dots + b}^{m\mbox{个}} + c}_{20\mbox{个}}$$&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;堆叠符号&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在一个符号上面堆叠另一个符号，使用&lt;code&gt;\stackrel{上方符号}{基位符号}&lt;/code&gt;，如&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$$\vec{x} \stackrel{\mathrm{def}}{=}(x_1,\dots,x_n)$$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;输出&lt;/p&gt;
+&lt;div class="math"&gt;$$\vec{x} \stackrel{\mathrm{def}}{=}(x_1,\dots,x_n)$$&lt;/div&gt;
+&lt;p&gt;这种方式得到的上下符号字号不同，要得到平等地位的结构，使用&lt;code&gt;{上公式 \atop 下公式}&lt;/code&gt;，如&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$$\sum_{k+0,k_1,\ldots&amp;gt;0 \atop k_0+k_1+\cdots=n} A_{0k_0}A_{1K_1}\cdots$$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;输出&lt;/p&gt;
+&lt;div class="math"&gt;$$\sum_{k+0,k_1,\ldots&amp;gt;0 \atop k_0+k_1+\cdots=n} A_{0k_0}A_{1K_1}\cdots$$&lt;/div&gt;
+&lt;p&gt;
+或者，使用&lt;code&gt;{上公式 \atop 下公式}&lt;/code&gt;，整个公式被包围在括号中&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$${n+1 \choose k} = {n \choose k} + {n \choose k-1}$$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;输出&lt;/p&gt;
+&lt;div class="math"&gt;$${n+1 \choose k} = {n \choose k} + {n \choose k-1}$$&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;定界符尺寸&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;诸如()、[]、{}、|等分割公式的称为定界符，前面加上\big，\Big，\bigg，\Bigg可以放大这些符号，我比较喜欢用自适应的放大命令，&lt;code&gt;\left...\right&lt;/code&gt;，例如&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$$\left. \frac{\partial f(x, y)}{\partial x}\right|_{x=0}$$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;输出&lt;/p&gt;
+&lt;div class="math"&gt;$$\left. \frac{\partial f(x, y)}{\partial x}\right|_{x=0}$$&lt;/div&gt;
+&lt;p&gt;
+由于只有右侧有|需要变化，左侧没有需要变化的定界符，所以用英文句点.代替。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;矩阵&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;输入&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$$\left( \begin{array}{ccc}
+    11 &amp;amp; 12 &amp;amp; 13 \\
+    21 &amp;amp; 22 &amp;amp; 23
+\end{array}\right)$$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在{}中指定了对应的列格式，c为内容居中对齐，l为靠左，r为靠右；&amp;amp;为对齐符号，输出
+&lt;/p&gt;
+&lt;div class="math"&gt;$$\left( \begin{array}{ccc}
+        11 &amp;amp; 12 &amp;amp; 13 \\
+        21 &amp;amp; 22 &amp;amp; 23
+  \end{array}\right)$$&lt;/div&gt;
+&lt;p&gt;
+从上面的例子中我们也可以知道如何输入多行公式及对齐，关键在于&lt;code&gt;\\&lt;/code&gt;和&lt;code&gt;&amp;amp;&lt;/code&gt;符号。又如，&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;$$&lt;/span&gt;&lt;span class="nv"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="x"&gt;=\left\&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;span class="x"&gt;    \begin&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="x"&gt;array}&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="x"&gt;ll}&lt;/span&gt;
+&lt;span class="x"&gt;        1 &amp;amp;\mbox&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="x"&gt;当&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;x&lt;/span&gt;&lt;span class="x"&gt;\ge 0&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="x"&gt;时;}\\&lt;/span&gt;
+&lt;span class="x"&gt;        0 &amp;amp;\mbox&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="x"&gt;其他情形.}&lt;/span&gt;
+&lt;span class="x"&gt;    \end&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="x"&gt;array}&lt;/span&gt;
+&lt;span class="x"&gt;    \right.&lt;/span&gt;&lt;span class="p"&gt;$$&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;输出
+&lt;/p&gt;
+&lt;div class="math"&gt;$$f(x)=\left\{
+    \begin{array}{ll}
+        1 &amp;amp;\mbox{当$x\ge 0$时;}\\
+        0 &amp;amp;\mbox{其他情形.}
+    \end{array}
+    \right.$$&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;物理学中常用字母符号&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;物理量（希腊字母）&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="center"&gt;输出（Output）&lt;/th&gt;
+&lt;th align="left"&gt;输入（Input）&lt;/th&gt;
+&lt;th align="left"&gt;大写字母（Upcase）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\alpha\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\alpha$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\beta\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\beta$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\gamma\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\gamma$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Gamma\)&lt;/span&gt;，&lt;code&gt;$\Gamma$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\delta\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\delta$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Delta\)&lt;/span&gt;，&lt;code&gt;$\Delta$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\epsilon\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\epsilon$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\varepsilon\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\varepsilon$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\zeta\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\zeta$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\eta\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\eta$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\theta\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\theta$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\theta\)&lt;/span&gt;，&lt;code&gt;$\Theta$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\kappa\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\kappa$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\lambda\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\lambda$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Lambda\)&lt;/span&gt; ，&lt;code&gt;$\Lambda$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\mu\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\mu$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\nu\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\nu$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\xi\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\xi$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Xi\)&lt;/span&gt;，&lt;code&gt;$\Xi$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\pi\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\pi$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Pi\)&lt;/span&gt;，&lt;code&gt;$\Pi$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\rho\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$rho$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\sigma\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\sigma$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Sigma\)&lt;/span&gt;，&lt;code&gt;$\Sigma$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\tau\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\tau$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\upsilon\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\upsilon$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\phi\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\phi$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Phi\)&lt;/span&gt;，&lt;code&gt;$\Phi$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\varphi\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\varphi$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\chi\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\chi$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\psi\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\psi$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Psi\)&lt;/span&gt;，&lt;code&gt;$\Psi$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\omega\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\omega$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;span class="math"&gt;\(\Omega\)&lt;/span&gt;，&lt;code&gt;$\Omega$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;其他物理量、常数和单位&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="center"&gt;其他物理量&lt;/th&gt;
+&lt;th align="left"&gt;&lt;/th&gt;
+&lt;th align="center"&gt;物理常数或单位&lt;/th&gt;
+&lt;th align="left"&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;[注1]&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\bm{A}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\hbar\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\hbar$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\vec{a}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\vec{a}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\mathring{A}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\mathring{A}$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(A^{\dagger}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$A^{\dagger}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\mu m\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\mu m$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(x^{\ast}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$x^{\ast}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;[注2]&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\textperthousand$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(B_{\bot}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$B_{\bot}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(^{\circ}\)&lt;/span&gt;C&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$^{\circ}$C&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(B_{\parallel}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$B_{\parallel}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\dot{x}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\dot{x}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\ddot{x}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\ddot{x}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\bar{x}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\bar{x}$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\ell_i(x)\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\ell_i(x)$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(x'\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$x'$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;[注1] 加粗字母，如矢量，需宏包\usepackage{bm}，或者\textbf{A}，斜体：\textit{p}&lt;/p&gt;
+&lt;p&gt;[注2] 千分号，需宏包textcomp&lt;/p&gt;
+&lt;p&gt;量子态&lt;/p&gt;
+&lt;p&gt;bra      &lt;span class="math"&gt;\(\left | \psi \right \rangle\)&lt;/span&gt; &lt;code&gt;$\left | \psi \right \rangle$&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;ket      &lt;span class="math"&gt;\(\left \langle \psi \right |\)&lt;/span&gt; &lt;code&gt;$\left \langle \psi \right |$&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;bra-ket  &lt;span class="math"&gt;\(\left \langle \psi \right. \left | \psi \right \rangle\)&lt;/span&gt; &lt;code&gt;$\left \langle \psi \right. \left | \psi \right \rangle$&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;运算符和其他符号&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="center"&gt;运算符&lt;/th&gt;
+&lt;th align="left"&gt;&lt;/th&gt;
+&lt;th align="center"&gt;其他符号&lt;/th&gt;
+&lt;th align="left"&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\pm\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\pm$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\infty\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\infty$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\nabla\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\nabla$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\forall\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\forall$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\mp\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\mp$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\exists\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\exists$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\times\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\times$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\div\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\div$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\rightarrow\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\rightarrow$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\oplus\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\oplus$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\Rightarrow\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\Rightarrow$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\otimes\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\otimes$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\uparrow\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\uparrow$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\bullet\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\bullet&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\downarrow\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\downarrow$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\le\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\le$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\Box\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\Box$&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\ge\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\ge$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\ll\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\ll$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\gg\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\gg$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\ne\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\ne$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\propto\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\propto$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\approx\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\approx$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\sim\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\sim$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\simeq\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\simeq$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\in\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\in$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\ni\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\ni$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;span class="math"&gt;\(\equiv\)&lt;/span&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\equiv$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;$\cdot&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\cdot$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;这些符号也可供复制。对了，我遗漏什么了吗？（Continue...）请联系我！&lt;/p&gt;
+&lt;p&gt;各式符号 &lt;a href="https://www.artofproblemsolving.com/wiki/index.php/LaTeX:Symbols"&gt;LaTeX:Symbols&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;画图匹配符号 &lt;a href="http://detexify.kirelabs.org/classify.html"&gt;Detexify&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;扩展链接：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Johan Wevers博客提供了许多常用的物理公式 &lt;a href="http://johanw.home.xs4all.nl/contents.html" target="_blank"&gt;Physical Formula&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CTAN提供了LaTeX的各种知识和技巧，符号部分见 &lt;a href="http://www.tex.ac.uk/ctan/info/symbols/comprehensive/symbols-a4.pdf" target="_blank"&gt;Latex Symbols&lt;/a&gt; &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Last Modified: 2014-10-09&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="markdown"></category><category term="laTeX"></category><category term="physics"></category></entry><entry><title>Pelican静态博客架设</title><link href="http://www.domuse.com/this-blog.html" rel="alternate"></link><published>2016-06-17T00:00:00+08:00</published><updated>2016-06-17T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2014-10-04:this-blog.html</id><summary type="html">
+
+&lt;p&gt;虽然是更新，但这篇文章是完全重写，之前的版本是英文写的。&lt;/p&gt;
+&lt;p&gt;从新浪等博客平台到Wordpress，我折腾过不少次的博客。两年前我开始使用Pelican+Markdown来书写，托管在&lt;a href="https://pages.github.com/" target="_blank"&gt;Github Pages&lt;/a&gt;上，坚持使用了一年多时间。之前我使用基于pure的定制版主题，后来Pelican升级导致API有些变动，正好我忙于其他事情，博客就没法更新了，最大的问题是当时木有使用virtualenv来隔离运行环境。吃一堑，长一智，端午节有些时间，于是我升级了博客，主题基于官方默认的notmyidea，稍微变动了一点点成为littleidea。&lt;/p&gt;
+
+
+&lt;h2&gt;基础配置&lt;/h2&gt;
+&lt;p&gt;使用GitShell:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;
+&lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="n"&gt;pelicanblog&lt;/span&gt;
+&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;pelicanblog&lt;/span&gt;
+&lt;span class="n"&gt;virtualenv&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;no&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;package&lt;/span&gt; &lt;span class="n"&gt;venv&lt;/span&gt; &lt;span class="c1"&gt;# no extra packages, pure Python&lt;/span&gt;
+&lt;span class="n"&gt;venv&lt;/span&gt;\&lt;span class="n"&gt;Scripts&lt;/span&gt;\&lt;span class="n"&gt;activate&lt;/span&gt;
+
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt; &lt;span class="n"&gt;markdown&lt;/span&gt;
+
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt; &lt;span class="c1"&gt;# Now, the fold &amp;#39;blog&amp;#39; and &amp;#39;venv&amp;#39; inside the top fold&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;quickstart&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;回答一些问题，就可以，后面pelicanconf.py中可以改。我们可以使用&lt;a href="http://docs.getpelican.com/" target="_blank"&gt;Pelican官方教程&lt;/a&gt;中的pelican命令来完成实验性的架设，实践中我们在Windows平台下最适合使用&lt;a href="http://www.equation.com/servlet/equation.cmd?fa=make" target="_blank"&gt;make&lt;/a&gt;来自动化生成博客内容。为了避免添加PATH路径，我们把make.exe文件直接放在系统中安装的Python文件夹中即可，这样在虚拟的环境中仍然可以使用。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;html&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;regenerate&lt;/span&gt; &lt;span class="c1"&gt;# Or, make publish, we can find the meaning in the ‘Makefile’&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;其实第一个指令会将content文件夹中的markdown文件转成output中的html文件，这个时候整个output中的内容已经可以使用，例如提交到Github Pages中。第二个命令是可以实时更新你在content中的修改。&lt;/p&gt;
+&lt;p&gt;如果我们想在本地的开发服务器 (http://localhost:8000/)中看看网站的样子，需要另外用一个GitShell（默认的cmd也可以），进入venv下的blog中使用&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;serve&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;启用Pelican自带的开发服务器，指令的具体含义在Makefile文件中可以看，如果用python3的话，注意第一行&lt;code&gt;PY?=python3&lt;/code&gt;，可能需要改成python，我这里就是这样，因为PATH路径中就是python命令。&lt;/p&gt;
+&lt;p&gt;截止当前，写markdown文章，生成html，查看效果的循环已经备齐。学习使用markdown和LaTeX，参考博文&lt;a href="/markdown-and-latex-equation-handbook.html"&gt;Markdown语法和LaTeX数学记号速查手册&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;常用插件&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;PLUGIN_PATHS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;pelican-plugins&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;PLUGINS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;summary&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+           &lt;span class="s1"&gt;&amp;#39;render_math&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+          &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;希望支持Ipython/Jupyter Notebook，使用&lt;a href="https://github.com/getpelican/pelican-plugins/tree/master/liquid_tags" target="_blank"&gt;liquid_tags&lt;/a&gt;插件或者&lt;a href="https://github.com/danielfrg/pelican-ipynb" target="_blank"&gt;pelican-ipynb&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;更新：2016-06-17&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用pelican-ipynb支持Ipython Notebook作为博文发表&lt;/li&gt;
+&lt;li&gt;对由notmyidea衍生的littleidea主题进行较多修改：本地化、简化文章信息、CSS使用ipython notebook&lt;/li&gt;
+&lt;li&gt;使用Disqus支持评论&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;更新：2016-12-17&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用flex主题&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="pelican"></category><category term="python"></category></entry></feed>

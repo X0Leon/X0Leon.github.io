@@ -1,8 +1,299 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Leon's blog</title><link href="http://domuse.com/" rel="alternate"></link><link href="http://domuse.com/feeds/all.atom.xml" rel="self"></link><id>http://domuse.com/</id><updated>2015-09-26T00:00:00+08:00</updated><entry><title>旅行的诗</title><link href="http://domuse.com/peom-suzhou.html" rel="alternate"></link><published>2015-09-26T00:00:00+08:00</published><author><name>Leon</name></author><id>tag:domuse.com,2015-09-26:peom-suzhou.html</id><summary type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Leon's blog</title><link href="http://www.domuse.com/" rel="alternate"></link><link href="http://www.domuse.com/feeds/all.atom.xml" rel="self"></link><id>http://www.domuse.com/</id><updated>2016-11-22T00:00:00+08:00</updated><entry><title>量化回测框架</title><link href="http://www.domuse.com/quant-backtest.html" rel="alternate"></link><published>2016-11-22T00:00:00+08:00</published><updated>2016-11-22T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2016-11-10:quant-backtest.html</id><summary type="html">
 
-&lt;p&gt;题注：忽然想去旅行，于是休了假。第一站是苏州，只买到慢车卧铺票，父亲说：旅行是急不来的，路上的风景即时旅行。在去上海的途中，我问自己：干嘛不去青岛看看啊？！便取消了第三站嘉兴的行程，临时买了机票从虹桥飞到流亭。景语皆情语，得几句小诗，抄录如下。其中，我在苏州写了三首，上海一首，而在青岛只顾吃海鲜、走海滩、泡海澡、喝青啤咯
-。&lt;/p&gt;
+&lt;p&gt;让我们来设计一个真实的量化回测框架，由需求驱动，从简单到复杂，你准备好了吗？&lt;/p&gt;
+&lt;p&gt;回测框架大致分为两种：for-loop(轮询)和event-driven(事件驱动)，前者进行向量化计算，速度更快，但不符合实盘交易的流程，后者采用逐个bar/tick读取数据，并产生交易信号的方式，利于统一回测和实盘的代码，部分解决“回测易、实盘难”的困境。&lt;/p&gt;
+
+
+&lt;p&gt;免责声明：供个人研究使用，不构成投资建议。&lt;/p&gt;
+&lt;h2&gt;版本演进&lt;/h2&gt;
+&lt;p&gt;采用Python语言开发，开源框架Github·&lt;a href="https://github.com/X0Leon/XQuant"&gt;XQuant&lt;/a&gt;：&lt;/p&gt;
+&lt;p&gt;Version 0.2: 完整的事件驱动引擎engine (2016年9月)&lt;/p&gt;
+&lt;p&gt;Version 0.3: 清晰的架构，持续完善finance/utils/visual模块 (2016年10月)&lt;/p&gt;
+&lt;p&gt;Version 0.4: 支持股票和期货的滑点、手续费模型；logging功能 (2016年11月)&lt;/p&gt;
+&lt;p&gt;Version 0.5：回测结束强制平仓；可选回测区间；分品种交易记录 (2016年12月)&lt;/p&gt;
+&lt;p&gt;TODO:&lt;/p&gt;
+&lt;p&gt;Version 0.*: 模拟交易功能&lt;/p&gt;
+&lt;p&gt;Version 0.*: Web GUI可视化&lt;/p&gt;
+&lt;p&gt;Version 1.0: 支持实盘交易&lt;/p&gt;
+&lt;h2&gt;策略示例&lt;/h2&gt;
+&lt;p&gt;参考github中移动双均线策略（Moving Average Cross Strategy）示例。&lt;/p&gt;</summary><category term="quant"></category><category term="backtest"></category></entry><entry><title>Redis入门实践</title><link href="http://www.domuse.com/learn-redis.html" rel="alternate"></link><published>2016-11-03T00:00:00+08:00</published><updated>2016-11-03T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2016-11-03:learn-redis.html</id><summary type="html">
+
+&lt;p&gt;Redis（REmote DIctionaray Server）是key-value型内存数据库，值（value）可以是 符串(String), 哈希(Map), 列表(list), 集合(sets) 和有序集合(sorted sets)等类型，常用于热数据的&lt;strong&gt;缓存&lt;/strong&gt;服务。常用的Python client是&lt;a href="https://github.com/andymccurdy/redis-py"&gt;redis-py&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;相比于python直接对内存操作，redis可以多进程和分布式使用，所以有便利性。我初次使用的诉求是将需要频繁IO的数据放入redis中，便于python调用。&lt;/p&gt;
+
+
+&lt;h1&gt;安装server和client&lt;/h1&gt;
+&lt;p&gt;Windows下安装使用：下载地址：https://github.com/MSOpenTech/redis/releases，我使用64bit，安装到D://Redis目录（任意一篇&lt;a href="http://www.runoob.com/redis/redis-install.html"&gt;参考教程&lt;/a&gt;）。启动redis服务（只要不关cmd窗口，后台就一直运行redis服务）：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cmd&amp;gt; redis-server.exe redis.windows.conf
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;安装redis-py:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pip install redis
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;实验小例子：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="random walk" src="../images/start-redis.png" /&gt;&lt;/p&gt;
+&lt;h1&gt;在redis中读取pandas&lt;/h1&gt;
+&lt;p&gt;这里不打算介绍redis使用基础，网上有诸多教程，直奔我的需求。可见，redis并不支持复杂的数据结构，如DataFrame，怎么办？&lt;/p&gt;
+&lt;p&gt;思路（stackoverflow上的redis-pickle方案）：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;redis&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;StrictRedis&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;cPickle&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;pickle&lt;/span&gt;
+
+&lt;span class="c1"&gt;# StrictRedis类的子类，可以pickling和unpickling复杂对象，&lt;/span&gt;
+&lt;span class="c1"&gt;# &amp;quot;pset&amp;quot;和&amp;quot;pget&amp;quot;方法代替StrictRedis类的&amp;quot;set&amp;quot;和&amp;quot;get&amp;quot;方法&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;PickledRedis&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StrictRedis&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;pset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ex&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;nx&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;xx&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;value_pickled&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pickle&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dumps&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value_pickled&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ex&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;nx&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;xx&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;pget&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;value_pickled&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;pickle&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;loads&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;value_pickled&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;另一种思路：参考&lt;a href="https://github.com/trbck/timeseries2redis/blob/master/timeseries2redis.py"&gt;timeseries2redis&lt;/a&gt;，可以将Tick或Bar数据在redis中读取，实现方法很有趣。&lt;/p&gt;
+&lt;p&gt;不过我在看其performance时发现并没有pd.read_csv快，pandas的csv读取底层是C实现的，可以达到几十ms量级，如果希望再快几倍，可以考虑用HDF5，pandas读写性能的比较：&lt;a href="http://pandas.pydata.org/pandas-docs/stable/io.html#performance-considerations"&gt;performance-considerations&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;思路三：pandas序列化方法&lt;a href="http://pandas.pydata.org/pandas-docs/stable/io.html#io-msgpack"&gt;msgpack&lt;/a&gt;：pd.read_msgpack()/to_msgpack()。虽然目前是实验性支持，但应该是最简洁的方法。在读取时其支持迭代化序列。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;
+&lt;span class="n"&gt;redis_db&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;redis&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;StrictRedis&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;host&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;localhost&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;port&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;6379&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to_msgpack&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;compress&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;zlib&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c1"&gt;# &lt;/span&gt;
+&lt;span class="n"&gt;redis_db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;expire_time&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;cached_data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;redis_db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;df&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read_msgpack&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cached_data&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="redis"></category><category term="python"></category></entry><entry><title>Landauer-Buttiker公式与S矩阵</title><link href="http://www.domuse.com/landauer-buttiker.html" rel="alternate"></link><published>2016-06-16T00:00:00+08:00</published><updated>2016-06-16T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2016-06-14:landauer-buttiker.html</id><summary type="html">
+
+&lt;p&gt;介观物理体系中的“实验-理论-计算”的全栈探究。&lt;/p&gt;
+&lt;p&gt;介观物理体系的尺度接近表征量子行为的特征长度——在Fermi面附近的电子de Broglie波长&lt;span class="math"&gt;\(\lambda_F\)&lt;/span&gt;、动量本征态散射的平均自由程&lt;span class="math"&gt;\(l\)&lt;/span&gt;或相位相干长度&lt;span class="math"&gt;\(l_{\varphi}\)&lt;/span&gt;，电子的输运表现出很多新奇的特性，如电阻的非局域性，普适电导涨落等，所有这些特性都是由量子规律支配的，更具体地说，是由于电子的量子相干所产生的。八十年代以来，介观体系的研究逐渐发展成一个凝聚态物理的一个新领域，成为沟通宏观和量子、统计力学的一个桥梁。&lt;/p&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;经典的输运理论核心是由牛顿力学（+熵）得到的玻尔兹曼方程；
+量子输运的主要理论是薛定谔方程（+熵）（导体+电极的影响）得到的非平衡格林函数方法。
+在介观的体系中，主要的问题落在求解薛定谔方程中的Halmitonian。
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;目前已经有几套理论可以用来研究介观体系的电子输运现象，著名的有Landauer理论（1957）和Kubo与Greenwood提出的线性响应理论（1957），80年代后期，Buttiker等推广了两端的Landauer理论，使其使用于多端多通道，即著名的Landauer-Buttiker（L-B）公式。Kubo线性响应公式主要采用量子统计方法计算非局域响应函数&lt;span class="math"&gt;\(\sigma(x,x^{'})\)&lt;/span&gt;，而L-B公式基于量子力学的散射理论，通过计算电子在散射区域的散射矩阵来计算电导。后来，人们发现L-B公式对介观输运的计算更加合适，用电子波的散射来描述其中的物理过程比较直观，数学上也不是很难处理。现在Landauer-Buttiker公式在介观物理中具有非常重要的地位。&lt;/p&gt;
+&lt;p&gt;具体计算散射区域的透射反射系数有转移矩阵（或称传输矩阵）方法、递归格林函数方法（RGF）等。其中又以递归格林函数的算法比较稳定，能克服数值溢出的问题，但随着体系增大，RGF方法也比较耗时。以上算法都是单电子近似下发展起来的，且我们这里主要讨论紧束缚近似。&lt;/p&gt;
+&lt;p&gt;对于相关的理论介绍可以参考经典之作 &lt;em&gt;Electrionic transport in mesoscopic systems&lt;/em&gt;(Supriyo Datta)。在理论部分我们直接引用相关的结果，而不提供详细的数学推导，但给出核心的思路和物理图像。&lt;/p&gt;
+&lt;h1&gt;Landauer公式&lt;/h1&gt;
+&lt;p&gt;Landauer将电导解释成电子在两个电极之间的透射反射（可以将导体看作一个势垒），推导出
+&lt;/p&gt;
+&lt;div class="math"&gt;$$G=\frac{2e^2}{h}MT$$&lt;/div&gt;
+&lt;p&gt;
+T代表电子从导体一端透射到另一端的平均几率，M是传输的模式（或称为通道），例如我们需要考虑尺寸效应劈裂的M个子能带。如果只有一个能带，M=1。此公式得到的一个令人惊讶的结果是“接触电阻”&lt;span class="math"&gt;\(G^{-1}_C\)&lt;/span&gt;，即使T=1，我们也会观察到电子库和导体的接触电阻，缘由是具有大量通道的电子库向较少通道边界的几何过渡。&lt;/p&gt;
+&lt;div class="math"&gt;$$G^{-1}=\frac{h}{2e^2M}\frac{1}{T}=G^{-1}_C+\frac{h}{2e^2M}\frac{1-T}{T}$$&lt;/div&gt;
+&lt;p&gt;考虑两个电极的电化学式&lt;span class="math"&gt;\(\mu\)&lt;/span&gt;（即理想电子库），并将&lt;span class="math"&gt;\(MT\)&lt;/span&gt;写成&lt;span class="math"&gt;\(\bar{T}\)&lt;/span&gt;，得到两端的线性响应公式：
+&lt;/p&gt;
+&lt;div class="math"&gt;$$I=\frac{2e}{h}\bar{T}[\mu_1-\mu_2]$$&lt;/div&gt;
+&lt;h1&gt;Buttiker公式&lt;/h1&gt;
+&lt;p&gt;实际测量中往往既有电流端，又有电压端，常见的测量方式如四端法、Hall bar等，如何处理电压的电极呢？Buttiker提出一个优雅的解决方案：认为电流端和电压端没有本质区别，对它们使用同一角标（p和q）：&lt;/p&gt;
+&lt;div class="math"&gt;$$I_p=\frac{2e}{h}\sum_q[\bar{T}_{q\leftarrow p}\mu_p-\bar{T}_{p\leftarrow q}\mu_q]$$&lt;/div&gt;
+&lt;p&gt;箭头表示电子是从第二个角标的电极传输到第一个角标的电极，为了简洁，后面我们省略此箭头。
+使用&lt;span class="math"&gt;\(V=\mu/e\)&lt;/span&gt;，并定义&lt;span class="math"&gt;\(G_{pq}\equiv \frac{2e^2}{h}\bar{T}_{p\leftarrow q}\)&lt;/span&gt;，改写成
+&lt;/p&gt;
+&lt;div class="math"&gt;$$I_p=\sum_q[G_{qp}V_p-G_{pq}V_q]$$&lt;/div&gt;
+&lt;p&gt;由于电流守恒或者说所有电极电势相等时电流为零，我们有"sum rule"：&lt;span class="math"&gt;\(\sum_q G_{qp}=\sum_q G_{pq}\)&lt;/span&gt;，得到：
+&lt;/p&gt;
+&lt;div class="math"&gt;$$I_p=\sum_qG_{pq}[V_p-V_q]$$&lt;/div&gt;
+&lt;p&gt;除了两电极时，&lt;span class="math"&gt;\(G_{pq}=G_{qp}\)&lt;/span&gt;，一般而言此式都不成立，有磁场B时的正确的“倒易关系”（Onsager-Casimir对称性）是：&lt;span class="math"&gt;\([G_qp]_{+B}=[G_pq]_{-B}\)&lt;/span&gt;。此式在下面介绍了散射矩阵后，很容易通过薛定谔方程来证明。用我们更熟悉的实验语言表述是，正负磁场下电阻不对称，但是同时交换电流和电压端，则曲线可以重合，表达式为：&lt;span class="math"&gt;\(R_{mn,kl}(+B)=R_{kl,mn}(-B)\)&lt;/span&gt;。这表明了介观系统的电导（电阻）具有非局域性。&lt;/p&gt;
+&lt;p&gt;非零温时，需要考虑Fermi-Dirac分布，对于p电极&lt;span class="math"&gt;\(f_p=1/(exp(\frac{E-\mu_p}{k_B T})+1)\)&lt;/span&gt;，则
+&lt;/p&gt;
+&lt;div class="math"&gt;$$I_p=\int i_p(E)dE, \quad I_p(E)=\frac{2e}{h}\sum_q \bar{T}_{pq}(E)[f_p(E)-f_q(E)].$$&lt;/div&gt;
+&lt;p&gt;Buttiker公式是比Landauer公式更普遍的情形，一般合称为Landauer-Buttiker公式。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;如何使用呢？&lt;/strong&gt;通常情况下只使用L-B公式并不能得到一个体系的电导，但如果体系为边缘态输运（如QH、QSH），&lt;span class="math"&gt;\(T_{ij}\)&lt;/span&gt;只在0和1之间取值，这时候可以立马得到不同测量方案中的电导，例如量子自选Hall效应中，&lt;span class="math"&gt;\(R_{xx}=\frac{h}{2e^2}\)&lt;/span&gt;，或者其他非标准Hall测量中的电阻也很容易计算出来。&lt;/p&gt;
+&lt;p&gt;那更一般的体系呢？导体是如何计算电导和其他物理量，如局域态密度的呢？我们继续介绍散射矩阵和格林函数。&lt;/p&gt;
+&lt;h1&gt;散射矩阵&lt;/h1&gt;
+&lt;p&gt;如果导体的尺寸比相位相干长度小，电子输运就是相干的。前面我们展示了电流可以用透射函数来表达，现在我们来探讨透射函数和散射矩阵（S矩阵）的关系。对于一个具有量子相干性的金属导体，处于同一能量的在不同电极的电子的出射波函数振幅b正负通过S矩阵可以用入射波幅a表示。例如：对于两电极（p有两个通道1,2；q有一个通道3）三个通道的体系：
+&lt;/p&gt;
+&lt;div class="math"&gt;$$\left( \begin{array}{c}
+    b_1 \\
+    b_2 \\
+    b_3
+\end{array}\right)
+=
+\left[ \begin{array}{ccc}
+    s_{11} &amp;amp; s_{12} &amp;amp; s_{13} \\
+    s_{21} &amp;amp; s_{22} &amp;amp; s_{23} \\
+    s_{31} &amp;amp; s_{32} &amp;amp; s_{33}
+\end{array}\right]
+\left( \begin{array}{c}
+    a_1 \\
+    a_2 \\
+    a_3
+\end{array}\right)$$&lt;/div&gt;
+&lt;p&gt;在给定能量E下，电极p的通道数记为&lt;span class="math"&gt;\(M_p(E)\)&lt;/span&gt;，所有通道数为&lt;span class="math"&gt;\(M_T(E)=\sum M_p(E)\)&lt;/span&gt;，则散射矩阵是&lt;span class="math"&gt;\(M_T\times M_T\)&lt;/span&gt;的，上例中为&lt;span class="math"&gt;\(3\times 3\)&lt;/span&gt;的矩阵。&lt;/p&gt;
+&lt;p&gt;透射几率&lt;span class="math"&gt;\(T_{mn}\)&lt;/span&gt;与相应的S矩阵的矩阵元的关系是&lt;span class="math"&gt;\(T_{m\leftarrow n}=|s_{m\leftarrow n}|^2\)&lt;/span&gt;，表示n通道的电子散射到m通过的几率。电子在m通道的反射几率是&lt;span class="math"&gt;\(R_{mm}=T_{mm}=|s_{mm}|^2\)&lt;/span&gt;。也就是说，S矩阵的对角元的绝对值平方表示电子的反射几率，非对角元的绝对值平方和表示电子的透射几率。&lt;/p&gt;
+&lt;p&gt;前面我们将&lt;span class="math"&gt;\(MT\)&lt;/span&gt;写成&lt;span class="math"&gt;\(\bar{T}\)&lt;/span&gt;，具体看来，透射函数&lt;span class="math"&gt;\(\bar{T}_{pq}(E)\)&lt;/span&gt;是对q电极的n个通道和p电极的m个通道求和：
+&lt;/p&gt;
+&lt;div class="math"&gt;$$\bar{T}_{p\leftarrow q}=\sum_{n\in q}\sum_{m\in p}T_{m\leftarrow n}$$&lt;/div&gt;
+&lt;p&gt;S矩阵的关系式可以用矩阵标记和列向量标记简写成{b}=[S]{a}，如果我们认为通道m的电流正比于波函数振幅的几率&lt;span class="math"&gt;\(|a_m|^2\)&lt;/span&gt;或&lt;span class="math"&gt;\(|b_m|^2\)&lt;/span&gt;，可以得到S矩阵是幺正的（+表示共轭转置）
+&lt;/p&gt;
+&lt;div class="math"&gt;$$[S]^+[S]=I=[S][S]^+$$&lt;/div&gt;
+&lt;p&gt;
+用矩阵元来表述为
+&lt;/p&gt;
+&lt;div class="math"&gt;$$\sum_{m=1}^{M_T}|s_{mn}|^2=1=\sum_{m=1}^{M_T}|s_{nm}|^2$$&lt;/div&gt;
+&lt;p&gt;从给定的通道m散射到其他通道的几率累加起来为1，这似乎也挺直观的。&lt;/p&gt;
+&lt;p&gt;关于S矩阵还可以深入讨论很多内容，但是这里不是全面的介绍，只是最核心的概念。接下来我们需要将理论往实际计算再推进一步。&lt;/p&gt;
+&lt;h1&gt;Green函数&lt;/h1&gt;
+&lt;p&gt;学习过数学物理方法的人都知道，格林函数是求解椭圆型方程（一种二次偏微分方程）的方法。S矩阵体现了一个电极处有激发，另一个电极处有响应的结果。&lt;span class="math"&gt;\(G(r,r')\)&lt;/span&gt;可以描述在任意点（导体内外）的激发和任意点的响应。对于无相互作用的体系，原则上不需要引入Green函数，但是它对计算任意形状的导体的S矩阵非常方便。格林函数更强大的能力体现在相互作用（如电子-电子、电子-声子等）的情形，这时候S矩阵就无法描述了，但是我们这里不讨论。我们还是围绕在紧束缚近似的框架中。使用Green函数的另一个重要好处是，我们可以将散射的观点和其他观点，如Kubo响应、转移矩阵等联系起来。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;数学不只是计算的工具，而且是思考的工具。
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在场论中格林函数经常被使用，响应R可以通过一个微分算符&lt;span class="math"&gt;\(D_{op}\)&lt;/span&gt;与激发S联系起来（&lt;span class="math"&gt;\(D_{op}R=S\)&lt;/span&gt;），于是有&lt;span class="math"&gt;\(R=D_{op}^{-1}S=GS\)&lt;/span&gt;，&lt;span class="math"&gt;\(G\equiv D_{op}^{-1}\)&lt;/span&gt;定义格林函数。&lt;/p&gt;
+&lt;p&gt;我们这里的问题是&lt;span class="math"&gt;\([E-H_{op}\Psi = S]\)&lt;/span&gt;，S是一个电极有波函数入射时导致的激发项，于是格林函数
+&lt;/p&gt;
+&lt;div class="math"&gt;$$G=[E-H_{op}]^{-1}$$&lt;/div&gt;
+&lt;p&gt;
+其中Hamiltonian算符
+&lt;/p&gt;
+&lt;div class="math"&gt;$$H\equiv \frac{(i\hbar \nabla +e\vec{A})^2}{2m}+U(\vec{r})$$&lt;/div&gt;
+&lt;p&gt;考虑一维情况，在&lt;span class="math"&gt;\(x'\)&lt;/span&gt;点激发时，响应向两边传播（或者两边向此传播），G的解称为推迟格林函数&lt;span class="math"&gt;\(G^R\)&lt;/span&gt;（或超前格林函数&lt;span class="math"&gt;\(G^A\)&lt;/span&gt;）。推迟和超前格林函数都满足方程，但是边界条件不同，前者是出射波，后者是入射波。可以把结合这两种情况，在方程中写入一个无穷小的虚数，
+&lt;/p&gt;
+&lt;div class="math"&gt;$$[E-H_{op}(\vec{r})+i\eta]G^R(\vec{r};\vec{r}')=\delta(\vec{r}-\vec{r}')$$&lt;/div&gt;
+&lt;p&gt;1981年，D. S. Fisher和 P. A.Lee两位著名物理学家用Green函数给出了S矩阵元的表达式，称为Fisher-Lee关系。由实际介观体系的&lt;span class="math"&gt;\(G^R_{qp}(y_q;y_p)\)&lt;/span&gt;和&lt;span class="math"&gt;\(s_{nm}\)&lt;/span&gt;的关系，我们可以得到具体地表达式，但是这里不打算给出来，我们需要知道的是由Green函数可以直接得到S矩阵。那如何得到Green函数？这是我们下面关注的问题。&lt;/p&gt;
+&lt;p&gt;原则上我们可以求解Green函数的微分方程，在实际的数值化计算中需要将空间坐标离散化，&lt;/p&gt;
+&lt;div class="math"&gt;$$G^R(\vec{r};\vec{r}') \rightarrow G^R(i,j)$$&lt;/div&gt;
+&lt;p&gt;，i,j标记离散格点。于是，微分等式转变成矩阵等式：
+&lt;/p&gt;
+&lt;div class="math"&gt;$$[(E+i\eta )I-H)]G^R=I$$&lt;/div&gt;
+&lt;p&gt;
+其中，I是单位矩阵，[H]是&lt;span class="math"&gt;\(H_{op}\)&lt;/span&gt;的矩阵表示，于是&lt;span class="math"&gt;\(G^R\)&lt;/span&gt;可以通过数值法求矩阵&lt;span class="math"&gt;\([(E-i\eta)I-H]\)&lt;/span&gt;的逆，于是问题进一步变成如何求[H]？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;紧束缚模型&lt;/strong&gt;（有限差分方法）&lt;/p&gt;
+&lt;p&gt;下面展示一下一维（1D）时的情形，如果对离散数学熟悉的话，很容易推广到高维。&lt;/p&gt;
+&lt;p&gt;考虑Hamiltonian算符&lt;span class="math"&gt;\(H_{op}=-\frac{\hbar^2}{2m}\frac{d^2}{dx^2}+U(x)\)&lt;/span&gt;，对于x的任意函数F(x)，一维无限原子链晶格常数为a时，位置&lt;span class="math"&gt;\(x=ja\)&lt;/span&gt;，j为整数。于是，&lt;span class="math"&gt;\(F_j \rightarrow F(x=ja) \quad U_j \rightarrow U(ja)\)&lt;/span&gt;，我们有
+&lt;/p&gt;
+&lt;div class="math"&gt;$$[H_{op}F]_{x=ja}=[-\frac{\hbar^2}{2m}\frac{d^2F}{dx^2}]_{x=ja}+U_jF_j$$&lt;/div&gt;
+&lt;p&gt;
+接下来我们用有限差分的方法来处理（只考虑一阶），令人惊奇的是，结果体现了最近邻跃迁的情形。&lt;/p&gt;
+&lt;p&gt;通常a非常小，一阶微分：&lt;/p&gt;
+&lt;div class="math"&gt;$$[\frac{dF}{dx}]_{x=(j+1/2)a}\rightarrow \frac{1}{a}[F_{j+1}-F_j]$$&lt;/div&gt;
+&lt;p&gt;
+二阶微分：&lt;/p&gt;
+&lt;div class="math"&gt;$$[\frac{d^2F}{dx^2}]_{x=ja}\rightarrow \frac{1}{a^2}{F_{j+1}-2F_j+F_{j-1}}$$&lt;/div&gt;
+&lt;p&gt;使用这样的近似，我们得到&lt;span class="math"&gt;\([H_{op}F]_{x=ja}=(U_j+2t)F_j-tF_{j-1}-tF_{j+1}\)&lt;/span&gt;，其中&lt;span class="math"&gt;\(t\equiv \hbar^2/2ma^2\)&lt;/span&gt;。形式上，我们写成&lt;/p&gt;
+&lt;div class="math"&gt;$$[H_{op}F(x)]_{x=ja}=\sum_i H(j,i)F_i$$&lt;/div&gt;
+&lt;p&gt;
+其中，
+&lt;/p&gt;
+&lt;div class="math"&gt;$$H(j,i)=\left\{
+    \begin{array}{ll}
+        U_i+2t &amp;amp;\mbox{当i=j时;}\\
+        -t     &amp;amp;\mbox{i和j最近邻;}\\
+        0      &amp;amp;\mbox{其他情形.}
+    \end{array}
+    \right.$$&lt;/div&gt;
+&lt;p&gt;
+我们可以具体写成矩阵形式：&lt;/p&gt;
+&lt;div class="math"&gt;$$H=
+\left[ \begin{array}{ccccc}
+    \cdots &amp;amp; -t        &amp;amp; 0      &amp;amp; 0      &amp;amp; 0 \\
+    -t     &amp;amp; U_{-1}+2t &amp;amp; -t     &amp;amp; 0      &amp;amp; 0 \\
+    0      &amp;amp; -t        &amp;amp; U_0+2t &amp;amp; -t     &amp;amp; 0 \\
+    0      &amp;amp; 0         &amp;amp; -t     &amp;amp; U_1+2t &amp;amp; -t \\
+    0      &amp;amp; 0         &amp;amp; 0      &amp;amp; -t     &amp;amp; \cdots
+\end{array}\right]$$&lt;/div&gt;
+&lt;p&gt;
+这和我们直接写紧束缚近似下一维原子链的Hamiltonian是一样的，原子处的局域势&lt;span class="math"&gt;\(U_j+2t\)&lt;/span&gt;，t是相邻原子的跃迁矩阵元，或者称为交叠积分。波函数的求解，以及色散关系也很简单，固体物理书都有，不再讨论。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;自能&lt;/strong&gt;（Self-enengy）&lt;/p&gt;
+&lt;p&gt;似乎我们求逆&lt;span class="math"&gt;\(G_R=[(E+i\eta)I-H]^{-1}\)&lt;/span&gt;就可以求解到格林函数，但并不是，因为导体上连接了半无线长的电极呢，这里是一个开放体系，矩阵是无穷大的，解决的方法是考虑电极和导体最近邻的原子才有耦合，&lt;span class="math"&gt;\(\tau_p(p_i,i)=t\)&lt;/span&gt;。将矩阵分块写成
+&lt;/p&gt;
+&lt;div class="math"&gt;$$\left( \begin{array}{cc}
+    G_p    &amp;amp; G_{pC} \\
+    G_{Cp} &amp;amp; G_C
+\end{array}\right)
+=
+\left( \begin{array}{cc}
+    (E+i\eta)I-H_p &amp;amp; \tau_p \\
+    \tau_p^+       &amp;amp; (E+i\eta)I-H_C
+\end{array}\right)$$&lt;/div&gt;
+&lt;p&gt;
+我们需要的部分是导体的电导&lt;span class="math"&gt;\(G_C\)&lt;/span&gt;，后面直接写成&lt;span class="math"&gt;\(G^R\)&lt;/span&gt;，可以得到&lt;/p&gt;
+&lt;div class="math"&gt;$$G^R=[EI-H_C-\Sigma^R]^{-1}$$&lt;/div&gt;
+&lt;p&gt;
+其中自能&lt;span class="math"&gt;\(\Sigma^R=\sum_p\Sigma_p^R\)&lt;/span&gt;，&lt;span class="math"&gt;\(\Sigma_p^R(i,j)=t^2g_p^R(p_i,p_j)\)&lt;/span&gt;，&lt;span class="math"&gt;\(g_p^R=[(E+i\eta)I-H_p]^{-1}\)&lt;/span&gt;
+这样，我们把电极的影响通过自能项表达出来，矩阵的大小变成有限。&lt;span class="math"&gt;\(g_p^R(p_i,p_j)\)&lt;/span&gt;也可以进一步算出来。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;透射函数&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;于是我们通过Fisher-Lee关系，可以计算得到
+&lt;/p&gt;
+&lt;div class="math"&gt;$$\bar{T}_{pq}=Tr[\Gamma_p G^R \Gamma_q G^A]$$&lt;/div&gt;
+&lt;p&gt;
+其中，&lt;span class="math"&gt;\(\Gamma_p=i[\Sigma_p^R-\Sigma_p^A]\)&lt;/span&gt;，推迟自能和超前自能为厄米共轭的关系：&lt;span class="math"&gt;\(\Sigma_p^A=(\Sigma_p^R){\dagger}\)&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;Green函数和其他物理量（普函数、局域态密度等）、及其他理论方法（Kubo响应、转移矩阵方法）的关系不再讨论。&lt;/p&gt;
+&lt;p&gt;考虑电子-电子、电子-声子相互作用时，非平衡格林函数方法（NEGF）应用很广泛，但是超出了本文的范畴，可以参考Datta的著作。&lt;/p&gt;
+&lt;h1&gt;Python计算&lt;/h1&gt;
+&lt;p&gt;别忘了，我们还有一个目标是使用紧束缚近似模型来计算真实的介观物理体系，目前打算用Python来计算，下一篇文章介绍。&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="physics"></category></entry><entry><title>旅行的诗</title><link href="http://www.domuse.com/peom-suzhou.html" rel="alternate"></link><published>2015-09-26T00:00:00+08:00</published><updated>2015-09-26T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2015-09-26:peom-suzhou.html</id><summary type="html">
+
+&lt;p&gt;题注：忽然想去旅行，于是休了假。第一站是苏州，只买到慢车卧铺票，父亲说：旅行是急不来的，路上的风景即时旅行。在去上海的途中，我问自己：干嘛不去青岛看看啊？！便取消了第三站嘉兴的行程，临时买了机票从虹桥飞到流亭。景语皆情语，得几句小诗，抄录如下。其中，我在苏州写了三首，上海一首，而在青岛只顾吃海鲜、走海滩、泡海澡、喝青啤咯&lt;/p&gt;
+
+
+&lt;p&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;br /&gt;
 《旅行随感三首·苏州》&lt;/p&gt;
 &lt;p&gt;&amp;emsp;&amp;emsp;朝霞出碧空，万里了无云。决眦三千丈，一览苏园林。&lt;/p&gt;
@@ -11,9 +302,11 @@
 &lt;p&gt;&lt;br /&gt;
 《旅行随感一首·上海》&lt;/p&gt;
 &lt;p&gt;&amp;emsp;&amp;emsp;登顶远望可凭栏，身处高楼不觉寒。一眼收尽万千户，亡兴苦乐才百年。&lt;/p&gt;
-&lt;p&gt;PS：这首诗就不配图了，拍了绝美的东方明珠塔，但放上来有点违和，算了。其实我更想放在青岛喝的原浆啤酒 :( &lt;/p&gt;</summary><category term="muse"></category><category term="essay"></category><category term="poetry"></category></entry><entry><title>液氮冰淇淋制作大法</title><link href="http://domuse.com/liquid-nitrogen-ice-cream.html" rel="alternate"></link><published>2015-08-25T00:00:00+08:00</published><author><name>Leon</name></author><id>tag:domuse.com,2015-08-25:liquid-nitrogen-ice-cream.html</id><summary type="html">
+&lt;p&gt;PS：这首诗就不配图了，拍了绝美的东方明珠塔，但放上来有点违和，算了。其实我更想放在青岛喝的原浆啤酒 :( &lt;/p&gt;</summary><category term="muse"></category><category term="essay"></category><category term="poetry"></category></entry><entry><title>液氮冰淇淋制作</title><link href="http://www.domuse.com/liquid-nitrogen-ice-cream.html" rel="alternate"></link><published>2015-08-25T00:00:00+08:00</published><updated>2015-08-25T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2015-08-25:liquid-nitrogen-ice-cream.html</id><summary type="html">
 
 &lt;p&gt;&amp;emsp;&amp;emsp;去年夏天就想做液氮冰淇淋，而这个想法更早是来源于本科时代的《超导理论》课，记得教授还提醒我们说刚做完之后不要立刻吃，否则会粘舌头云云。那时我的内心是激动的，用知乎体来表述就是“吃液氮冰淇淋是一种怎样的体验？”不过，对于我这种geek型吃货而言，做的过程显然也是一种享受呐。&lt;/p&gt;
+
+
 &lt;h3&gt;准备器具和食材&lt;/h3&gt;
 &lt;p&gt;&amp;emsp;&amp;emsp;液氮：空气中大量存在的氮气，液化后就是液氮了，温度77K (-196°C)，所以可以迅速使牛奶等凝固。制作液氮冰淇淋不需要在冰箱冷冻几个小时，因而口感比较细腻。液氮温度很低，但短暂接触不会有危险（莱顿弗罗斯特效应），不过还是注意点为好，像前段时间看到有外国狂人做“液氮冰桶挑战”还是有作死的嫌疑。液氮很便宜，大约3块/升，比可乐还要便宜些，恩，成本很重要，好吃不贵的重要前提啊。那用什么装液氮呢？生活用具中也就暖瓶最合适，冻不坏而且能保温！&lt;/p&gt;
 &lt;p&gt;直接上图吧。。。&lt;/p&gt;
@@ -42,7 +335,7 @@
 &lt;h3&gt;其他&lt;/h3&gt;
 &lt;p&gt;还学了Sheldon Cooper他们做了炸香蕉，但好废液氮啊，口味没啥特别的嘛。&lt;/p&gt;
 &lt;p&gt;吃货们后来脑洞大开，放了果冻到混合奶液里面去，结果后来就搅拌不动了，口感也不如纯液体做得细腻。&lt;/p&gt;
-&lt;p&gt;这篇文章本来应该7月份写的，但是吃着吃着就懒得动笔啦。&lt;/p&gt;</summary><category term="life"></category><category term="physics"></category></entry><entry><title>Data Preview v0.1 released</title><link href="http://domuse.com/data-preview-release.html" rel="alternate"></link><published>2015-08-24T00:00:00+08:00</published><author><name>Leon</name></author><id>tag:domuse.com,2015-08-24:data-preview-release.html</id><summary type="html">&lt;p&gt;Data Preview is a simple Python GUI program (using tkinter at present, maybe PyQt in the next version) to automatically convert the experimental data (just tsv format in this version) to graph by clicking the filename. A set of data files can also be simply merged together into a single data file with the selected data columns (i.e. variables). The data preprocess function has been proposed to be enhanced in the following release.&lt;/p&gt;
+&lt;p&gt;这篇文章本来应该7月份写的，但是吃着吃着就懒得动笔啦。&lt;/p&gt;</summary><category term="life"></category><category term="physics"></category></entry><entry><title>Data Preview v0.1 released</title><link href="http://www.domuse.com/data-preview-release.html" rel="alternate"></link><published>2015-08-24T00:00:00+08:00</published><updated>2015-08-24T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2015-08-24:data-preview-release.html</id><summary type="html">&lt;p&gt;Data Preview is a simple Python GUI program (using tkinter at present, maybe PyQt in the next version) to automatically convert the experimental data (just tsv format in this version) to graph by clicking the filename. A set of data files can also be simply merged together into a single data file with the selected data columns (i.e. variables). The data preprocess function has been proposed to be enhanced in the following release.&lt;/p&gt;
 &lt;p&gt;This program is a experimental project launched in last week. Our target is to avoid the time-consuming and repeating work on the preview and preprocess of data generated by the instrument in our lab. By employing the easy-to-use Python language, I finished the first primitive version in three days without any GUI programing experience before. At this stage, the Data Preview with simple functions has been put to use.&lt;/p&gt;
 &lt;p&gt;Features:&lt;/p&gt;
 &lt;ul&gt;
@@ -59,10 +352,12 @@
 &lt;li&gt;matplotlib&lt;/li&gt;
 &lt;li&gt;PIL (NOTE: install image other than Pillow)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Open source in Github: to be coming...&lt;/p&gt;</summary><category term="python"></category><category term="GUI"></category></entry><entry><title>不确定性与不可知论</title><link href="http://domuse.com/is-the-world-understandable.html" rel="alternate"></link><published>2015-07-24T00:00:00+08:00</published><author><name>Leon</name></author><id>tag:domuse.com,2015-07-22:is-the-world-understandable.html</id><summary type="html">
+&lt;p&gt;Open source in Github: to be coming...&lt;/p&gt;</summary><category term="python"></category><category term="GUI"></category></entry><entry><title>不确定性与不可知论</title><link href="http://www.domuse.com/is-the-world-understandable.html" rel="alternate"></link><published>2015-07-24T00:00:00+08:00</published><updated>2015-07-24T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2015-07-22:is-the-world-understandable.html</id><summary type="html">
 
-&lt;p&gt;&amp;emsp;&amp;emsp;牛顿的静态、机械的宇宙观蕴含着决定论，到拉普拉斯时为甚，他认为只要能收集到宇宙运行的足够数据，就可以预测宇宙的未来。抛开哲学思辨的探讨，决定论真正受到严肃的科学挑战是上世纪量子论的发展。量子理论的诞生不仅在科学上是一次开天辟地的大事，在哲学上也不同凡响：一方面，过去哲学中休眠的观念又有了生命活力，例如客观实在性
-；另一方面，量子理论很难理解，似乎突破了人类哲思的极限。实际上，连不少物理学家也直言不懂量子论的深刻内涵，虽然受过训练的物理学工作者可以运用它，但难以直观地想象。我的辩护是，在某种意义上而言，科学可以告诉我们“是什么”，但未必能解答“为什么”。牛顿就是在追寻终极的“为什么”时，回归到上帝的“第一推动力”。宗教在解决人类的苦难和无助时，也选择了全知全能的神。人类需要理由来抚慰不安的内心。&lt;/p&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;牛顿的静态、机械的宇宙观蕴含着决定论，到拉普拉斯时为甚，他认为只要能收集到宇宙运行的足够数据，就可以预测宇宙的未来。抛开哲学思辨的探讨，决定论真正受到严肃的科学挑战是上世纪量子论的发展。量子理论的诞生不仅在科学上是一次开天辟地的大事，在哲学上也不同凡响：一方面，过去哲学中休眠的观念又有了生命活力，例如客观实在性；&lt;/p&gt;
+
+
+&lt;p&gt;另一方面，量子理论很难理解，似乎突破了人类哲思的极限。实际上，连不少物理学家也直言不懂量子论的深刻内涵，虽然受过训练的物理学工作者可以运用它，但难以直观地想象。我的辩护是，在某种意义上而言，科学可以告诉我们“是什么”，但未必能解答“为什么”。牛顿就是在追寻终极的“为什么”时，回归到上帝的“第一推动力”。宗教在解决人类的苦难和无助时，也选择了全知全能的神。人类需要理由来抚慰不安的内心。&lt;/p&gt;
 &lt;h3&gt;我们低能吗&lt;/h3&gt;
 &lt;p&gt;&amp;emsp;&amp;emsp;虽然数学提供了一种冥思世界的工具：概率论，但人类在真正面对这个不确定的宇宙时，常常显得手足无措。可能有两重缘由：一是我们没有意识到随机的无处不在；二是进化的力量尚未惠及概率的盲弱。在日常生活中，如果我们遇到了突发事件，例如停水，自然而然的想法是，供水系统出了故障，但如果我们事先仔细检查就会预测到停水。泰坦尼克号沉船或者大韩航空的飞机坠毁，这些事故由诸多偶然因素导致，我们也会说是由于信息的缺乏或者忽视。在考察不确定性时，首当其冲的困难时如何小心地区分信息不足而非能力不足。回到拉普拉斯的观点，倘若我们收集的信息资料不够，在预测宇宙时出现偏差可不能埋怨我们低能啊。其实这个问题非常深刻，我们真的不情愿相信自然世界会“愚弄”自己，宁愿是我们准备不充分。量子论的不确定性可谓石破天惊，彻底否定了经典决定论，连爱因斯坦也疑惑不解道，“上帝不会掷色子”。爱因斯坦的推断同样是我们的信息不足，换言之是量子论不完备，存在某种隐藏起来的客观实在性没有被我们观察到。然而，量子论提出的不确定性已经被实验足够精确地验证了——现实比想象更离奇。&lt;/p&gt;
 &lt;h3&gt;测不准原理&lt;/h3&gt;
@@ -99,10 +394,11 @@
 &lt;p&gt;&amp;emsp;&amp;emsp;物理学家已经开始设计实验来验证自由意志的存在（目前来说，结果是积极的），我也情愿相信其存在。我们的自由意志可以对自然界产生影响，也就说人类的活动会改变历史的进程、宇宙的演化。&lt;/p&gt;
 &lt;h3&gt;我们低能吗&lt;/h3&gt;
 &lt;p&gt;&amp;emsp;&amp;emsp;我从这个问题开始，也从这个问题结束。人类这种弱小的肉虫能否突破自身的局限认识这个无垠的宇宙——人生有限，宇宙无限；人的活动范围有限，宇宙有限——人，能否将其活动的时空拓展到整个宇宙？我们相信自己的能力吗？这是完全不对等的比较。我思考人类区别于其他物种的特点，想到两个：文字和工具。人类用文字来记录整个种群的智慧，传递和积累，突破个体寿命的界限。工具的使用得以突破肉体器官的局限，上天入地下海，未来翱翔于星际，打破了空间的束缚。从这种意义上讲，人类是了不起的。我中学时代乃至到大学，我常问自己：如果一个大肠杆菌号称你了解地球的半径，你觉得有可能吗？后来我觉得，人类毕竟不是大肠杆菌。人类确实是有灵性的物种。有些文学家和哲学家时常陷入对人类智慧的迷恋中不能自拨，我也不敢为人类的未来设限。只是人类生活在这个不确定的宇宙中，能走多远，是个未知数。在漫长的演进过程中，人类与宇宙同在，期间会遇到种种概率事件，人类真的每次都可以化险为夷吗？人类未必毁在自然的灾难中，人类可以自己毁掉自己。或许，在无数个平行宇宙中，有的类人物种找到了终极规律的钥匙，有的类人物种很快就灭亡，我希望人类是幸运的。虽然人类未必能了解整个宇宙，但我们逐渐地了解更多了，这个问题的答案不重要，重要的是人类的愿望和出现的痕迹。&lt;/p&gt;
-&lt;p&gt;注：尚未通稿修改（懒懒的~）。&lt;/p&gt;</summary><category term="physcics"></category><category term="muse"></category></entry><entry><title>未名的诗</title><link href="http://domuse.com/unnamed-peom.html" rel="alternate"></link><published>2015-07-18T00:00:00+08:00</published><author><name>Leon</name></author><id>tag:domuse.com,2015-07-18:unnamed-peom.html</id><summary type="html">
+&lt;p&gt;注：尚未通稿修改（懒懒的~）。&lt;/p&gt;</summary><category term="physcics"></category><category term="muse"></category></entry><entry><title>未名的诗</title><link href="http://www.domuse.com/unnamed-peom.html" rel="alternate"></link><published>2015-07-18T00:00:00+08:00</published><updated>2015-07-18T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2015-07-18:unnamed-peom.html</id><summary type="html">
 
-&lt;p&gt;题注：前天晚上，翻到几首小诗，誊抄在这。只有第一首有题目，其他几乎都是以类似于“燕园速写”为题，故皆集于此。以“未名”为题也妥当，切情切景，园子里是流传着一句诗文的：未名湖是个海洋，诗人都藏在水底。我虽然不能成为诗人，但谁也不能阻止我瞎写啊。另外，此页的存在也有助于我寻找那些曾经遗失的文字
-。&lt;/p&gt;
+&lt;p&gt;题注：前天晚上，翻到几首小诗，誊抄在这。只有第一首有题目，其他几乎都是以类似于“燕园速写”为题，故皆集于此。以“未名”为题也妥当，切情切景，园子里是流传着一句诗文的：未名湖是个海洋，诗人都藏在水底。我虽然不能成为诗人，但谁也不能阻止我瞎写啊。另外，此页的存在也有助于我寻找那些曾经遗失的文字。&lt;/p&gt;
+
+
 &lt;p&gt;&amp;emsp;&amp;emsp;——诗酒趁年华&lt;/p&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p&gt;《未名·桃花雪》，2013-03-21&lt;/p&gt;
@@ -116,7 +412,7 @@
 &lt;p&gt;&amp;emsp;&amp;emsp;临轩湖水遮晓雾，不见塔影路亦无。道是秋来颜色好，叶落谁问风知著。&lt;/p&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p&gt;《夜寄思》，2014-08-20&lt;/p&gt;
-&lt;p&gt;&amp;emsp;&amp;emsp;风对清露饮，月动影孤行。非是思人故？一夜听蝉鸣。&lt;/p&gt;</summary><category term="muse"></category><category term="essay"></category><category term="poetry"></category></entry><entry><title>Why physics students and physicists need python?</title><link href="http://domuse.com/why-physicist-need-python.html" rel="alternate"></link><published>2014-10-13T00:00:00+08:00</published><author><name>Leon</name></author><id>tag:domuse.com,2014-10-13:why-physicist-need-python.html</id><summary type="html">&lt;p&gt;Nowadays, the &lt;a href="https://www.python.org/" target="_blank"&gt;Python&lt;/a&gt; language has become a widely used tool for scientists and engineers, which is fully stacked with powerful support packages, such as numpy and scipy. However, I came across Python due to the need of an easy-to-use web framework until last summer. After several days of trails, I found Python was such an elegent and easy-to-learn language. So I immediately got out of PHP and turned to Python for the purpose of Web programming. When I realized its capability for scientific computing three months ago, I decided to dig deeper into it.&lt;/p&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;风对清露饮，月动影孤行。非是思人故？一夜听蝉鸣。&lt;/p&gt;</summary><category term="muse"></category><category term="essay"></category><category term="poetry"></category></entry><entry><title>Why physics students and physicists need python?</title><link href="http://www.domuse.com/why-physicist-need-python.html" rel="alternate"></link><published>2014-10-13T00:00:00+08:00</published><updated>2014-10-13T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2014-10-13:why-physicist-need-python.html</id><summary type="html">&lt;p&gt;Nowadays, the &lt;a href="https://www.python.org/" target="_blank"&gt;Python&lt;/a&gt; language has become a widely used tool for scientists and engineers, which is fully stacked with powerful support packages, such as numpy and scipy. However, I came across Python due to the need of an easy-to-use web framework until last summer. After several days of trails, I found Python was such an elegent and easy-to-learn language. So I immediately got out of PHP and turned to Python for the purpose of Web programming. When I realized its capability for scientific computing three months ago, I decided to dig deeper into it.&lt;/p&gt;
 &lt;p&gt;Why python for physics? In other words, why Python language is suitable for physics students or physicists? &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Computer skills are called. &lt;/li&gt;
@@ -137,13 +433,14 @@
 &lt;ul&gt;
 &lt;li&gt;The last but not the least, Python can integrate with C/C++ and Fortran codes.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Once you want to perform computation, simulation, data processing or visualsization work, you should give Python a try!&lt;/p&gt;</summary><category term="python"></category><category term="physics"></category><category term="scipy"></category><category term="numerical"></category></entry><entry><title>浅析热运动</title><link href="http://domuse.com/thermal-motion-concept.html" rel="alternate"></link><published>2014-10-11T00:00:00+08:00</published><author><name>Leon</name></author><id>tag:domuse.com,2014-10-11:thermal-motion-concept.html</id><summary type="html">&lt;p&gt;写在前面的话：这是我作为2014年秋季学期《普通物理（B）II》课程助教时，写给非物理系本科生的一个注解，或者说与大家分享的思考。教材是北京大学出版社《大学通用教程·热学》，这篇短文在学习完第二章后，写在Practice一栏中，拟定的题目本来是《从“物质分子处于不停顿的无规则的运动状态”到热平衡态的统计分布律》，但是显得太长了，所以减缩成《浅析热运动》。&lt;/p&gt;
+&lt;p&gt;Once you want to perform computation, simulation, data processing or visualsization work, you should give Python a try!&lt;/p&gt;</summary><category term="python"></category><category term="physics"></category><category term="scipy"></category><category term="numerical"></category></entry><entry><title>浅析热运动</title><link href="http://www.domuse.com/thermal-motion-concept.html" rel="alternate"></link><published>2014-10-11T00:00:00+08:00</published><updated>2014-10-11T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2014-10-11:thermal-motion-concept.html</id><summary type="html">&lt;p&gt;写在前面的话：这是我作为2014年秋季学期《普通物理（B）II》课程助教时，写给非物理系本科生的一个注解，或者说与大家分享的思考。教材是北京大学出版社《大学通用教程·热学》，这篇短文在学习完第二章后，写在Practice一栏中，拟定的题目本来是《从“物质分子处于不停顿的无规则的运动状态”到热平衡态的统计分布律》，但是显得太长了，所以减缩成《浅析热运动》。&lt;/p&gt;
 &lt;hr /&gt;
 
 
-&lt;p&gt;&amp;emsp;&amp;emsp;物理的奇妙之处在于，它试图探究世界的本原、真实客观的存在；善用数学但不囿于数学，而且有哲学思辨的魅力。理解物理规律往往先从现象（自然语言）描述出发，经过理论（数学公式）推演，最后直达事物本质。这篇短文藉此谈谈篇首说的“物质分子处于不停顿的无规则的运动状态”，直观来看，比较容易接受。但仔细想想什么意思？这句话有两个定语，我们可以审视一番。“不停顿”是指微观粒子不会待着不动，动能不为零，这句话没有提到限定条件，也即是说在任何情形下微观粒子都在运动。说到“任何情形”，有人可能就会怀疑了，怀疑是可贵的
-。
-我们知道理想气体的平均动能和温度的关系：&lt;/p&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;物理的奇妙之处在于，它试图探究世界的本原、真实客观的存在；善用数学但不囿于数学，而且有哲学思辨的魅力。理解物理规律往往先从现象（自然语言）描述出发，经过理论（数学公式）推演，最后直达事物本质。这篇短文藉此谈谈篇首说的“物质分子处于不停顿的无规则的运动状态”，直观来看，比较容易接受。但仔细想想什么意思？这句话有两个定语，我们可以审视一番。“不停顿”是指微观粒子不会待着不动，动能不为零，这句话没有提到限定条件，也即是说在任何情形下微观粒子都在运动。说到“任何情形”，有人可能就会怀疑了，怀疑是可贵的。&lt;/p&gt;
+
+
+&lt;p&gt;我们知道理想气体的平均动能和温度的关系：&lt;/p&gt;
 &lt;div class="math"&gt;$$\bar{\varepsilon_k}=\frac{3}{2}k_B T，$$&lt;/div&gt;
 &lt;p&gt;那是不是到了绝对零度，气体分子就不动了？绝对零度下所有的热运动都会消失，微观粒子们都安静下来？听着很合理，但坏消息是绝对零度只能不断接近，却不能到达，也就是说，要想消除全部热运动没有可能。为什么零温不可达？要营造一个温度低至0K的体系至少有两方面的困难：一是制冷机在温度越低时的制冷效率越低（卡诺循环处会学到），所以在实验室中要达到mK量级的温度需要逐级制冷，非常复杂；二是漏热或是热辐射无法避免，热从高到低的“流动”是自发的（熵增原理），绝热是不现实的，孤立系统更只是假想的。有人可能进一步想，如果真的T=0K会怎么样？微观粒子是不是就待在一个位置不动呢？实际上，量子力学中的测不准原理告诉我们，这不可能！位置&lt;span class="math"&gt;\(x\)&lt;/span&gt;和动量&lt;span class="math"&gt;\(p\)&lt;/span&gt;是一对共轭量，无法同时测准，所以微观粒子绝不会完全停下来。这种微观粒子在绝对零度的震动就是所谓的零点能。当然，零点能又有着非常丰富的内涵，物理学家常说“真空不空”就是这个源起，这里不深入了。&lt;/p&gt;
 &lt;p&gt;&amp;emsp;&amp;emsp;第二个定语是“无规则”，也就是说完全随机，速度的大小和方向都是随机的。空间各个方向都可能有微观粒子在跑，以至于推导麦克斯韦分布律的时候只需考虑速度大小即可。但是为什么？这背后说的其实是空间取向的平等性、对称性，即不应当存在一个独特的方向，使粒子做出“奇怪”的行为。第二章下半部分我们进一步说能量在各个自由度也是均等分配的，不存在“独特”的自由度。能量均分定理是细致平衡原理导致的，我认为这更多地是一种朴素的哲学思想，很难用数学公式证明。哲学的基本命题是对宇宙的思考，核心内容便是时间和空间。对于初学者看来，一个极不可思议的事情可能是微观粒子竟然满足速度分布律。不知道大家是否感到奇怪，几年前我初次接触这个物理规律时觉得非常诧异：大量混乱无序的个体为什么会遵循统计规律性？我更曾想，这些彼此无关的“没头苍蝇”怎么会相约着来个“规律”？要探讨这个问题，我打算分成三个层次来说。&lt;/p&gt;
@@ -212,10 +509,11 @@
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="physics"></category></entry><entry><title>Markdown语法和LaTeX数学记号速查手册</title><link href="http://domuse.com/markdown-and-latex-equation-handbook.html" rel="alternate"></link><published>2014-10-08T00:00:00+08:00</published><author><name>Leon</name></author><id>tag:domuse.com,2014-10-08:markdown-and-latex-equation-handbook.html</id><summary type="html">&lt;p&gt;&amp;emsp;&amp;emsp;
+&lt;/script&gt;</summary><category term="physics"></category></entry><entry><title>Markdown语法和LaTeX数学记号速查手册</title><link href="http://www.domuse.com/markdown-and-latex-equation-handbook.html" rel="alternate"></link><published>2014-10-08T00:00:00+08:00</published><updated>2014-10-08T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2014-10-08:markdown-and-latex-equation-handbook.html</id><summary type="html">&lt;p&gt;&amp;emsp;&amp;emsp;
 
-这篇文章是Markdown和LaTex的速查手册，阅读人群为科学工作者，尤其是物理领域的同行。常用的Markdown语法和数学符号、公式的LaTex的记号都列举在文中。本手册的用例如，Ipython Notebook或者支持Markdownd的博客。如果读者需要用到高级的技巧或完整的LaTex语法，请直接参与其官方文档。简而言之，我写本手册时权衡了完整和快查两个需求，力求简明而不简单
-。&lt;/p&gt;
+这篇文章是Markdown和LaTex的速查手册，阅读人群为科学工作者，尤其是物理领域的同行。常用的Markdown语法和数学符号、公式的LaTex的记号都列举在文中。本手册的用例如，Ipython Notebook或者支持Markdownd的博客。如果读者需要用到高级的技巧或完整的LaTex语法，请直接参与其官方文档。简而言之，我写本手册时权衡了完整和快查两个需求，力求简明而不简单。&lt;/p&gt;
+
+
 &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; This post is intended to be a concise instruction for physics workers or others, who want to properly render mathematical euqations in Markdown. The frequently-used markdown syntaxs and LaTeX notations of math are listed here. The typical usage of this handbook is Ipython Notebook or Markdown-supported blog, such as Pelican. If you are interested in advanced Markdown skills (acually, it is easy enough!) or publication-ready LaTeX technique, please look elsewhere. The original codes and (some) outputs are put together. And I write the main body in Chinese at present, maybe I will translate it into English later.&lt;/p&gt;
 &lt;h1&gt;Markdown和LaTeX数学公式速查表&lt;/h1&gt;
 &lt;h2&gt;Markdown极简手册&lt;/h2&gt;
@@ -301,7 +599,7 @@
 &lt;h2&gt;LaTeX常用数学符号极简手册&lt;/h2&gt;
 &lt;p&gt;LaTeX擅长于写科技和学术论文，这里列出的数学符号仅限于物理学工作者常用的部分。标题中指出的“极简”另一层涵义是，按此方法得到的数学公式没有考究其美学细节，例如字母a和b开方时如何使根号的横线齐平等。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;上标·下标&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Latex math环境行内公式标记&lt;code&gt;\(...\)&lt;/code&gt;，行间公式&lt;code&gt;\[...\]&lt;/code&gt;（需LaTeX中更多功能时使用&lt;code&gt;\begin{...} ....\end{...}&lt;/code&gt;)，或者可以使用TEX原有的标记激活：&lt;code&gt;$...$&lt;/code&gt;为行内公式或符号，&lt;code&gt;$$...$$&lt;/code&gt;为行间公式或符号。在数学模式中，空格均不起作用，需要诸如&lt;code&gt;\quad，\qquad&lt;/code&gt;的命令。&lt;/p&gt;
+&lt;p&gt;Latex math环境行内公式标记&lt;code&gt;\(...\)&lt;/code&gt;，行间公式&lt;code&gt;\[...\]&lt;/code&gt;（需LaTeX中更多功能时使用&lt;code&gt;\begin{...} ....\end{...}&lt;/code&gt;)，或者可以使用TEX原有的标记激活：&lt;code&gt;$...$&lt;/code&gt;为行内公式或符号，&lt;code&gt;$$...$$&lt;/code&gt;为行间公式或符号。在数学模式中，空格均不起作用，需要诸如&lt;code&gt;\, ~ \quad，\qquad&lt;/code&gt;的命令。&lt;/p&gt;
 &lt;p&gt;上标命令为&lt;code&gt;^{...}&lt;/code&gt;，下标为&lt;code&gt;_{...}&lt;/code&gt;，角标为单个字符时可不用花括号，同时有上标和下标时，输入次序不重要。如果角标的位置看起来不明显，可以强制改变角标的层次，如一级角标改为二级角标，如&lt;code&gt;y_N&lt;/code&gt;渲染为&lt;span class="math"&gt;\(y_N\)&lt;/span&gt;看不出角标，可以使N为二级下标，&lt;code&gt;y_{_N}&lt;/code&gt;渲染&lt;span class="math"&gt;\(y_{_N}\)&lt;/span&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;分式·根式&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;短分数线直接使用&lt;code&gt;/&lt;/code&gt;，水平分数线&lt;code&gt;$\frac{x+y}{2}$&lt;/code&gt;输出&lt;span class="math"&gt;\(\frac{x+y}{2}\)&lt;/span&gt;，当然也可以通过在花括号中添加一个分数的方式得到连分数。&lt;/p&gt;
@@ -597,7 +895,7 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;[注1] 加粗字母，如矢量，需宏包\usepackage{bm}&lt;/p&gt;
+&lt;p&gt;[注1] 加粗字母，如矢量，需宏包\usepackage{bm}，或者\textbf{A}，斜体：\textit{p}&lt;/p&gt;
 &lt;p&gt;[注2] 千分号，需宏包textcomp&lt;/p&gt;
 &lt;p&gt;量子态&lt;/p&gt;
 &lt;p&gt;bra      &lt;span class="math"&gt;\(\left | \psi \right \rangle\)&lt;/span&gt; &lt;code&gt;$\left | \psi \right \rangle$&lt;/code&gt;&lt;/p&gt;
@@ -734,9 +1032,17 @@
 &lt;td align="center"&gt;&lt;/td&gt;
 &lt;td align="left"&gt;&lt;/td&gt;
 &lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;$\cdot&lt;/td&gt;
+&lt;td align="left"&gt;&lt;code&gt;$\cdot$&lt;/code&gt;&lt;/td&gt;
+&lt;td align="center"&gt;&lt;/td&gt;
+&lt;td align="left"&gt;&lt;/td&gt;
+&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;这些符号也可供复制。对了，我遗漏什么了吗？（Continue...）请联系我！&lt;/p&gt;
+&lt;p&gt;各式符号 &lt;a href="https://www.artofproblemsolving.com/wiki/index.php/LaTeX:Symbols"&gt;LaTeX:Symbols&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;画图匹配符号 &lt;a href="http://detexify.kirelabs.org/classify.html"&gt;Detexify&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;扩展链接：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -805,4 +1111,58 @@
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="markdown"></category><category term="laTeX"></category><category term="physics"></category></entry></feed>
+&lt;/script&gt;</summary><category term="markdown"></category><category term="laTeX"></category><category term="physics"></category></entry><entry><title>Pelican静态博客架设</title><link href="http://www.domuse.com/this-blog.html" rel="alternate"></link><published>2016-06-17T00:00:00+08:00</published><updated>2016-06-17T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2014-10-04:this-blog.html</id><summary type="html">
+
+&lt;p&gt;虽然是更新，但这篇文章是完全重写，之前的版本是英文写的。&lt;/p&gt;
+&lt;p&gt;从新浪等博客平台到Wordpress，我折腾过不少次的博客。两年前我开始使用Pelican+Markdown来书写，托管在&lt;a href="https://pages.github.com/" target="_blank"&gt;Github Pages&lt;/a&gt;上，坚持使用了一年多时间。之前我使用基于pure的定制版主题，后来Pelican升级导致API有些变动，正好我忙于其他事情，博客就没法更新了，最大的问题是当时木有使用virtualenv来隔离运行环境。吃一堑，长一智，端午节有些时间，于是我升级了博客，主题基于官方默认的notmyidea，稍微变动了一点点成为littleidea。&lt;/p&gt;
+
+
+&lt;h2&gt;基础配置&lt;/h2&gt;
+&lt;p&gt;使用GitShell:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;
+&lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="n"&gt;pelicanblog&lt;/span&gt;
+&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;pelicanblog&lt;/span&gt;
+&lt;span class="n"&gt;virtualenv&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;no&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;package&lt;/span&gt; &lt;span class="n"&gt;venv&lt;/span&gt; &lt;span class="c1"&gt;# no extra packages, pure Python&lt;/span&gt;
+&lt;span class="n"&gt;venv&lt;/span&gt;\&lt;span class="n"&gt;Scripts&lt;/span&gt;\&lt;span class="n"&gt;activate&lt;/span&gt;
+
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt; &lt;span class="n"&gt;markdown&lt;/span&gt;
+
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt; &lt;span class="c1"&gt;# Now, the fold &amp;#39;blog&amp;#39; and &amp;#39;venv&amp;#39; inside the top fold&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;quickstart&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;回答一些问题，就可以，后面pelicanconf.py中可以改。我们可以使用&lt;a href="http://docs.getpelican.com/" target="_blank"&gt;Pelican官方教程&lt;/a&gt;中的pelican命令来完成实验性的架设，实践中我们在Windows平台下最适合使用&lt;a href="http://www.equation.com/servlet/equation.cmd?fa=make" target="_blank"&gt;make&lt;/a&gt;来自动化生成博客内容。为了避免添加PATH路径，我们把make.exe文件直接放在系统中安装的Python文件夹中即可，这样在虚拟的环境中仍然可以使用。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;html&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;regenerate&lt;/span&gt; &lt;span class="c1"&gt;# Or, make publish, we can find the meaning in the ‘Makefile’&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;其实第一个指令会将content文件夹中的markdown文件转成output中的html文件，这个时候整个output中的内容已经可以使用，例如提交到Github Pages中。第二个命令是可以实时更新你在content中的修改。&lt;/p&gt;
+&lt;p&gt;如果我们想在本地的开发服务器 (http://localhost:8000/)中看看网站的样子，需要另外用一个GitShell（默认的cmd也可以），进入venv下的blog中使用&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;serve&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;启用Pelican自带的开发服务器，指令的具体含义在Makefile文件中可以看，如果用python3的话，注意第一行&lt;code&gt;PY?=python3&lt;/code&gt;，可能需要改成python，我这里就是这样，因为PATH路径中就是python命令。&lt;/p&gt;
+&lt;p&gt;截止当前，写markdown文章，生成html，查看效果的循环已经备齐。学习使用markdown和LaTeX，参考博文&lt;a href="/markdown-and-latex-equation-handbook.html"&gt;Markdown语法和LaTeX数学记号速查手册&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;常用插件&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;PLUGIN_PATHS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;pelican-plugins&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;PLUGINS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;summary&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+           &lt;span class="s1"&gt;&amp;#39;render_math&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+          &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;希望支持Ipython/Jupyter Notebook，使用&lt;a href="https://github.com/getpelican/pelican-plugins/tree/master/liquid_tags" target="_blank"&gt;liquid_tags&lt;/a&gt;插件或者&lt;a href="https://github.com/danielfrg/pelican-ipynb" target="_blank"&gt;pelican-ipynb&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;更新：2016-06-17&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用pelican-ipynb支持Ipython Notebook作为博文发表&lt;/li&gt;
+&lt;li&gt;对由notmyidea衍生的littleidea主题进行较多修改：本地化、简化文章信息、CSS使用ipython notebook&lt;/li&gt;
+&lt;li&gt;使用Disqus支持评论&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;更新：2016-12-17&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用flex主题&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="pelican"></category><category term="python"></category></entry></feed>

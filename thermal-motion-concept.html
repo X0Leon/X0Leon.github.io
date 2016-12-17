@@ -1,49 +1,114 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="utf-8" />
-        <title>浅析热运动</title>
-        <link rel="stylesheet" href="http://www.domuse.com/theme/css/main.css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+    <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="http://www.domuse.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Leon's blog Atom">
+
+
+    <link rel="shortcut icon" href="http://www.domuse.com/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://www.domuse.com/images/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta name="author" content="Leon" />
+<meta name="description" content="  物理的奇妙之处在于，它试图探究世界的本原、真实客观的存在；善用数学但不囿于数学，而且有哲学思辨的魅力。理解物理规律往往先从现象（自然语言）描述出发，经过理论（数学公式）推演，最后直达事物本质。这篇短文藉此谈谈篇首说的“物质分子处于不停顿的无规则的运动状态”，直观来看，比较容易接受。但仔细想想什么意思？这句话有两个定语，我们可以审视一番。“不停顿”是指微观粒子不会待着不动，动能不为零，这句话没有提到限定条件，也即是说在任何情形下微观粒子都在运动。说到“任何情形”，有人可能就会怀疑了，怀疑是可贵的。" />
+<meta name="keywords" content="physics">
+<meta property="og:site_name" content="Leon's blog"/>
+<meta property="og:title" content="浅析热运动"/>
+<meta property="og:description" content="  物理的奇妙之处在于，它试图探究世界的本原、真实客观的存在；善用数学但不囿于数学，而且有哲学思辨的魅力。理解物理规律往往先从现象（自然语言）描述出发，经过理论（数学公式）推演，最后直达事物本质。这篇短文藉此谈谈篇首说的“物质分子处于不停顿的无规则的运动状态”，直观来看，比较容易接受。但仔细想想什么意思？这句话有两个定语，我们可以审视一番。“不停顿”是指微观粒子不会待着不动，动能不为零，这句话没有提到限定条件，也即是说在任何情形下微观粒子都在运动。说到“任何情形”，有人可能就会怀疑了，怀疑是可贵的。"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://www.domuse.com/thermal-motion-concept.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2014-10-11 00:00:00+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://www.domuse.com/author/leon.html">
+<meta property="article:section" content="Science"/>
+<meta property="article:tag" content="physics"/>
+<meta property="og:image" content="http://www.domuse.com/images/leon.png">
+
+  <title>Leon's blog &ndash; 浅析热运动</title>
+
 </head>
+<body>
+  <aside>
+    <div>
+      <a href="http://www.domuse.com">
+        <img src="http://www.domuse.com/images/leon.png" alt="Leon" title="Leon">
+      </a>
+      <h1><a href="http://www.domuse.com">Leon</a></h1>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://www.domuse.com/">Leon's blog  <strong>读书写字和思考的地方</strong></a></h1>
-                <nav><ul>
-                    <li><a href="/archives.html">Archive</a></li>
-                    <li><a href="http://www.domuse.com/pages/about.html">About</a></li>
-                    <li><a href="http://www.domuse.com/category/coding.html">Coding</a></li>
-                    <li><a href="http://www.domuse.com/category/muse.html">Muse</a></li>
-                    <li><a href="http://www.domuse.com/category/quant.html">Quant</a></li>
-                    <li class="active"><a href="http://www.domuse.com/category/science.html">Science</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="http://www.domuse.com/thermal-motion-concept.html" rel="bookmark"
-           title="Permalink to 浅析热运动">浅析热运动</a></h1>
-    </header>
+<p>读书写字和思考的地方</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://www.domuse.com/pages/about.html#about">About</a></li>
 
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-10-11T00:00:00+08:00">
-                发表: 2014-10-11
-        </abbr>
+          <li><a href="http://sciencefan.org/" target="_blank">wiki</a></li>
+        </ul>
+      </nav>
 
-<p>标签: <a href="http://www.domuse.com/tag/physics.html">physics</a> </p>
-</footer><!-- /.post-info -->      <p>写在前面的话：这是我作为2014年秋季学期《普通物理（B）II》课程助教时，写给非物理系本科生的一个注解，或者说与大家分享的思考。教材是北京大学出版社《大学通用教程·热学》，这篇短文在学习完第二章后，写在Practice一栏中，拟定的题目本来是《从“物质分子处于不停顿的无规则的运动状态”到热平衡态的统计分布律》，但是显得太长了，所以减缩成《浅析热运动》。</p>
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/X0Leon" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-rss" href="//www.domuse.com/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="http://www.domuse.com">    Home
+</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+      <a href="http://www.domuse.com/feeds/all.atom.xml">    Atom
+</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+    <h1 id="thermal-motion-concept">浅析热运动</h1>
+    <p>
+          Posted on 2014-10-11 in <a href="http://www.domuse.com/category/science.html">Science</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>写在前面的话：这是我作为2014年秋季学期《普通物理（B）II》课程助教时，写给非物理系本科生的一个注解，或者说与大家分享的思考。教材是北京大学出版社《大学通用教程·热学》，这篇短文在学习完第二章后，写在Practice一栏中，拟定的题目本来是《从“物质分子处于不停顿的无规则的运动状态”到热平衡态的统计分布律》，但是显得太长了，所以减缩成《浅析热运动》。</p>
 <hr />
 
 
-<p>&emsp;&emsp;物理的奇妙之处在于，它试图探究世界的本原、真实客观的存在；善用数学但不囿于数学，而且有哲学思辨的魅力。理解物理规律往往先从现象（自然语言）描述出发，经过理论（数学公式）推演，最后直达事物本质。这篇短文藉此谈谈篇首说的“物质分子处于不停顿的无规则的运动状态”，直观来看，比较容易接受。但仔细想想什么意思？这句话有两个定语，我们可以审视一番。“不停顿”是指微观粒子不会待着不动，动能不为零，这句话没有提到限定条件，也即是说在任何情形下微观粒子都在运动。说到“任何情形”，有人可能就会怀疑了，怀疑是可贵的
-。
-我们知道理想气体的平均动能和温度的关系：</p>
+<p>&emsp;&emsp;物理的奇妙之处在于，它试图探究世界的本原、真实客观的存在；善用数学但不囿于数学，而且有哲学思辨的魅力。理解物理规律往往先从现象（自然语言）描述出发，经过理论（数学公式）推演，最后直达事物本质。这篇短文藉此谈谈篇首说的“物质分子处于不停顿的无规则的运动状态”，直观来看，比较容易接受。但仔细想想什么意思？这句话有两个定语，我们可以审视一番。“不停顿”是指微观粒子不会待着不动，动能不为零，这句话没有提到限定条件，也即是说在任何情形下微观粒子都在运动。说到“任何情形”，有人可能就会怀疑了，怀疑是可贵的。</p>
+
+
+<p>我们知道理想气体的平均动能和温度的关系：</p>
 <div class="math">$$\bar{\varepsilon_k}=\frac{3}{2}k_B T，$$</div>
 <p>那是不是到了绝对零度，气体分子就不动了？绝对零度下所有的热运动都会消失，微观粒子们都安静下来？听着很合理，但坏消息是绝对零度只能不断接近，却不能到达，也就是说，要想消除全部热运动没有可能。为什么零温不可达？要营造一个温度低至0K的体系至少有两方面的困难：一是制冷机在温度越低时的制冷效率越低（卡诺循环处会学到），所以在实验室中要达到mK量级的温度需要逐级制冷，非常复杂；二是漏热或是热辐射无法避免，热从高到低的“流动”是自发的（熵增原理），绝热是不现实的，孤立系统更只是假想的。有人可能进一步想，如果真的T=0K会怎么样？微观粒子是不是就待在一个位置不动呢？实际上，量子力学中的测不准原理告诉我们，这不可能！位置<span class="math">\(x\)</span>和动量<span class="math">\(p\)</span>是一对共轭量，无法同时测准，所以微观粒子绝不会完全停下来。这种微观粒子在绝对零度的震动就是所谓的零点能。当然，零点能又有着非常丰富的内涵，物理学家常说“真空不空”就是这个源起，这里不深入了。</p>
 <p>&emsp;&emsp;第二个定语是“无规则”，也就是说完全随机，速度的大小和方向都是随机的。空间各个方向都可能有微观粒子在跑，以至于推导麦克斯韦分布律的时候只需考虑速度大小即可。但是为什么？这背后说的其实是空间取向的平等性、对称性，即不应当存在一个独特的方向，使粒子做出“奇怪”的行为。第二章下半部分我们进一步说能量在各个自由度也是均等分配的，不存在“独特”的自由度。能量均分定理是细致平衡原理导致的，我认为这更多地是一种朴素的哲学思想，很难用数学公式证明。哲学的基本命题是对宇宙的思考，核心内容便是时间和空间。对于初学者看来，一个极不可思议的事情可能是微观粒子竟然满足速度分布律。不知道大家是否感到奇怪，几年前我初次接触这个物理规律时觉得非常诧异：大量混乱无序的个体为什么会遵循统计规律性？我更曾想，这些彼此无关的“没头苍蝇”怎么会相约着来个“规律”？要探讨这个问题，我打算分成三个层次来说。</p>
@@ -113,67 +178,73 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 </script>
-    </div><!-- /.entry-content -->
-    <div class="comments">
-      <h2>评论</h2>
-      <div id="disqus_thread"></div>
-      <script type="text/javascript">
-        var disqus_shortname = 'leonpelican';
-        var disqus_identifier = 'thermal-motion-concept.html';
-        var disqus_url = 'http://www.domuse.com/thermal-motion-concept.html';
-        (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//leonpelican.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-      </script>
-      <noscript>Please enable JavaScript to view the comments.</noscript>
-    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://www.domuse.com/tag/physics.html">physics</a>
+    </p>
+  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://www.domuse.com/">DoMuse</a></li>
-                            <li><a href="http://scipy.org/">Scipy.org</a></li>
-                            <li><a href="http://sciencefan.org/">ScienceFan</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
 
-                            <li><a href="https://github.com/X0Leon">Github</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                &copy; 2014-2016 Leon. Proudly powered by Pelican and Python. The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>.
-                </address><!-- /#about -->
-        </footer><!-- /#contentinfo -->
 
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-78964080-1']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = 'https://ssl.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
+<div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'leonpelican';
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>
+  &copy; Leon 2016 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78964080-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Leon's blog ",
+  "url" : "http://www.domuse.com",
+  "image": "http://www.domuse.com/images/leon.png",
+  "description": ""
+}
 </script>
 </body>
 </html>

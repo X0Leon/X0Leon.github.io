@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Leon's blog</title><link href="http://www.domuse.com/" rel="alternate"></link><link href="http://www.domuse.com/feeds/quant.atom.xml" rel="self"></link><id>http://www.domuse.com/</id><updated>2016-11-22T00:00:00+08:00</updated><entry><title>量化回测框架</title><link href="http://www.domuse.com/quant-backtest.html" rel="alternate"></link><published>2016-11-22T00:00:00+08:00</published><updated>2016-11-22T00:00:00+08:00</updated><author><name>Leon</name></author><id>tag:www.domuse.com,2016-11-10:quant-backtest.html</id><summary type="html">
+
+&lt;p&gt;让我们来设计一个真实的量化回测框架，由需求驱动，从简单到复杂，你准备好了吗？&lt;/p&gt;
+&lt;p&gt;回测框架大致分为两种：for-loop(轮询)和event-driven(事件驱动)，前者进行向量化计算，速度更快，但不符合实盘交易的流程，后者采用逐个bar/tick读取数据，并产生交易信号的方式，利于统一回测和实盘的代码，部分解决“回测易、实盘难”的困境。&lt;/p&gt;
+
+
+&lt;p&gt;免责声明：供个人研究使用，不构成投资建议。&lt;/p&gt;
+&lt;h2&gt;版本演进&lt;/h2&gt;
+&lt;p&gt;采用Python语言开发，开源框架Github·&lt;a href="https://github.com/X0Leon/XQuant"&gt;XQuant&lt;/a&gt;：&lt;/p&gt;
+&lt;p&gt;Version 0.2: 完整的事件驱动引擎engine (2016年9月)&lt;/p&gt;
+&lt;p&gt;Version 0.3: 清晰的架构，持续完善finance/utils/visual模块 (2016年10月)&lt;/p&gt;
+&lt;p&gt;Version 0.4: 支持股票和期货的滑点、手续费模型；logging功能 (2016年11月)&lt;/p&gt;
+&lt;p&gt;Version 0.5：回测结束强制平仓；可选回测区间；分品种交易记录 (2016年12月)&lt;/p&gt;
+&lt;p&gt;TODO:&lt;/p&gt;
+&lt;p&gt;Version 0.*: 模拟交易功能&lt;/p&gt;
+&lt;p&gt;Version 0.*: Web GUI可视化&lt;/p&gt;
+&lt;p&gt;Version 1.0: 支持实盘交易&lt;/p&gt;
+&lt;h2&gt;策略示例&lt;/h2&gt;
+&lt;p&gt;参考github中移动双均线策略（Moving Average Cross Strategy）示例。&lt;/p&gt;</summary><category term="quant"></category><category term="backtest"></category></entry></feed>
