@@ -31,23 +31,24 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <meta name="author" content="Leon" />
-<meta name="description" content="让我们来设计一个真实的量化回测框架，由需求驱动，从简单到复杂，你准备好了吗？ 回测框架大致分为两种：for-loop(轮询)和event-driven(事件驱动)，前者进行向量化计算，速度更快，但不符合实盘交易的流程，后者采用逐个bar/tick读取数据，并产生交易信号的方式，利于统一回测和实盘的代码，部分解决“回测易、实盘难”的困境。" />
-<meta name="keywords" content="quant, backtest">
+<meta name="description" content="不同于传统的判断式投资，量化投资（回测/交易）是由数据驱动的，形形色色的数据反映金融市场的不同侧面，我们希望获取尽可能多的不相关或弱相关的数据集以建立信息优势。获取诸多种数据是量化投资的第一步，也是至关重要的环节。基于此，我们就可以进行量化回测（量化回测框架XQuant），模拟交易，直至实盘交易。 本文介绍我最近的开源项目qdata，并将此文作为所有量化数据相关的博文索引。" />
+<meta name="keywords" content="quant, data, storage">
 <meta property="og:site_name" content="Leon's blog"/>
-<meta property="og:title" content="量化回测框架"/>
-<meta property="og:description" content="让我们来设计一个真实的量化回测框架，由需求驱动，从简单到复杂，你准备好了吗？ 回测框架大致分为两种：for-loop(轮询)和event-driven(事件驱动)，前者进行向量化计算，速度更快，但不符合实盘交易的流程，后者采用逐个bar/tick读取数据，并产生交易信号的方式，利于统一回测和实盘的代码，部分解决“回测易、实盘难”的困境。"/>
+<meta property="og:title" content="数据的获取和存储"/>
+<meta property="og:description" content="不同于传统的判断式投资，量化投资（回测/交易）是由数据驱动的，形形色色的数据反映金融市场的不同侧面，我们希望获取尽可能多的不相关或弱相关的数据集以建立信息优势。获取诸多种数据是量化投资的第一步，也是至关重要的环节。基于此，我们就可以进行量化回测（量化回测框架XQuant），模拟交易，直至实盘交易。 本文介绍我最近的开源项目qdata，并将此文作为所有量化数据相关的博文索引。"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="http://www.domuse.com/quant-backtest.html"/>
+<meta property="og:url" content="http://www.domuse.com/quant-data.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2016-11-10 00:00:00+08:00"/>
-<meta property="article:modified_time" content="2016-11-22 00:00:00+08:00"/>
+<meta property="article:published_time" content="2016-12-18 00:00:00+08:00"/>
+<meta property="article:modified_time" content="2016-12-18 00:00:00+08:00"/>
 <meta property="article:author" content="http://www.domuse.com/author/leon.html">
 <meta property="article:section" content="Quant"/>
 <meta property="article:tag" content="quant"/>
-<meta property="article:tag" content="backtest"/>
+<meta property="article:tag" content="data"/>
+<meta property="article:tag" content="storage"/>
 <meta property="og:image" content="http://www.domuse.com/images/leon.png">
 
-  <title>Leon's blog &ndash; 量化回测框架</title>
+  <title>Leon's blog &ndash; 数据的获取和存储</title>
 
 </head>
 <body>
@@ -92,9 +93,9 @@
 
 <article class="single">
   <header>
-    <h1 id="quant-backtest">量化回测框架</h1>
+    <h1 id="quant-data">数据的获取和存储</h1>
     <p>
-          Posted on 2016-11-10 in <a href="http://www.domuse.com/category/quant.html">Quant</a>
+          Posted on 2016-12-18 in <a href="http://www.domuse.com/category/quant.html">Quant</a>
 
 
     </p>
@@ -104,28 +105,46 @@
   <div>
     
 
-<p>让我们来设计一个真实的量化回测框架，由需求驱动，从简单到复杂，你准备好了吗？</p>
-<p>回测框架大致分为两种：for-loop(轮询)和event-driven(事件驱动)，前者进行向量化计算，速度更快，但不符合实盘交易的流程，后者采用逐个bar/tick读取数据，并产生交易信号的方式，利于统一回测和实盘的代码，部分解决“回测易、实盘难”的困境。</p>
+<p>不同于传统的判断式投资，量化投资（回测/交易）是由数据驱动的，形形色色的数据反映金融市场的不同侧面，我们希望获取尽可能多的不相关或弱相关的数据集以建立信息优势。获取诸多种数据是量化投资的第一步，也是至关重要的环节。基于此，我们就可以进行量化回测（<a href="/quant-backtest.html">量化回测框架XQuant</a>），模拟交易，直至实盘交易。</p>
+<p>本文介绍我最近的开源项目<a href="https://github.com/X0Leon/qdata">qdata</a>，并将此文作为所有量化数据相关的博文索引。</p>
 
 
-<p>免责声明：供个人研究使用，不构成投资建议。</p>
-<h2>版本演进</h2>
-<p>采用Python语言开发，开源框架Github·<a href="https://github.com/X0Leon/XQuant">XQuant</a>：</p>
-<p>Version 0.2: 完整的事件驱动引擎engine (2016年9月)</p>
-<p>Version 0.3: 清晰的架构，持续完善finance/utils/visual模块 (2016年10月)</p>
-<p>Version 0.4: 支持股票和期货的滑点、手续费模型；logging功能 (2016年11月)</p>
-<p>Version 0.5：回测结束强制平仓；可选回测区间；分品种交易记录 (2016年12月)</p>
-<p>TODO:</p>
-<p>Version 0.*: 模拟交易功能</p>
-<p>Version 0.*: Web GUI可视化</p>
-<p>Version 1.0: 支持实盘交易</p>
-<h2>策略示例</h2>
-<p>参考github·XQuant/demo中移动双均线策略（Moving Average Cross Strategy）例子。</p>
+<h2>数据分类</h2>
+<p>为了研究方便，我将感兴趣的数据大致分为</p>
+<ul>
+<li>交易数据：带时间戳戳的bar，或者分笔成交的数据，或者实时bid/ask数据</li>
+<li>扩展交易数据：交易数据深度信息，如龙虎榜、融资融券、股东持股变动等</li>
+<li>财务数据：公司基本面的数据，如营业额、净利润、现金流、净资产、周转率等</li>
+<li>公司归类：公司间关联信息，如行业板块、概念、各类指数等</li>
+<li>宏观数据：GDP、利率、广义货币、CPI、工业品出厂价格指数等</li>
+<li>新闻研报：滚动新闻、信息地雷及研究员报告等</li>
+<li>舆情数据：雪球、微博、搜索引擎等反映市场心理的数据</li>
+</ul>
+<p>量化数据非常庞杂，一般通过API接口或者网络爬虫来收集、清洗和存储，涉及urllib/requests，re/bs4，HDF5/SOL，Redis，<a href="http://tushare.org/">tushare</a>/pandas等python库及技术，我们在其他适当的地方加以介绍。这里从最基本的交易市场数据开始，逐步扩展。</p>
+<h2>qdata项目</h2>
+<p>Github/<a href="https://github.com/X0Leon/qdata">qdata</a> - 目标：High-level的量化数据获取和存储方案，Roadmap：</p>
+<ul>
+<li>Version 0.1: 初始化股票日线数据到HDF5文件系统，盘后自动更新行情数据 (2016年12月)</li>
+<li>Version 0.2: 冗余数据源，股票除权数据的获取，及复权因子的计算 (In Progress)</li>
+</ul>
+<p>使用：</p>
+<div class="highlight"><pre><span></span><span class="c1"># run.py</span>
+<span class="n">init_data</span><span class="p">()</span>  <span class="c1"># 初始化存储系统，获取股票上市至今的所有数据</span>
+<span class="n">sync_data</span><span class="p">()</span>  <span class="c1"># 更新数据，可以每天运行</span>
+</pre></div>
+
+
+<p>若干重要问题：</p>
+<ol>
+<li>为什么优先HDF5存储，而非SOL系？</li>
+<li>回测时，如何处理复权？更新存储时如何处理复权？复权因子如何计算？</li>
+</ol>
   </div>
   <div class="tag-cloud">
     <p>
       <a href="http://www.domuse.com/tag/quant.html">quant</a>
-      <a href="http://www.domuse.com/tag/backtest.html">backtest</a>
+      <a href="http://www.domuse.com/tag/data.html">data</a>
+      <a href="http://www.domuse.com/tag/storage.html">storage</a>
     </p>
   </div>
 

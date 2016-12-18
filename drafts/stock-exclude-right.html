@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="http://www.domuse.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Leon's blog Atom">
+
+
+    <link rel="shortcut icon" href="http://www.domuse.com/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://www.domuse.com/images/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta name="author" content="Leon" />
+<meta name="description" content="  ——我们不怕数字游戏，只不过是简单的数学。 送股、转股、配股（增发）、分红、派息……总有一款让新韭菜头晕，其实这些都是数字游戏，只是通过分现金或变动股数来调整股价，总市值保持不变。那公司为什么要这么做呢？考虑增股或分红需要缴税，小股东还要亏损一点，但大股东总有某种原因，例如市值管理，市场有炒作低价股的倾向！除权（Exclude Right, XR)是发行公司按一定比例分配股票股利给股东，增加公司总股数；除息（Exclude Dividen, XD）是分配现金股利给股东，两者都会降低每股权益，且有时候统称为权息，或者就是除权。 举例：某公司决定10股送1股，即送股率0.1，如果你手中有10股，送完后则有11股。假设该公司总共有20股，除权前每股5元，那价格如何调整呢？设除权后价格为X，根据市值不变原则，可得：5*20 ..." />
+<meta name="keywords" content="quant, stock">
+<meta property="og:site_name" content="Leon's blog"/>
+<meta property="og:title" content="股票的除权和复权"/>
+<meta property="og:description" content="  ——我们不怕数字游戏，只不过是简单的数学。 送股、转股、配股（增发）、分红、派息……总有一款让新韭菜头晕，其实这些都是数字游戏，只是通过分现金或变动股数来调整股价，总市值保持不变。那公司为什么要这么做呢？考虑增股或分红需要缴税，小股东还要亏损一点，但大股东总有某种原因，例如市值管理，市场有炒作低价股的倾向！除权（Exclude Right, XR)是发行公司按一定比例分配股票股利给股东，增加公司总股数；除息（Exclude Dividen, XD）是分配现金股利给股东，两者都会降低每股权益，且有时候统称为权息，或者就是除权。 举例：某公司决定10股送1股，即送股率0.1，如果你手中有10股，送完后则有11股。假设该公司总共有20股，除权前每股5元，那价格如何调整呢？设除权后价格为X，根据市值不变原则，可得：5*20 ..."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://www.domuse.com/drafts/stock-exclude-right.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2016-12-19 00:00:00+08:00"/>
+<meta property="article:modified_time" content="2016-12-19 00:00:00+08:00"/>
+<meta property="article:author" content="http://www.domuse.com/author/leon.html">
+<meta property="article:section" content="Quant"/>
+<meta property="article:tag" content="quant"/>
+<meta property="article:tag" content="stock"/>
+<meta property="og:image" content="http://www.domuse.com/images/leon.png">
+
+  <title>Leon's blog &ndash; 股票的除权和复权</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://www.domuse.com">
+        <img src="http://www.domuse.com/images/leon.png" alt="Leon" title="Leon">
+      </a>
+      <h1><a href="http://www.domuse.com">Leon</a></h1>
+
+<p>读书写字和思考的地方</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://www.domuse.com/pages/about.html#about">About</a></li>
+
+          <li><a href="http://sciencefan.org/" target="_blank">wiki</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/X0Leon" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-rss" href="//www.domuse.com/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="http://www.domuse.com">    Home
+</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+      <a href="http://www.domuse.com/feeds/all.atom.xml">    Atom
+</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+    <h1 id="stock-exclude-right">股票的除权和复权</h1>
+    <p>
+          Posted on 2016-12-19 in <a href="http://www.domuse.com/category/quant.html">Quant</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>&emsp;&emsp;——我们不怕数字游戏，只不过是简单的数学。</p>
+<!-- PELICAN_BEGIN_SUMMARY -->
+
+<p>送股、转股、配股（增发）、分红、派息……总有一款让新韭菜头晕，其实这些都是数字游戏，只是通过分现金或变动股数来调整股价，总市值保持不变。那公司为什么要这么做呢？考虑增股或分红需要缴税，小股东还要亏损一点，但大股东总有某种原因，例如市值管理，市场有炒作低价股的倾向！除权（Exclude Right, XR)是发行公司按一定比例分配<strong>股票</strong>股利给股东，增加公司总股数；除息（Exclude Dividen, XD）是分配<strong>现金</strong>股利给股东，两者都会降低每股权益，且有时候统称为权息，或者就是除权。</p>
+<!-- PELICAN_END_SUMMARY -->
+
+<p>举例：某公司决定10股送1股，即送股率0.1，如果你手中有10股，送完后则有11股。假设该公司总共有20股，除权前每股5元，那价格如何调整呢？设除权后价格为X，根据市值不变原则，可得：5*20 = X*20*(1+0.1)，即X=5/(1+0.1)。第二天就在这个价格基础上进行集合竞价。</p>
+<p>由市值不变原则，除权除息的<a href="http://www.szse.cn/main/aboutus/xywjs/xjygzjd/200605168655.shtml">计算公式</a>也很简单：</p>
+<div class="highlight"><pre><span></span>除权参考价 = (股权登记日收盘价 + 配(新)股价 * 流通股变动比率 - 现金红利) / (1 + 流通股变动比率)
+</pre></div>
+
+
+<p>注：分红转增的股份变动比例直接用送股比例、配股比例和派息比例即可，而配股时因为有股东会放弃配股， 所以直接用配股比例算不准确，需要按照配股前后股本的变动比例来计算。</p>
+<p>除权除息会造成股票价格、技术指标突变，但却是真实价格。复权是我们为了研究方便模拟出来的逆过程，用于分析当前价位在历史价格中的相对位置。前复权是以当前价格为基准，缩减历史价格，将去除权息前的K线向下平移拼接而成，比较常用。后复权是以某个历史时点为基准，调整此后的价格，此时当前价格也被动变化，不利于和实盘对照。</p>
+<h2>量化回测中的复权</h2>
+<p>前复权是站在未来看过去，实际上对于基于价格的策略来说，引入了未来函数。一个解决方法是回测中每一天只使用该天之前的前复权数据，这种方法有时候被称为“动态复权价格”；另一个选择是使用后复权价格。当然，如果价格因子也需要考虑，则必须使用真实价格，否则会得到错误的结果，例如，买入低价股策略。</p>
+<p><img src="../images/exclude_price.png" width = "250" alt="动态复权价格" align=center /></p>
+<p>前复权的另一个问题是计算的累计误差，由于股价通常采用两位小数，前复权会导致价格基数越来越小，即便采用百分比收益率，累计计算误差越来越大，而后复权则好得多。无论是简单前复权，还是动态前复权，时间跨度可能在3~5年为宜。</p>
+<p>第三个缺点是当股票存在分配或配股时，前复权不能正确计算收益率，有时候我们发现股票在很久之前的价格是负的，例如万科A。更可靠地是下文所述的复权涨跌幅复权。</p>
+<h3>本地化存储</h3>
+<p>各类平台中的交易数据一般有不复权、前复权（当前价格基准）和后复权（上市价格基准）三种选择，更合理的方案是获取不复权数据和复权因子，然后在有需要的时候自行计算复权价格。</p>
+<div class="highlight"><pre><span></span>单次复权因子 = 登记日收盘价 / 除权参考价
+</pre></div>
+
+
+<p>累计复权因子（即每个交易日的复权因子）为此前所有单次复权因子的连乘积。</p>
+<div class="highlight"><pre><span></span>向后复权价 = 股票真实价格 * 每个交易日的复权因子
+复权涨幅 = 复权价 / 前一日复权价 - 1
+</pre></div>
+
+
+<p>我们得到复权涨跌幅后，可以很容易通过连乘得到后复权价格（或者直接用累计复权因子），通过连除得到前复权价格。需要注意的是，考虑不参与分配，也即分红进行重复投资，不参与配股，此时得到的收益率是真实的累计收益率。</p>
+<p>至此，我们统一了计算口径，通过累计复权因子得到后复权价格进而计算涨跌幅。</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://www.domuse.com/tag/quant.html">quant</a>
+      <a href="http://www.domuse.com/tag/stock.html">stock</a>
+    </p>
+  </div>
+
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'leonpelican';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>
+  &copy; Leon 2016 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78964080-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Leon's blog ",
+  "url" : "http://www.domuse.com",
+  "image": "http://www.domuse.com/images/leon.png",
+  "description": ""
+}
+</script>
+</body>
+</html>
