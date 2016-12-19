@@ -122,7 +122,8 @@
 </ul>
 <p>量化数据非常庞杂，一般通过API接口或者网络爬虫来收集、清洗和存储，涉及urllib/requests，re/bs4，HDF5/SOL，Redis，<a href="http://tushare.org/">tushare</a>/pandas等python库及技术，我们在其他适当的地方加以介绍。这里从最基本的交易市场数据开始，逐步扩展。</p>
 <h2>qdata项目</h2>
-<p>Github/<a href="https://github.com/X0Leon/qdata">qdata</a> - 目标：High-level的量化数据获取和存储方案，Roadmap：</p>
+<p>Github/<a href="https://github.com/X0Leon/qdata">qdata</a> - 目标：High-level的量化数据获取和存储方案。</p>
+<p><img src="../images/qdata_schematic.png" width = "500" alt="qdata架构" align=center /></p>
 <ul>
 <li>Version 0.1: 初始化股票日线数据到HDF5文件系统，盘后自动更新行情数据 (2016年12月)</li>
 <li>Version 0.2: 冗余数据源，股票除权数据的获取，及复权因子的计算 (In Progress)</li>
