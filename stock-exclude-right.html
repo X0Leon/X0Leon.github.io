@@ -34,20 +34,20 @@
 <meta name="description" content="送股、转股、配股（增发）、分红、派息……总有一款让新韭菜头晕，其实这些都是数字游戏，只是通过分现金或变动股数来调整股价，总市值保持不变。那公司为什么要这么做呢？考虑增股或分红需要缴税，小股东还要亏损一点，但大股东总有某种原因，例如市值管理，市场有炒作低价股的倾向！除权（Exclude Right, XR)是发行公司按一定比例分配股票股利给股东，增加公司总股数；除息（Exclude Dividen, XD）是分配现金股利给股东，两者都会降低每股权益，且有时候统称为权息，或者就是除权。" />
 <meta name="keywords" content="quant, stock">
 <meta property="og:site_name" content="Leon's blog"/>
-<meta property="og:title" content="股票的除权和复权"/>
+<meta property="og:title" content="除权和复权"/>
 <meta property="og:description" content="送股、转股、配股（增发）、分红、派息……总有一款让新韭菜头晕，其实这些都是数字游戏，只是通过分现金或变动股数来调整股价，总市值保持不变。那公司为什么要这么做呢？考虑增股或分红需要缴税，小股东还要亏损一点，但大股东总有某种原因，例如市值管理，市场有炒作低价股的倾向！除权（Exclude Right, XR)是发行公司按一定比例分配股票股利给股东，增加公司总股数；除息（Exclude Dividen, XD）是分配现金股利给股东，两者都会降低每股权益，且有时候统称为权息，或者就是除权。"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://www.domuse.com/stock-exclude-right.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2016-12-19 00:00:00+08:00"/>
-<meta property="article:modified_time" content="2016-12-19 00:00:00+08:00"/>
+<meta property="article:published_time" content="2016-12-21 00:00:00+08:00"/>
+<meta property="article:modified_time" content="2016-12-21 00:00:00+08:00"/>
 <meta property="article:author" content="http://www.domuse.com/author/leon.html">
 <meta property="article:section" content="Quant"/>
 <meta property="article:tag" content="quant"/>
 <meta property="article:tag" content="stock"/>
 <meta property="og:image" content="http://www.domuse.com/images/leon.png">
 
-  <title>Leon's blog &ndash; 股票的除权和复权</title>
+  <title>Leon's blog &ndash; 除权和复权</title>
 
 </head>
 <body>
@@ -92,9 +92,9 @@
 
 <article class="single">
   <header>
-    <h1 id="stock-exclude-right">股票的除权和复权</h1>
+    <h1 id="stock-exclude-right">除权和复权</h1>
     <p>
-          Posted on 2016-12-19 in <a href="http://www.domuse.com/category/quant.html">Quant</a>
+          Posted on 2016-12-21 in <a href="http://www.domuse.com/category/quant.html">Quant</a>
 
 
     </p>
@@ -102,7 +102,7 @@
 
 
   <div>
-    <p>&emsp;&emsp;——我们不怕数字游戏，只不过是简单的数学。</p>
+    <p>&emsp;&emsp;——即使脑回路短接，也不能发热出错呢：我们都爱数学游戏</p>
 
 
 <p>送股、转股、配股（增发）、分红、派息……总有一款让新韭菜头晕，其实这些都是数字游戏，只是通过分现金或变动股数来调整股价，总市值保持不变。那公司为什么要这么做呢？考虑增股或分红需要缴税，小股东还要亏损一点，但大股东总有某种原因，例如市值管理，市场有炒作低价股的倾向！除权（Exclude Right, XR)是发行公司按一定比例分配<strong>股票</strong>股利给股东，增加公司总股数；除息（Exclude Dividen, XD）是分配<strong>现金</strong>股利给股东，两者都会降低每股权益，且有时候统称为权息，或者就是除权。</p>
@@ -133,8 +133,9 @@
 </pre></div>
 
 
-<p>我们得到复权涨跌幅后，可以很容易通过连乘得到后复权价格（或者直接用累计复权因子），通过连除得到前复权价格。需要注意的是，考虑不参与分配，也即分红进行重复投资，不参与配股，此时得到的收益率是真实的累计收益率。</p>
-<p>至此，我们统一了计算口径，通过累计复权因子得到后复权价格进而计算涨跌幅。</p>
+<p>我们得到复权涨跌幅后，可以很容易通过连乘得到后复权价格（或者直接用累计复权因子），通过连除得到前复权价格。需要注意的是，如果不参与分配，或者分红进行重复投资，且不参与配股，此时得到的收益率也是真实收益率。</p>
+<p>至此，我们统一了计算口径，通过累计复权因子得到后复权价格进而计算涨跌幅，也能在回测时得到较真实的收益率。</p>
+<p>（未完，待续）</p>
   </div>
   <div class="tag-cloud">
     <p>
