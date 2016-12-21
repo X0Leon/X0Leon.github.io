@@ -4,17 +4,17 @@
 <head>
   <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/stylesheet/style.min.css">
+    <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/stylesheet/style.min.css">
 
-  <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/pygments/github.min.css">
-  <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/font-awesome/css/font-awesome.min.css">
-
-
-    <link href="http://localhost:8000/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Leon's blog Atom">
+  <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://www.domuse.com/theme/font-awesome/css/font-awesome.min.css">
 
 
-    <link rel="shortcut icon" href="http://localhost:8000/images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="http://localhost:8000/images/favicon.ico" type="image/x-icon">
+    <link href="http://www.domuse.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Leon's blog Atom">
+
+
+    <link rel="shortcut icon" href="http://www.domuse.com/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://www.domuse.com/images/favicon.ico" type="image/x-icon">
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -31,37 +31,37 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <meta name="author" content="Leon" />
-<meta name="description" content="  ——我们不怕数字游戏，只不过是简单的数学。 送股、转股、配股（增发）、分红、派息……总有一款让新韭菜头晕，其实这些都是数字游戏，只是通过分现金或变动股数来调整股价，总市值保持不变。那公司为什么要这么做呢？考虑增股或分红需要缴税，小股东还要亏损一点，但大股东总有某种原因，例如市值管理，市场有炒作低价股的倾向！除权（Exclude Right, XR)是发行公司按一定比例分配股票股利给股东，增加公司总股数；除息（Exclude Dividen, XD）是分配现金股利给股东，两者都会降低每股权益，且有时候统称为权息，或者就是除权。 举例：某公司决定10股送1股，即送股率0.1，如果你手中有10股，送完后则有11股。假设该公司总共有20股，除权前每股5元，那价格如何调整呢？设除权后价格为X，根据市值不变原则，可得：5*20 ..." />
+<meta name="description" content="  ——即使脑回路短接，也不能发热出错呢：我们都爱数学游戏 送股、转股、配股（增发）、分红、派息……总有一款让新韭菜头晕，其实这些都是数字游戏，只是通过分现金或变动股数来调整股价，总市值保持不变。那公司为什么要这么做呢？考虑增股或分红需要缴税，小股东还要亏损一点，但大股东总有某种原因，例如市值管理，市场有炒作低价股的倾向！除权（Exclude Right, XR)是发行公司按一定比例分配股票股利给股东，增加公司总股数；除息（Exclude Dividen, XD）是分配现金股利给股东，两者都会降低每股权益，且有时候统称为权息，或者就是除权。 举例：某公司决定10股送1股，即送股率0.1，如果你手中有10股，送完后则有11股。假设该公司总共有20股，除权前每股5元，那价格如何调整呢？设除权后价格为X，根据市值不变原则，可得：5 ..." />
 <meta name="keywords" content="quant, stock">
 <meta property="og:site_name" content="Leon's blog"/>
-<meta property="og:title" content="股票的除权和复权"/>
-<meta property="og:description" content="  ——我们不怕数字游戏，只不过是简单的数学。 送股、转股、配股（增发）、分红、派息……总有一款让新韭菜头晕，其实这些都是数字游戏，只是通过分现金或变动股数来调整股价，总市值保持不变。那公司为什么要这么做呢？考虑增股或分红需要缴税，小股东还要亏损一点，但大股东总有某种原因，例如市值管理，市场有炒作低价股的倾向！除权（Exclude Right, XR)是发行公司按一定比例分配股票股利给股东，增加公司总股数；除息（Exclude Dividen, XD）是分配现金股利给股东，两者都会降低每股权益，且有时候统称为权息，或者就是除权。 举例：某公司决定10股送1股，即送股率0.1，如果你手中有10股，送完后则有11股。假设该公司总共有20股，除权前每股5元，那价格如何调整呢？设除权后价格为X，根据市值不变原则，可得：5*20 ..."/>
+<meta property="og:title" content="除权和复权"/>
+<meta property="og:description" content="  ——即使脑回路短接，也不能发热出错呢：我们都爱数学游戏 送股、转股、配股（增发）、分红、派息……总有一款让新韭菜头晕，其实这些都是数字游戏，只是通过分现金或变动股数来调整股价，总市值保持不变。那公司为什么要这么做呢？考虑增股或分红需要缴税，小股东还要亏损一点，但大股东总有某种原因，例如市值管理，市场有炒作低价股的倾向！除权（Exclude Right, XR)是发行公司按一定比例分配股票股利给股东，增加公司总股数；除息（Exclude Dividen, XD）是分配现金股利给股东，两者都会降低每股权益，且有时候统称为权息，或者就是除权。 举例：某公司决定10股送1股，即送股率0.1，如果你手中有10股，送完后则有11股。假设该公司总共有20股，除权前每股5元，那价格如何调整呢？设除权后价格为X，根据市值不变原则，可得：5 ..."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="http://localhost:8000/drafts/stock-exclude-right.html"/>
+<meta property="og:url" content="http://www.domuse.com/drafts/stock-exclude-right.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2016-12-19 00:00:00+08:00"/>
-<meta property="article:modified_time" content="2016-12-19 00:00:00+08:00"/>
-<meta property="article:author" content="http://localhost:8000/author/leon.html">
+<meta property="article:published_time" content="2016-12-21 00:00:00+08:00"/>
+<meta property="article:modified_time" content="2016-12-21 00:00:00+08:00"/>
+<meta property="article:author" content="http://www.domuse.com/author/leon.html">
 <meta property="article:section" content="Quant"/>
 <meta property="article:tag" content="quant"/>
 <meta property="article:tag" content="stock"/>
-<meta property="og:image" content="http://localhost:8000/images/leon.png">
+<meta property="og:image" content="http://www.domuse.com/images/leon.png">
 
-  <title>Leon's blog &ndash; 股票的除权和复权</title>
+  <title>Leon's blog &ndash; 除权和复权</title>
 
 </head>
 <body>
   <aside>
     <div>
-      <a href="http://localhost:8000">
-        <img src="http://localhost:8000/images/leon.png" alt="Leon" title="Leon">
+      <a href="http://www.domuse.com">
+        <img src="http://www.domuse.com/images/leon.png" alt="Leon" title="Leon">
       </a>
-      <h1><a href="http://localhost:8000">Leon</a></h1>
+      <h1><a href="http://www.domuse.com">Leon</a></h1>
 
 <p>读书写字和思考的地方</p>
       <nav>
         <ul class="list">
-          <li><a href="http://localhost:8000/pages/about.html#about">About</a></li>
+          <li><a href="http://www.domuse.com/pages/about.html#about">About</a></li>
 
           <li><a href="http://sciencefan.org/" target="_blank">wiki</a></li>
         </ul>
@@ -78,23 +78,23 @@
   <main>
 
     <nav>
-      <a href="http://localhost:8000">    Home
+      <a href="http://www.domuse.com">    Home
 </a>
 
       <a href="/archives.html">Archives</a>
       <a href="/categories.html">Categories</a>
       <a href="/tags.html">Tags</a>
 
-      <a href="http://localhost:8000/feeds/all.atom.xml">    Atom
+      <a href="http://www.domuse.com/feeds/all.atom.xml">    Atom
 </a>
 
     </nav>
 
 <article class="single">
   <header>
-    <h1 id="stock-exclude-right">股票的除权和复权</h1>
+    <h1 id="stock-exclude-right">除权和复权</h1>
     <p>
-          Posted on 2016-12-19 in <a href="http://localhost:8000/category/quant.html">Quant</a>
+          Posted on 2016-12-21 in <a href="http://www.domuse.com/category/quant.html">Quant</a>
 
 
     </p>
@@ -102,7 +102,7 @@
 
 
   <div>
-    <p>&emsp;&emsp;——我们不怕数字游戏，只不过是简单的数学。</p>
+    <p>&emsp;&emsp;——即使脑回路短接，也不能发热出错呢：我们都爱数学游戏</p>
 <!-- PELICAN_BEGIN_SUMMARY -->
 
 <p>送股、转股、配股（增发）、分红、派息……总有一款让新韭菜头晕，其实这些都是数字游戏，只是通过分现金或变动股数来调整股价，总市值保持不变。那公司为什么要这么做呢？考虑增股或分红需要缴税，小股东还要亏损一点，但大股东总有某种原因，例如市值管理，市场有炒作低价股的倾向！除权（Exclude Right, XR)是发行公司按一定比例分配<strong>股票</strong>股利给股东，增加公司总股数；除息（Exclude Dividen, XD）是分配<strong>现金</strong>股利给股东，两者都会降低每股权益，且有时候统称为权息，或者就是除权。</p>
@@ -135,11 +135,12 @@
 
 <p>我们得到复权涨跌幅后，可以很容易通过连乘得到后复权价格（或者直接用累计复权因子），通过连除得到前复权价格。需要注意的是，如果不参与分配，或者分红进行重复投资，且不参与配股，此时得到的收益率也是真实收益率。</p>
 <p>至此，我们统一了计算口径，通过累计复权因子得到后复权价格进而计算涨跌幅，也能在回测时得到较真实的收益率。</p>
+<p>（未完，待续）</p>
   </div>
   <div class="tag-cloud">
     <p>
-      <a href="http://localhost:8000/tag/quant.html">quant</a>
-      <a href="http://localhost:8000/tag/stock.html">stock</a>
+      <a href="http://www.domuse.com/tag/quant.html">quant</a>
+      <a href="http://www.domuse.com/tag/stock.html">stock</a>
     </p>
   </div>
 
@@ -199,8 +200,8 @@
   "@context" : "http://schema.org",
   "@type" : "Blog",
   "name": " Leon's blog ",
-  "url" : "http://localhost:8000",
-  "image": "http://localhost:8000/images/leon.png",
+  "url" : "http://www.domuse.com",
+  "image": "http://www.domuse.com/images/leon.png",
   "description": ""
 }
 </script>
